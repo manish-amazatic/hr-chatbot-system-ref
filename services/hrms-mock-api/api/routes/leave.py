@@ -72,6 +72,94 @@ class ApproveRejectRequest(BaseModel):
     reason: Optional[str] = Field(None, description="Reason for rejection (if rejecting)")
 
 
+# NOTE: Static routes must come BEFORE parametrized routes in FastAPI
+
+@router.get("/types")
+async def get_leave_types():
+    """Get available leave types"""
+    return {
+        "leave_types": [
+            {"code": "annual", "name": "Annual Leave", "description": "Paid annual leave"},
+            {"code": "sick", "name": "Sick Leave", "description": "Medical leave"},
+            {"code": "casual", "name": "Casual Leave", "description": "Short unplanned leave"},
+            {"code": "maternity", "name": "Maternity Leave", "description": "Maternity leave"},
+            {"code": "paternity", "name": "Paternity Leave", "description": "Paternity leave"},
+            {"code": "unpaid", "name": "Unpaid Leave", "description": "Leave without pay"}
+        ]
+    }
+
+
+@router.get("/history", response_model=List[LeaveRequestResponse])
+async def get_leave_history(
+    year: Optional[int] = Query(None, description="Filter by year"),
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_employee)
+):
+    """Get leave history (past approved leaves)"""
+    try:
+        requests = await LeaveService.get_leave_requests(
+            db,
+            current_user["user_id"],
+            "approved",
+            year
+        )
+        return requests
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
+
+
+@router.get("/calendar")
+async def get_leave_calendar(
+    month: Optional[int] = Query(None, description="Month (1-12)"),
+    year: Optional[int] = Query(None, description="Year"),
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_employee)
+):
+    """Get team leave calendar"""
+    # Mock team calendar
+    return {
+        "team_leaves": [
+            {
+                "employee_name": "John Doe",
+                "leave_type": "Annual Leave",
+                "start_date": "2025-12-20",
+                "end_date": "2025-12-24",
+                "days_count": 5
+            },
+            {
+                "employee_name": "Jane Smith",
+                "leave_type": "Sick Leave",
+                "start_date": "2025-12-15",
+                "end_date": "2025-12-16",
+                "days_count": 2
+            }
+        ]
+    }
+
+
+@router.get("/balance/types", response_model=List[LeaveBalanceResponse])
+async def get_leave_balance_by_type(
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_employee)
+):
+    """Get balance by leave type"""
+    try:
+        balances = await LeaveService.get_leave_balance(
+            db,
+            current_user["user_id"],
+            None
+        )
+        return balances
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
+
+
 @router.get("/balance", response_model=List[LeaveBalanceResponse])
 async def get_leave_balance(
     year: Optional[int] = Query(None, description="Year (defaults to current year)"),

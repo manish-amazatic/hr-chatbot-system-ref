@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Bash(curl:*)",
+      "Bash(TOKEN=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYW5pc2gud0BhbWF6YXRpYy5jb20iLCJ1c2VyX2lkIjoiRU1QMDAxIiwiZXhwIjoxNzY0MTQ5MDk2fQ.nhVKiWEKuAiKSxLJLjHMcue3OKbLsJjjBGLjYnfi_XI\")",
+      "Bash(echo \"=== Testing Leave Endpoints ===\" curl -s http://127.0.0.1:8001/api/v1/leave/balance -H \"Authorization: Bearer $TOKEN\")",
+      "Bash(echo -e \"\\n=== Testing Attendance Endpoints ===\" curl -s \"http://127.0.0.1:8001/api/v1/attendance/summary/11/2025\" -H \"Authorization: Bearer $TOKEN\")",
+      "Bash(echo -e \"\\n=== Testing Payroll Endpoints ===\" curl -s http://127.0.0.1:8001/api/v1/payroll/records -H \"Authorization: Bearer $TOKEN\")",
+      "Bash(pkill:*)",
+      "Bash(pip install:*)",
+      "Bash(chmod +x /tmp/test_hrms.sh)",
+      "Bash(/tmp/test_hrms.sh)",
+      "Bash(lsof:*)",
+      "Bash(cat:*)",
+      "Bash(chmod:*)",
+      "Bash(/tmp/test_integration.sh)",
+      "Bash(pip show:*)",
+      "Bash(/tmp/test_chat_endpoints.sh)",
+      "Bash(/tmp/status_check.sh:*)",
+      "Bash(git add:*)",
+      "Bash(python3:*)",
+      "Bash(/Users/mw/workbench/ai_workshoap/hr-chatbot-system-ref/test_hrms_api_complete.sh)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

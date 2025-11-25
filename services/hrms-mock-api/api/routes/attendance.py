@@ -86,6 +86,126 @@ class MonthlySummaryResponse(BaseModel):
     attendance_percentage: float
 
 
+# NOTE: Static routes must come BEFORE parametrized routes in FastAPI
+
+@router.get("/today", response_model=AttendanceResponse)
+async def get_today_attendance(
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_employee)
+):
+    """Get today's attendance"""
+    from datetime import date as dt_date
+    try:
+        attendance = await AttendanceService.get_attendance_by_date(
+            db,
+            current_user["user_id"],
+            dt_date.today()
+        )
+
+        if not attendance:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="No attendance record found for today"
+            )
+
+        return attendance
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
+
+
+@router.get("/status")
+async def get_attendance_status(
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_employee)
+):
+    """Get current attendance status"""
+    from datetime import date as dt_date
+    try:
+        attendance = await AttendanceService.get_attendance_by_date(
+            db,
+            current_user["user_id"],
+            dt_date.today()
+        )
+
+        if not attendance:
+            return {
+                "status": "not_checked_in",
+                "message": "You have not checked in today"
+            }
+
+        if attendance.get("check_in_time") and not attendance.get("check_out_time"):
+            return {
+                "status": "checked_in",
+                "check_in_time": attendance["check_in_time"],
+                "message": "You are currently checked in"
+            }
+
+        if attendance.get("check_out_time"):
+            return {
+                "status": "checked_out",
+                "check_in_time": attendance["check_in_time"],
+                "check_out_time": attendance["check_out_time"],
+                "work_hours": attendance.get("work_hours"),
+                "message": "You have checked out for the day"
+            }
+
+        return {
+            "status": "unknown",
+            "message": "Attendance status unknown"
+        }
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
+
+
+@router.get("/report")
+async def generate_attendance_report(
+    start_date: Optional[date] = Query(None, description="Report start date"),
+    end_date: Optional[date] = Query(None, description="Report end date"),
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_employee)
+):
+    """Generate attendance report"""
+    try:
+        records = await AttendanceService.get_attendance_records(
+            db,
+            current_user["user_id"],
+            start_date,
+            end_date,
+            None
+        )
+
+        # Calculate statistics
+        total_days = len(records)
+        present_days = sum(1 for r in records if r.get("status") == "Present")
+        absent_days = sum(1 for r in records if r.get("status") == "Absent")
+        half_days = sum(1 for r in records if r.get("status") == "Half Day")
+
+        return {
+            "employee_id": current_user["user_id"],
+            "start_date": str(start_date) if start_date else None,
+            "end_date": str(end_date) if end_date else None,
+            "total_days": total_days,
+            "present_days": present_days,
+            "absent_days": absent_days,
+            "half_days": half_days,
+            "attendance_percentage": (present_days / total_days * 100) if total_days > 0 else 0,
+            "records": records
+        }
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
+
+
 @router.post("/check-in", response_model=AttendanceResponse)
 async def check_in(
     request: CheckInRequest,
@@ -232,99 +352,6 @@ async def get_attendance_by_date(
         return attendance
     except HTTPException:
         raise
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=str(e)
-        )
-
-
-@router.get("/summary/{month}/{year}", response_model=MonthlySummaryResponse)
-async def get_monthly_summary(
-    month: int,
-    year: int,
-    db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(get_current_employee)
-):
-    """
-    Get monthly attendance summary
-
-    Returns statistics including total days, present/absent counts, and attendance percentage
-    """
-    if not 1 <= month <= 12:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Month must be between 1 and 12"
-        )
-
-    try:
-        summary = await AttendanceService.get_monthly_summary(
-            db,
-            current_user["user_id"],
-            month,
-            year
-        )
-        return summary
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=str(e)
-        )
-
-
-@router.put("/records/{record_id}", response_model=AttendanceResponse)
-async def update_attendance(
-    record_id: str,
-    request: UpdateAttendanceRequest,
-    db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(get_current_employee)
-):
-    """
-    Update an attendance record
-
-    Allows updating check-in/check-out times, status, and notes
-    """
-    try:
-        attendance = await AttendanceService.update_attendance(
-            db,
-            record_id,
-            current_user["user_id"],
-            request.check_in_time,
-            request.check_out_time,
-            request.status,
-            request.notes
-        )
-        return attendance
-    except ValueError as e:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(e)
-        )
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=str(e)
-        )
-
-
-@router.delete("/records/{record_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_attendance(
-    record_id: str,
-    db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(get_current_employee)
-):
-    """Delete an attendance record"""
-    try:
-        await AttendanceService.delete_attendance(
-            db,
-            record_id,
-            current_user["user_id"]
-        )
-    except ValueError as e:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=str(e)
-        )
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

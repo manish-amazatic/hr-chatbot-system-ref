@@ -17,7 +17,7 @@ const SessionList: React.FC = () => {
   };
 
   return (
-    <div className="d-flex flex-column flex-shrink-1 h-100 overflow-scroll">
+    <div className="d-flex flex-column flex-shrink-1 h-100 overflow-auto">
 
       {/* Session List */}
       <div className="flex-grow-1 w-100">

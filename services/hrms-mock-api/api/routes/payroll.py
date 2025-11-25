@@ -90,6 +90,240 @@ class YTDSummaryResponse(BaseModel):
     months_detail: List[Any] = Field(default_factory=list, json_schema_extra={"type": "array", "items": {"type": "object"}})
 
 
+# NOTE: Static routes must come BEFORE parametrized routes in FastAPI
+
+@router.get("/current", response_model=PayrollResponse)
+async def get_current_payroll(
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_employee)
+):
+    """Get current month payroll"""
+    from datetime import datetime
+    now = datetime.now()
+    try:
+        payslip = await PayrollService.get_payslip(
+            db,
+            current_user["user_id"],
+            now.month,
+            now.year
+        )
+
+        if not payslip:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Payslip not found for current month"
+            )
+
+        return payslip
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
+
+
+@router.get("/slips")
+async def get_all_salary_slips(
+    year: Optional[int] = Query(None, description="Filter by year"),
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_employee)
+):
+    """List all salary slips"""
+    try:
+        records = await PayrollService.get_payroll_records(
+            db,
+            current_user["user_id"],
+            year,
+            None
+        )
+        return records
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
+
+
+@router.get("/slips/{slip_id}")
+async def get_specific_salary_slip(
+    slip_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_employee)
+):
+    """Get specific salary slip"""
+    try:
+        payslip = await PayrollService.get_payslip_by_id(
+            db,
+            slip_id,
+            current_user["user_id"]
+        )
+
+        if not payslip:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Salary slip not found"
+            )
+
+        return payslip
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
+
+
+@router.get("/slips/{slip_id}/pdf")
+async def download_salary_slip_pdf(
+    slip_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_employee)
+):
+    """Download salary slip PDF"""
+    try:
+        payslip = await PayrollService.get_payslip_by_id(
+            db,
+            slip_id,
+            current_user["user_id"]
+        )
+
+        if not payslip:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Salary slip not found"
+            )
+
+        # Mock PDF download - in production, generate actual PDF
+        return {
+            "message": "PDF download endpoint",
+            "slip_id": slip_id,
+            "download_url": f"/api/v1/payroll/slips/{slip_id}/pdf",
+            "note": "In production, this would return actual PDF file"
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
+
+
+@router.get("/ytd-summary", response_model=YTDSummaryResponse)
+async def get_ytd_summary(
+    year: Optional[int] = Query(None, description="Year (defaults to current year)"),
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_employee)
+):
+    """
+    Get Year-To-Date (YTD) salary summary
+
+    Returns total gross salary, deductions, net salary, and monthly averages
+    """
+    try:
+        summary = await PayrollService.get_ytd_summary(
+            db,
+            current_user["user_id"],
+            year
+        )
+        return summary
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
+
+
+@router.get("/tax-summary")
+async def get_tax_summary(
+    year: Optional[int] = Query(None, description="Tax year"),
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_employee)
+):
+    """Tax summary (annual)"""
+    from datetime import datetime
+    if not year:
+        year = datetime.now().year
+
+    try:
+        ytd = await PayrollService.get_ytd_summary(
+            db,
+            current_user["user_id"],
+            year
+        )
+
+        # Calculate tax information
+        total_tax = ytd.get("ytd_deductions", 0) * 0.3  # Mock 30% tax rate
+
+        return {
+            "employee_id": current_user["user_id"],
+            "tax_year": year,
+            "gross_income": ytd.get("ytd_gross_salary", 0),
+            "total_deductions": ytd.get("ytd_deductions", 0),
+            "estimated_tax": total_tax,
+            "net_income": ytd.get("ytd_net_salary", 0),
+            "tax_percentage": 30,
+            "months_processed": ytd.get("months_processed", 0)
+        }
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
+
+
+@router.get("/breakdown")
+async def get_salary_breakdown(
+    month: Optional[int] = Query(None, description="Month (1-12)"),
+    year: Optional[int] = Query(None, description="Year"),
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_employee)
+):
+    """Salary breakdown details"""
+    from datetime import datetime
+    if not month or not year:
+        now = datetime.now()
+        month = month or now.month
+        year = year or now.year
+
+    try:
+        payslip = await PayrollService.get_payslip(
+            db,
+            current_user["user_id"],
+            month,
+            year
+        )
+
+        if not payslip:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Payslip not found for {month}/{year}"
+            )
+
+        return {
+            "month": month,
+            "year": year,
+            "base_salary": payslip.get("base_salary"),
+            "allowances": payslip.get("allowances", {}),
+            "gross_salary": payslip.get("gross_salary"),
+            "deductions": payslip.get("deductions", {}),
+            "total_deductions": payslip.get("total_deductions"),
+            "net_salary": payslip.get("net_salary"),
+            "payment_status": payslip.get("payment_status"),
+            "payment_date": payslip.get("payment_date")
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
+
+
 @router.get("/records", response_model=List[PayrollResponse])
 async def get_payroll_records(
     year: Optional[int] = Query(None, description="Filter by year"),
