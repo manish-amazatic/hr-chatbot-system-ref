@@ -47,6 +47,8 @@ class CreatePayrollRequest(BaseModel):
 
 class UpdatePaymentStatusRequest(BaseModel):
     """Update payment status request"""
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
     payment_status: str = Field(..., description="Payment status (Pending, Processed, Paid)")
     payment_date: Optional[date] = Field(None, description="Payment date")
     payment_method: Optional[str] = Field(None, description="Payment method")

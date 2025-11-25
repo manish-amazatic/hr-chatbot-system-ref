@@ -7,6 +7,8 @@ from typing import Dict, Any, Optional
 from enum import Enum
 
 from core.agents.leave_agent import LeaveAgent
+from core.agents.attendance_agent import AttendanceAgent
+from core.agents.payroll_agent import PayrollAgent
 from core.tools.hrms_api_client import HRMSClient
 from core.tools.hr_rag_tool import search_hr_policies
 from core.processors.llm_processor import LLMProcessor, LLMProvider
@@ -58,6 +60,8 @@ class Orchestrator:
 
         # Initialize specialized agents
         self.leave_agent = LeaveAgent(hrms_client=self.hrms_client)
+        self.attendance_agent = AttendanceAgent(hrms_client=self.hrms_client)
+        self.payroll_agent = PayrollAgent(hrms_client=self.hrms_client)
 
         # Intent keywords for heuristic classification
         self.intent_keywords = {
@@ -150,16 +154,10 @@ class Orchestrator:
                 return await self._handle_policy_query(query, context)
 
             elif intent == Intent.ATTENDANCE:
-                return self._handle_unsupported_intent(
-                    "attendance",
-                    "Attendance tracking is not yet available. This feature is coming soon!"
-                )
+                return await self._handle_attendance_query(query, context)
 
             elif intent == Intent.PAYROLL:
-                return self._handle_unsupported_intent(
-                    "payroll",
-                    "Payroll queries are not yet available. This feature is coming soon!"
-                )
+                return await self._handle_payroll_query(query, context)
 
             elif intent == Intent.GENERAL_HR:
                 return await self._handle_general_hr_query(query, context)
@@ -205,6 +203,67 @@ class Orchestrator:
                 "metadata": {"error": str(e)}
             }
 
+    async def _handle_attendance_query(
+        self,
+        query: str,
+        context: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """Handle attendance-related queries via AttendanceAgent"""
+        logger.info("Routing to AttendanceAgent")
+
+        try:
+            response = await self.attendance_agent.process(query, context)
+
+            return {
+                "response": response,
+                "intent": Intent.ATTENDANCE,
+                "agent_used": "attendance_agent",
+                "metadata": {
+                    "tools_available": ["view_attendance_history",
+                                       "get_monthly_summary",
+                                       "search_attendance_policy"]
+                }
+            }
+        except Exception as e:
+            logger.error(f"Error in AttendanceAgent: {str(e)}", exc_info=True)
+            return {
+                "response": f"I encountered an error processing your attendance request: {str(e)}",
+                "intent": Intent.ATTENDANCE,
+                "agent_used": "attendance_agent",
+                "metadata": {"error": str(e)}
+            }
+
+    async def _handle_payroll_query(
+        self,
+        query: str,
+        context: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """Handle payroll-related queries via PayrollAgent"""
+        logger.info("Routing to PayrollAgent")
+
+        try:
+            response = await self.payroll_agent.process(query, context)
+
+            return {
+                "response": response,
+                "intent": Intent.PAYROLL,
+                "agent_used": "payroll_agent",
+                "metadata": {
+                    "tools_available": ["get_latest_payslip",
+                                       "get_ytd_summary",
+                                       "search_payroll_policy",
+                                       "explain_payslip_component"]
+                }
+            }
+        except Exception as e:
+            logger.error(f"Error in PayrollAgent: {str(e)}", exc_info=True)
+            return {
+                "response": f"I encountered an error processing your payroll request: {str(e)}",
+                "intent": Intent.PAYROLL,
+                "agent_used": "payroll_agent",
+                "metadata": {"error": str(e)}
+            }
+
     async def _handle_policy_query(
         self,
         query: str,
@@ -235,8 +294,7 @@ class Orchestrator:
                 "agent_used": "rag_tool",
                 "metadata": {
                     "type": "policy_search",
-                    "rag_enabled": True,
-                    "sources": ["hr_policies_database"]
+                    "rag_enabled": True
                 }
             }
         except Exception as e:

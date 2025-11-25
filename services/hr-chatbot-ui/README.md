@@ -1,128 +1,50 @@
-# HR Chatbot UI
+# React + TypeScript + Vite
 
-Modern, responsive web interface for the HR chatbot with employee login, chat interface with session management, and example prompts section.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Owner
-**rohit.g@amazatic.com**
+Currently, two official plugins are available:
 
-## Tech Stack
-- React 18+ with TypeScript
-- Vite (Build Tool)
-- Bootstrap 5
-- assistant-ui (Chat Interface)
-- React Router v6
-- Axios (HTTP Client)
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Features
+## Expanding the ESLint configuration
 
-- Split-screen layout (50-50)
-- Employee authentication
-- Chat interface with assistant-ui
-- Session management
-- Example prompts panel
-- Responsive design
-- Source citations display
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-## Setup
+- Configure the top-level `parserOptions` property like this:
 
-### 1. Install Dependencies
-```bash
-npm install
+```js
+export default tseslint.config({
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
 ```
 
-### 2. Configure Environment
-```bash
-cp .env.example .env.local
-# Edit .env.local and set API URLs
+- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
+- Optionally add `...tseslint.configs.stylisticTypeChecked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+
+```js
+// eslint.config.js
+import react from 'eslint-plugin-react'
+
+export default tseslint.config({
+  // Set the react version
+  settings: { react: { version: '18.3' } },
+  plugins: {
+    // Add the react plugin
+    react,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended rules
+    ...react.configs.recommended.rules,
+    ...react.configs['jsx-runtime'].rules,
+  },
+})
 ```
-
-**`.env.local`**:
-```
-VITE_API_URL=http://localhost:8000
-VITE_HRMS_API_URL=http://localhost:8001
-```
-
-### 3. Run Development Server
-```bash
-npm run dev
-```
-
-Visit: http://localhost:5173
-
-## Build for Production
-
-```bash
-npm run build
-npm run preview
-```
-
-## Testing
-
-```bash
-npm test
-```
-
-## Project Structure
-
-```
-hr-chatbot-ui/
-├── src/
-│   ├── components/
-│   │   ├── Auth/
-│   │   │   ├── LoginForm.tsx
-│   │   │   └── ProtectedRoute.tsx
-│   │   ├── Chat/
-│   │   │   ├── ChatInterface.tsx
-│   │   │   ├── MessageList.tsx
-│   │   │   ├── MessageInput.tsx
-│   │   │   ├── Message.tsx
-│   │   │   └── TypingIndicator.tsx
-│   │   ├── Sidebar/
-│   │   │   ├── SessionList.tsx
-│   │   │   └── SessionItem.tsx
-│   │   ├── Examples/
-│   │   │   ├── ExamplesPanel.tsx
-│   │   │   └── PromptCard.tsx
-│   │   └── Layout/
-│   │       ├── Header.tsx
-│   │       ├── Sidebar.tsx
-│   │       └── MainLayout.tsx
-│   ├── contexts/
-│   │   ├── AuthContext.tsx        # Authentication state
-│   │   └── ChatContext.tsx        # Chat state management
-│   ├── services/
-│   │   ├── api.ts                 # Axios instance
-│   │   ├── authService.ts         # Auth API calls
-│   │   └── chatService.ts         # Chat API calls
-│   ├── hooks/
-│   │   ├── useAuth.ts
-│   │   ├── useChat.ts
-│   │   └── useSessions.ts
-│   ├── types/
-│   │   ├── auth.types.ts
-│   │   ├── chat.types.ts
-│   │   └── session.types.ts
-│   ├── utils/
-│   │   ├── tokenManager.ts
-│   │   └── formatters.ts
-│   ├── assets/
-│   ├── App.tsx
-│   └── main.tsx
-├── public/
-├── index.html
-├── package.json
-├── tsconfig.json
-├── vite.config.ts
-├── Dockerfile
-└── README.md
-```
-
-## Default Credentials
-
-For testing, use any employee from HRMS:
-- Email: `manish.w@amazatic.com`
-- Password: `password123`
-
-## Implementation Tasks
-
-See [IMPLEMENTATION_PLAN.md](../../IMPLEMENTATION_PLAN.md) for detailed tasks.

@@ -33,27 +33,27 @@ async def get_current_employee(
 # Request/Response Models
 class MarkAttendanceRequest(BaseModel):
     """Mark attendance request"""
-    date: date = Field(..., description="Attendance date")
-    check_in_time: Optional[time] = Field(None, description="Check-in time")
-    check_out_time: Optional[time] = Field(None, description="Check-out time")
+    date: str = Field(..., description="Attendance date (YYYY-MM-DD)")
+    check_in_time: Optional[str] = Field(None, description="Check-in time (HH:MM:SS)")
+    check_out_time: Optional[str] = Field(None, description="Check-out time (HH:MM:SS)")
     status: str = Field(default="Present", description="Attendance status")
     notes: Optional[str] = Field(None, description="Additional notes")
 
 
 class CheckInRequest(BaseModel):
     """Check-in request"""
-    check_in_time: Optional[time] = Field(None, description="Check-in time (defaults to now)")
+    check_in_time: Optional[str] = Field(None, description="Check-in time (HH:MM:SS, defaults to now)")
 
 
 class CheckOutRequest(BaseModel):
     """Check-out request"""
-    check_out_time: Optional[time] = Field(None, description="Check-out time (defaults to now)")
+    check_out_time: Optional[str] = Field(None, description="Check-out time (HH:MM:SS, defaults to now)")
 
 
 class UpdateAttendanceRequest(BaseModel):
     """Update attendance request"""
-    check_in_time: Optional[time] = None
-    check_out_time: Optional[time] = None
+    check_in_time: Optional[str] = None
+    check_out_time: Optional[str] = None
     status: Optional[str] = None
     notes: Optional[str] = None
 

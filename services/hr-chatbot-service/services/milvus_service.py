@@ -235,9 +235,9 @@ class MilvusService:
 
                     if similarity >= similarity_threshold:
                         formatted_results.append({
-                            "document_id": hit.entity.get("document_id"),
-                            "content": hit.entity.get("content"),
-                            "metadata": hit.entity.get("metadata", {}),
+                            "document_id": hit.entity.document_id,
+                            "content": hit.entity.content,
+                            "metadata": hit.entity.metadata,
                             "score": similarity,
                             "distance": hit.distance
                         })

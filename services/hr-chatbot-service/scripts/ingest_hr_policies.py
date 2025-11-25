@@ -1,6 +1,8 @@
 """
 Script to ingest HR policy documents into Milvus vector database
 
+Reads HR policy text files, chunks them, and stores embeddings in Milvus for RAG.
+
 Usage:
     python scripts/ingest_hr_policies.py [--drop-existing]
 
@@ -9,7 +11,6 @@ Options:
 """
 
 import sys
-import json
 import logging
 from pathlib import Path
 
@@ -17,7 +18,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from services.milvus_service import MilvusService
-from utils.config import settings
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 # Configure logging
 logging.basicConfig(
@@ -27,31 +28,85 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def load_policy_documents(file_path: str) -> list:
+def load_policy_documents(data_dir: str = "data/hr_policies") -> list:
     """
-    Load HR policy documents from JSON file
+    Load all HR policy documents from directory
 
     Args:
-        file_path: Path to JSON file containing policy documents
+        data_dir: Directory containing policy text files
 
     Returns:
-        List of policy documents
+        List of documents with content and metadata
     """
-    logger.info(f"Loading policy documents from: {file_path}")
+    data_path = Path(__file__).parent.parent / data_dir
 
-    try:
-        with open(file_path, 'r') as f:
-            documents = json.load(f)
-
-        logger.info(f"Loaded {len(documents)} policy documents")
-        return documents
-
-    except FileNotFoundError:
-        logger.error(f"File not found: {file_path}")
+    if not data_path.exists():
+        logger.error(f"Directory not found: {data_path.absolute()}")
         return []
-    except json.JSONDecodeError as e:
-        logger.error(f"Invalid JSON format: {e}")
-        return []
+
+    documents = []
+
+    # Load all .txt files
+    for file_path in data_path.glob("*.txt"):
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            documents.append({
+                "filename": file_path.name,
+                "content": content,
+                "path": str(file_path)
+            })
+
+            logger.info(f"Loaded: {file_path.name} ({len(content)} chars)")
+
+        except Exception as e:
+            logger.error(f"Error loading {file_path.name}: {e}")
+
+    return documents
+
+
+def chunk_documents(documents: list, chunk_size: int = 1000, chunk_overlap: int = 200) -> list:
+    """
+    Split documents into smaller chunks for better retrieval
+
+    Args:
+        documents: List of documents to chunk
+        chunk_size: Maximum chunk size in characters
+        chunk_overlap: Overlap between chunks
+
+    Returns:
+        List of chunked documents with metadata
+    """
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=chunk_size,
+        chunk_overlap=chunk_overlap,
+        separators=["\n\n", "\n", ".", "!", "?", " ", ""],
+        length_function=len
+    )
+
+    chunked_docs = []
+
+    for doc in documents:
+        # Split document into chunks
+        chunks = text_splitter.split_text(doc["content"])
+
+        # Create chunk documents with metadata
+        for i, chunk in enumerate(chunks):
+            chunked_docs.append({
+                "id": f"{doc['filename']}_chunk_{i}",
+                "content": chunk,
+                "metadata": {
+                    "source": doc["filename"],
+                    "chunk_index": i,
+                    "total_chunks": len(chunks),
+                    "path": doc["path"]
+                }
+            })
+
+        logger.info(f"Chunked: {doc['filename']} into {len(chunks)} parts")
+
+    return chunked_docs
 
 
 def ingest_policies(drop_existing: bool = False):
@@ -61,72 +116,89 @@ def ingest_policies(drop_existing: bool = False):
     Args:
         drop_existing: Whether to drop existing collection
     """
-    logger.info("=" * 60)
+    logger.info("=" * 70)
     logger.info("HR Policy Ingestion Script")
-    logger.info("=" * 60)
+    logger.info("=" * 70)
 
-    # Load policy documents
-    policy_file = Path(__file__).parent.parent / "data" / "hr_policies" / "sample_policies.json"
-    documents = load_policy_documents(str(policy_file))
+    # Step 1: Load documents
+    logger.info("\nStep 1: Loading HR policy documents...")
+    documents = load_policy_documents()
 
     if not documents:
-        logger.error("No documents to ingest. Exiting.")
+        logger.error("No documents found. Please run generate_hr_policies.py first.")
         return False
 
-    # Initialize Milvus service
-    logger.info("Initializing Milvus service...")
+    logger.info(f"✓ Loaded {len(documents)} policy documents")
+    logger.info(f"  Total size: {sum(len(d['content']) for d in documents) / 1024:.1f} KB")
+
+    # Step 2: Chunk documents
+    logger.info("\nStep 2: Chunking documents...")
+    chunked_docs = chunk_documents(documents, chunk_size=1000, chunk_overlap=200)
+    logger.info(f"✓ Created {len(chunked_docs)} chunks")
+    avg_chunk_size = sum(len(d['content']) for d in chunked_docs) / len(chunked_docs)
+    logger.info(f"  Avg chunk size: {avg_chunk_size:.0f} chars")
+
+    # Step 3: Initialize Milvus
+    logger.info("\nStep 3: Connecting to Milvus...")
     milvus = MilvusService()
 
-    # Connect to Milvus
     if not milvus.connect():
-        logger.error("Failed to connect to Milvus. Please ensure Milvus is running.")
-        logger.error(f"Milvus URI: {settings.milvus_uri}")
-        logger.error("\nTo start Milvus locally, you can use:")
-        logger.error("  docker run -d --name milvus -p 19530:19530 milvusdb/milvus:latest")
+        logger.error("Failed to connect to Milvus")
+        logger.error("Make sure Milvus is running: docker-compose up -d milvus-standalone")
         return False
 
     # Create collection
-    logger.info(f"Creating collection: {milvus.collection_name}")
+    logger.info("Creating collection...")
     if not milvus.create_collection(drop_existing=drop_existing):
-        logger.error("Failed to create Milvus collection")
+        logger.error("Failed to create collection")
         return False
 
     if drop_existing:
         logger.info("Dropped existing collection")
 
-    # Insert documents
-    logger.info(f"Inserting {len(documents)} documents...")
-    logger.info("Generating embeddings (this may take a moment)...")
+    # Step 4: Insert documents
+    logger.info("\nStep 4: Ingesting to Milvus...")
+    logger.info("(Generating embeddings - this may take a few minutes...)")
 
-    success = milvus.insert_documents(documents)
+    # Insert in batches
+    batch_size = 10
+    total_batches = (len(chunked_docs) + batch_size - 1) // batch_size
 
-    if success:
-        logger.info("=" * 60)
-        logger.info("✓ Successfully ingested all HR policy documents!")
-        logger.info("=" * 60)
-        logger.info(f"Collection: {milvus.collection_name}")
-        logger.info(f"Documents: {len(documents)}")
-        logger.info(f"Embedding Model: {settings.embedding_model}")
-        logger.info(f"Dimension: {milvus.dimension}")
-        logger.info("=" * 60)
+    for i in range(0, len(chunked_docs), batch_size):
+        batch = chunked_docs[i:i + batch_size]
+        batch_num = i // batch_size + 1
 
-        # Display sample policies
-        logger.info("\nSample policies ingested:")
-        for i, doc in enumerate(documents[:5], 1):
-            title = doc.get('metadata', {}).get('title', 'Untitled')
-            category = doc.get('metadata', {}).get('category', 'N/A')
-            logger.info(f"  {i}. {title} ({category})")
+        logger.info(f"Processing batch {batch_num}/{total_batches}...")
 
-        if len(documents) > 5:
-            logger.info(f"  ... and {len(documents) - 5} more")
+        if not milvus.insert_documents(batch):
+            logger.error(f"Failed to insert batch {batch_num}")
+            return False
 
-        logger.info("\nYou can now query HR policies using the chatbot!")
-        return True
-    else:
-        logger.error("=" * 60)
-        logger.error("✗ Failed to ingest HR policy documents")
-        logger.error("=" * 60)
-        return False
+    # Step 5: Test search
+    logger.info("\nStep 5: Testing search functionality...")
+    test_queries = [
+        "How many days of annual leave do I get?",
+        "What is the work from home policy?",
+        "How is performance evaluated?"
+    ]
+
+    for query in test_queries:
+        results = milvus.search(query, k=2)
+        logger.info(f"\nQuery: {query}")
+        logger.info(f"Found {len(results)} results")
+        if results:
+            logger.info(f"Top result: {results[0]['document_id']} (score: {results[0]['score']:.3f})")
+
+    # Success summary
+    logger.info("\n" + "=" * 70)
+    logger.info("✓ Ingestion Complete!")
+    logger.info("=" * 70)
+    logger.info(f"Documents: {len(documents)} files → {len(chunked_docs)} chunks")
+    logger.info(f"Collection: {milvus.collection_name}")
+    logger.info("\nYou can now query HR policies using the chatbot!")
+    logger.info("=" * 70)
+
+    return True
 
 
 def main():

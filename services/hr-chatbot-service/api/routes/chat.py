@@ -133,6 +133,13 @@ async def send_message(
         response_text = result.get("response", "I apologize, but I couldn't process your request.")
         agent_used = result.get("agent_used", "unknown")
         sources = result.get("metadata", {}).get("sources", [])
+        
+        # Ensure sources is a list of dicts (validate format)
+        if not isinstance(sources, list):
+            sources = []
+        else:
+            # Filter out any non-dict items
+            sources = [s for s in sources if isinstance(s, dict)]
 
         # Store assistant message in DB and memory
         memory_service.add_assistant_message(
@@ -257,6 +264,12 @@ async def send_message_stream(
             response_text = result.get("response", "I apologize, but I couldn't process your request.")
             agent_used = result.get("agent_used", "unknown")
             sources = result.get("metadata", {}).get("sources", [])
+            
+            # Ensure sources is a list of dicts
+            if not isinstance(sources, list):
+                sources = []
+            else:
+                sources = [s for s in sources if isinstance(s, dict)]
 
             # Stream the response word by word to simulate streaming
             words = response_text.split()

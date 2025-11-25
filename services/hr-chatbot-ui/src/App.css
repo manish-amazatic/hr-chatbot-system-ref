@@ -1,14 +1,87 @@
-.app {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Override Bootstrap defaults for better dark mode support */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #1a1a1a;
-    color: #e0e0e0;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Smooth transitions */
+.btn, .card, .list-group-item {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Card hover effect */
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* List item hover */
+.list-group-item-action:hover {
+  background-color: #f8f9fa;
+}
+
+/* Active session highlight */
+.list-group-item.active {
+  background-color: #0d6efd !important;
+  border-color: #0d6efd !important;
+}
+
+/* Message animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Loading spinner */
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .col-md-4, .col-lg-3 {
+    display: none;
+  }
+  
+  .col-md-8, .col-lg-9 {
+    width: 100%;
   }
 }

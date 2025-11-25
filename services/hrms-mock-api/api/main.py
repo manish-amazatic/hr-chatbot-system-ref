@@ -10,7 +10,7 @@ import os
 
 from utils.config import settings
 from utils.database import init_db, close_db
-from api.routes import health, auth, leave  # attendance, payroll - DISABLED due to Pydantic recursion error
+from api.routes import health, auth, leave, attendance, payroll
 
 # Configure logging
 logging.basicConfig(
@@ -64,10 +64,8 @@ app.add_middleware(
 app.include_router(health.router, prefix="/api/v1", tags=["Health"])
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["Authentication"])
 app.include_router(leave.router, prefix="/api/v1/leave", tags=["Leave Management"])
-# app.include_router(attendance.router, prefix="/api/v1/attendance", tags=["Attendance Management"])  # DISABLED - Pydantic recursion error
-# app.include_router(payroll.router, prefix="/api/v1/payroll", tags=["Payroll Management"])  # DISABLED - Pydantic recursion error
-
-# TODO: Add employee router
+app.include_router(attendance.router, prefix="/api/v1/attendance", tags=["Attendance Management"])
+app.include_router(payroll.router, prefix="/api/v1/payroll", tags=["Payroll Management"])
 
 
 @app.get("/")

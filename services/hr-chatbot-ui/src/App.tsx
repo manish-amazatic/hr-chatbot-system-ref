@@ -1,38 +1,35 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
-import { AuthProvider } from './contexts/AuthContext'
-import LoginPage from './components/pages/LoginPage'
-import ChatPage from './components/pages/ChatPage'
-import ProtectedRoute from './components/ProtectedRoute'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import { ChatProvider } from './contexts/ChatContext';
+import LoginForm from './components/Auth/LoginForm';
+import ProtectedRoute from './components/Auth/ProtectedRoute';
+import MainLayout from './components/Layout/MainLayout';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import './App.css';
 
-function App() {
+const App: React.FC = () => {
   return (
     <AuthProvider>
-      <div className="app">
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route
-            path="/chat"
-            element={
-              <ProtectedRoute>
-                <ChatPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/chat/:sessionId"
-            element={
-              <ProtectedRoute>
-                <ChatPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/" element={<Navigate to="/chat" replace />} />
-          <Route path="*" element={<Navigate to="/chat" replace />} />
-        </Routes>
-      </div>
+      <ChatProvider>
+        <Router>
+          <Routes>
+            <Route path="/login" element={<LoginForm />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <MainLayout />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Router>
+      </ChatProvider>
     </AuthProvider>
-  )
-}
+  );
+};
 
-export default App
+export default App;
