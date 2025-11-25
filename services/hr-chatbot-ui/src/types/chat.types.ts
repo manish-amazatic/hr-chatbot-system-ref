@@ -29,11 +29,10 @@ export interface ChatRequest {
 }
 
 export interface ChatResponse {
-  id: string;
-  sessionId: string;
-  message: string;
+  session_id: string;
+  response: string;
   sources?: Source[];
-  agentUsed?: string;
+  agent_used?: string;
   timestamp: string;
 }
 
@@ -45,7 +44,7 @@ export interface ChatContextType {
   createSession: () => Promise<void>;
   selectSession: (sessionId: string) => Promise<void>;
   deleteSession: (sessionId: string) => Promise<void>;
-  sendMessage: (message: string) => Promise<void>;
+  sendMessage: (message: string, useStreaming?: boolean) => Promise<void>;
   loadSessions: () => Promise<void>;
   setCurrentSession: (session: Session | null) => void;
   setMessages: (messages: Message[]) => void;

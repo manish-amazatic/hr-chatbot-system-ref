@@ -47,8 +47,19 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setIsLoading(true);
       const session = await chatService.getSession(sessionId);
       const sessionMessages = await chatService.getMessages(sessionId);
+
+      // Map backend message format to UI format
+      const mappedMessages: Message[] = sessionMessages.map((msg: any, index: number) => ({
+        id: msg.id || `msg-${index}-${Date.now()}`,
+        role: msg.type === 'human' ? 'user' : msg.type === 'ai' ? 'assistant' : (msg.role || 'assistant'),
+        content: msg.content,
+        timestamp: msg.timestamp || new Date().toISOString(),
+        sources: msg.sources,
+        agentUsed: msg.agent_used || msg.agentUsed,
+      }));
+
       setCurrentSession(session);
-      setMessages(sessionMessages);
+      setMessages(mappedMessages);
     } catch (error) {
       console.error('Failed to select session:', error);
     } finally {
@@ -70,14 +81,14 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const sendMessage = async (message: string) => {
+  const sendMessage = async (message: string, useStreaming: boolean = true) => {
     if (!currentSession) {
       // Create a new session if none exists
       await createSession();
     }
 
     const userMessage: Message = {
-      id: Date.now().toString(),
+      id: `user-${Date.now()}`,
       role: 'user',
       content: message,
       timestamp: new Date().toISOString(),
@@ -87,21 +98,86 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(true);
 
     try {
-      const response = await chatService.sendMessage({
-        message,
-        sessionId: currentSession?.id,
-      });
+      if (useStreaming) {
+        // Streaming mode
+        const assistantMessageId = `assistant-${Date.now()}`;
+        let streamedContent = '';
+        let receivedSessionId: string | null = null;
+        let agentUsed: string | null = null;
 
-      const assistantMessage: Message = {
-        id: response.id,
-        role: 'assistant',
-        content: response.message,
-        timestamp: response.timestamp,
-        sources: response.sources,
-        agentUsed: response.agentUsed,
-      };
+        // Add placeholder message for streaming
+        const placeholderMessage: Message = {
+          id: assistantMessageId,
+          role: 'assistant',
+          content: '',
+          timestamp: new Date().toISOString(),
+        };
+        setMessages((prev) => [...prev, placeholderMessage]);
 
-      setMessages((prev) => [...prev, assistantMessage]);
+        await chatService.sendMessageStream(
+          {
+            message,
+            sessionId: currentSession?.id,
+          },
+          // onChunk
+          (chunk: string) => {
+            streamedContent += chunk;
+            setMessages((prev) =>
+              prev.map((msg) =>
+                msg.id === assistantMessageId
+                  ? { ...msg, content: streamedContent }
+                  : msg
+              )
+            );
+          },
+          // onSessionId
+          (sessionId: string) => {
+            receivedSessionId = sessionId;
+          },
+          // onComplete
+          (agent: string) => {
+            agentUsed = agent;
+          }
+        );
+
+        // Update final message with agent info
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === assistantMessageId
+              ? { ...msg, agentUsed: agentUsed || undefined, timestamp: new Date().toISOString() }
+              : msg
+          )
+        );
+
+        // Update session if needed
+        if (receivedSessionId && (!currentSession || currentSession.id !== receivedSessionId)) {
+          const newSession = await chatService.getSession(receivedSessionId);
+          setCurrentSession(newSession);
+        }
+      } else {
+        // Non-streaming mode
+        const response = await chatService.sendMessage({
+          message,
+          sessionId: currentSession?.id,
+        });
+
+        // Update session ID if it was created by the backend
+        if (response.session_id && (!currentSession || currentSession.id !== response.session_id)) {
+          const newSession = await chatService.getSession(response.session_id);
+          setCurrentSession(newSession);
+        }
+
+        const assistantMessage: Message = {
+          id: `assistant-${Date.now()}`,
+          role: 'assistant',
+          content: response.response,
+          timestamp: response.timestamp,
+          sources: response.sources,
+          agentUsed: response.agent_used,
+        };
+
+        setMessages((prev) => [...prev, assistantMessage]);
+      }
 
       // Update session title if it's the first message
       if (messages.length === 0 && currentSession) {

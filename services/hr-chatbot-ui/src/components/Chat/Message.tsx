@@ -6,7 +6,7 @@ interface MessageProps {
 }
 
 const Message: React.FC<MessageProps> = ({ message }) => {
-  const isUser = message.role === 'user' || message.type === 'human';
+  const isUser = message.role === 'user' || (message as any).type === 'human';
 
   return (
     <div className={`mb-4 ${isUser ? 'text-end' : ''}`}>

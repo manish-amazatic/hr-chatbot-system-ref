@@ -33,13 +33,16 @@ export class ChatService {
 
   async sendMessageStream(
     request: ChatRequest,
-    onChunk: (chunk: string) => void
+    onChunk: (chunk: string) => void,
+    onSessionId: (sessionId: string) => void,
+    onComplete: (agentUsed: string) => void
   ): Promise<void> {
+    const authHeader = api.defaults.headers.common['Authorization'];
     const response = await fetch(`${api.defaults.baseURL}/api/v1/chat/message/stream`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${api.defaults.headers.common['Authorization']}`,
+        Authorization: authHeader as string,
       },
       body: JSON.stringify(request),
     });
@@ -55,23 +58,42 @@ export class ChatService {
       throw new Error('No reader available');
     }
 
+    let buffer = '';
+
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
 
-      const chunk = decoder.decode(value);
-      const lines = chunk.split('\n');
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+
+      // Keep the last incomplete line in the buffer
+      buffer = lines.pop() || '';
 
       for (const line of lines) {
         if (line.startsWith('data: ')) {
-          const data = line.slice(6);
+          const data = line.slice(6).trim();
+          if (!data) continue;
+
           try {
             const parsed = JSON.parse(data);
-            if (parsed.content) {
+
+            if (parsed.type === 'session' && parsed.session_id) {
+              onSessionId(parsed.session_id);
+            } else if (parsed.type === 'token' && parsed.content) {
               onChunk(parsed.content);
+            } else if (parsed.type === 'done') {
+              if (parsed.session_id) onSessionId(parsed.session_id);
+              if (parsed.agent_used) onComplete(parsed.agent_used);
+            } else if (parsed.type === 'error') {
+              throw new Error(parsed.content || 'Stream error');
             }
-          } catch {
-            // Ignore parsing errors
+          } catch (e) {
+            if (e instanceof Error && e.message !== 'Stream error') {
+              console.warn('Failed to parse SSE data:', data);
+            } else {
+              throw e;
+            }
           }
         }
       }

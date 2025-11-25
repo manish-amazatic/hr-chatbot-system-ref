@@ -1,10 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useChat } from '../../contexts/ChatContext';
 
 const SessionList: React.FC = () => {
-  const navigate = useNavigate();
-  const { sessions, currentSession, selectSession, deleteSession, setCurrentSession, setMessages } = useChat();
+  const { sessions, currentSession, selectSession, deleteSession } = useChat();
 
 
   const handleDelete = async (sessionId: string, e: React.MouseEvent) => {
