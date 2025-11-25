@@ -1,0 +1,329 @@
+"""
+Orchestrator Agent
+Routes user queries to specialized agents based on intent classification
+"""
+import logging
+from typing import Dict, Any, Optional
+from enum import Enum
+
+from core.agents.leave_agent import LeaveAgent
+from core.tools.hrms_api_client import HRMSClient
+from core.tools.hr_rag_tool import search_hr_policies
+from core.processors.llm_processor import LLMProcessor, LLMProvider
+
+logger = logging.getLogger(__name__)
+
+
+class Intent(str, Enum):
+    """User intent categories"""
+    LEAVE = "leave"
+    ATTENDANCE = "attendance"
+    PAYROLL = "payroll"
+    POLICY = "policy"
+    GENERAL_HR = "general_hr"
+    UNKNOWN = "unknown"
+
+
+class Orchestrator:
+    """
+    Main orchestrator for HR Chatbot
+
+    Responsibilities:
+    - Classify user intent from query
+    - Route to appropriate specialized agent
+    - Handle unsupported queries gracefully
+    - Coordinate multi-agent workflows (future)
+
+    Currently supports:
+    - Leave management (via LeaveAgent)
+
+    Coming soon:
+    - Attendance tracking
+    - Payroll queries
+    - General HR questions (via RAG)
+    """
+
+    def __init__(self, hrms_token: Optional[str] = None):
+        """
+        Initialize Orchestrator
+
+        Args:
+            hrms_token: JWT token for HRMS API authentication
+        """
+        self.hrms_token = hrms_token
+        self.llm = LLMProcessor().get_llm(LLMProvider.OPENAI)
+
+        # Initialize HRMS client
+        self.hrms_client = HRMSClient(token=hrms_token)
+
+        # Initialize specialized agents
+        self.leave_agent = LeaveAgent(hrms_client=self.hrms_client)
+
+        # Intent keywords for heuristic classification
+        self.intent_keywords = {
+            Intent.LEAVE: [
+                "leave", "vacation", "time off", "pto", "holiday",
+                "sick leave", "annual leave", "casual leave",
+                "maternity", "paternity", "apply", "balance",
+                "cancel leave", "leave request", "leave history",
+                "days off", "absence", "off work"
+            ],
+            Intent.ATTENDANCE: [
+                "attendance", "check in", "check out", "clock in",
+                "clock out", "working hours", "present", "absent",
+                "late", "early departure", "overtime", "timesheet",
+                "punch in", "punch out", "attendance record"
+            ],
+            Intent.PAYROLL: [
+                "payroll", "salary", "payslip", "pay stub", "wages",
+                "compensation", "earnings", "deductions", "tax",
+                "allowance", "bonus", "commission", "ytd",
+                "year to date", "payment", "gross pay", "net pay"
+            ],
+            Intent.POLICY: [
+                "policy", "policies", "rule", "rules", "regulation",
+                "guideline", "guidelines", "procedure", "process",
+                "manual", "handbook", "company policy", "hr policy",
+                "code of conduct", "compliance", "standard",
+                "protocol", "document", "documentation"
+            ]
+        }
+
+    def classify_intent(self, query: str) -> Intent:
+        """
+        Classify user intent using keyword matching
+
+        Args:
+            query: User query text
+
+        Returns:
+            Classified intent
+        """
+        query_lower = query.lower()
+
+        # Count keyword matches for each intent
+        intent_scores = {}
+        for intent, keywords in self.intent_keywords.items():
+            score = sum(1 for keyword in keywords if keyword in query_lower)
+            intent_scores[intent] = score
+
+        # Get intent with highest score
+        if max(intent_scores.values()) > 0:
+            return max(intent_scores, key=intent_scores.get)
+
+        # Check if query is a general HR question (contains question words)
+        question_words = ["what", "how", "when", "where", "why", "who", "can", "should", "is", "are", "do"]
+        if any(word in query_lower.split() for word in question_words):
+            return Intent.GENERAL_HR
+
+        return Intent.UNKNOWN
+
+    async def process(
+        self,
+        query: str,
+        context: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """
+        Process user query by routing to appropriate agent
+
+        Args:
+            query: User query text
+            context: Optional context (user_id, session_id, history, etc.)
+
+        Returns:
+            Dict containing:
+                - response: Agent's response text
+                - intent: Detected intent
+                - agent_used: Which agent processed the query
+                - metadata: Additional information
+        """
+        try:
+            # Classify intent
+            intent = self.classify_intent(query)
+            logger.info(f"Classified intent: {intent} for query: {query[:50]}...")
+
+            # Route to appropriate agent
+            if intent == Intent.LEAVE:
+                return await self._handle_leave_query(query, context)
+
+            elif intent == Intent.POLICY:
+                return await self._handle_policy_query(query, context)
+
+            elif intent == Intent.ATTENDANCE:
+                return self._handle_unsupported_intent(
+                    "attendance",
+                    "Attendance tracking is not yet available. This feature is coming soon!"
+                )
+
+            elif intent == Intent.PAYROLL:
+                return self._handle_unsupported_intent(
+                    "payroll",
+                    "Payroll queries are not yet available. This feature is coming soon!"
+                )
+
+            elif intent == Intent.GENERAL_HR:
+                return await self._handle_general_hr_query(query, context)
+
+            else:
+                return self._handle_unknown_intent(query)
+
+        except Exception as e:
+            logger.error(f"Error in Orchestrator: {str(e)}", exc_info=True)
+            return {
+                "response": f"I apologize, but I encountered an error while processing your request: {str(e)}",
+                "intent": "error",
+                "agent_used": "orchestrator",
+                "metadata": {"error": str(e)}
+            }
+
+    async def _handle_leave_query(
+        self,
+        query: str,
+        context: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """Handle leave-related queries via LeaveAgent"""
+        logger.info("Routing to LeaveAgent")
+
+        try:
+            response = await self.leave_agent.process(query, context)
+
+            return {
+                "response": response,
+                "intent": Intent.LEAVE,
+                "agent_used": "leave_agent",
+                "metadata": {
+                    "tools_available": ["check_leave_balance", "apply_for_leave",
+                                       "view_leave_history", "cancel_leave_request"]
+                }
+            }
+        except Exception as e:
+            logger.error(f"Error in LeaveAgent: {str(e)}", exc_info=True)
+            return {
+                "response": f"I encountered an error processing your leave request: {str(e)}",
+                "intent": Intent.LEAVE,
+                "agent_used": "leave_agent",
+                "metadata": {"error": str(e)}
+            }
+
+    async def _handle_policy_query(
+        self,
+        query: str,
+        context: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """Handle HR policy queries via RAG tool"""
+        logger.info("Routing to RAG tool for policy search")
+
+        try:
+            # Use RAG tool to search HR policies
+            response = search_hr_policies(query)
+
+            # Check if Milvus was unavailable
+            if "currently unavailable" in response.lower():
+                return {
+                    "response": response,
+                    "intent": Intent.POLICY,
+                    "agent_used": "rag_tool",
+                    "metadata": {
+                        "status": "milvus_unavailable",
+                        "fallback": "system_message"
+                    }
+                }
+
+            return {
+                "response": response,
+                "intent": Intent.POLICY,
+                "agent_used": "rag_tool",
+                "metadata": {
+                    "type": "policy_search",
+                    "rag_enabled": True,
+                    "sources": ["hr_policies_database"]
+                }
+            }
+        except Exception as e:
+            logger.error(f"Error in policy query handler: {str(e)}", exc_info=True)
+            return {
+                "response": (
+                    "I encountered an error while searching for HR policy information. "
+                    "Please try rephrasing your question or contact HR directly at hr@company.com."
+                ),
+                "intent": Intent.POLICY,
+                "agent_used": "rag_tool",
+                "metadata": {"error": str(e)}
+            }
+
+    async def _handle_general_hr_query(
+        self,
+        query: str,
+        context: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """Handle general HR questions using LLM"""
+        logger.info("Handling general HR query with LLM")
+
+        try:
+            # Simple LLM response for general questions
+            system_prompt = """You are a helpful HR assistant.
+
+            You can help employees with:
+            - Leave management (checking balance, applying for leave, viewing history)
+
+            Features coming soon:
+            - Attendance tracking
+            - Payroll queries
+            - HR policy questions
+
+            For now, focus on helping with leave-related questions or providing general HR guidance.
+            Keep responses concise and professional."""
+
+            response = self.llm.invoke(f"{system_prompt}\n\nUser: {query}\n\nAssistant:")
+
+            return {
+                "response": response.content if hasattr(response, 'content') else str(response),
+                "intent": Intent.GENERAL_HR,
+                "agent_used": "llm_fallback",
+                "metadata": {"type": "general_question"}
+            }
+        except Exception as e:
+            logger.error(f"Error in general HR query handler: {str(e)}", exc_info=True)
+            return {
+                "response": "I can help you with leave management queries. Could you please rephrase your question?",
+                "intent": Intent.GENERAL_HR,
+                "agent_used": "llm_fallback",
+                "metadata": {"error": str(e)}
+            }
+
+    def _handle_unsupported_intent(self, feature_name: str, message: str) -> Dict[str, Any]:
+        """Handle queries for features not yet implemented"""
+        logger.info(f"Unsupported intent: {feature_name}")
+
+        return {
+            "response": f"{message}\n\nI can currently help you with:\n"
+                       "• Checking your leave balance\n"
+                       "• Applying for leave\n"
+                       "• Viewing your leave history\n"
+                       "• Cancelling leave requests\n\n"
+                       "How can I assist you with leave management?",
+            "intent": feature_name,
+            "agent_used": "orchestrator",
+            "metadata": {"feature_status": "not_implemented"}
+        }
+
+    def _handle_unknown_intent(self, query: str) -> Dict[str, Any]:
+        """Handle queries with unknown intent"""
+        logger.info(f"Unknown intent for query: {query[:50]}...")
+
+        return {
+            "response": "I'm not sure I understand your request. I can help you with:\n\n"
+                       "• Leave Management:\n"
+                       "  - Check your leave balance\n"
+                       "  - Apply for leave\n"
+                       "  - View leave history\n"
+                       "  - Cancel leave requests\n\n"
+                       "Please let me know how I can assist you!",
+            "intent": Intent.UNKNOWN,
+            "agent_used": "orchestrator",
+            "metadata": {"suggestion": "rephrase_query"}
+        }
+
+    async def close(self):
+        """Clean up resources"""
+        await self.hrms_client.close()
