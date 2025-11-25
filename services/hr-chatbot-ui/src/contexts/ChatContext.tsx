@@ -6,7 +6,7 @@ import { useAuth } from './AuthContext';
 const ChatContext = createContext<ChatContextType | undefined>(undefined);
 
 export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const [sessions, setSessions] = useState<Session[]>([]);
   const [currentSession, setCurrentSession] = useState<Session | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -29,7 +29,10 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const createSession = async () => {
     try {
-      const newSession = await chatService.createSession('New Chat');
+      const newSession = await chatService.createSession({
+        user_id: user?.id,
+        title: 'New Chat'
+      });
       setSessions([newSession, ...sessions]);
       setCurrentSession(newSession);
       setMessages([]);

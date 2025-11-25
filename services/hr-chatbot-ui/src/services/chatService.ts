@@ -12,8 +12,8 @@ export class ChatService {
     return response.data;
   }
 
-  async createSession(title?: string): Promise<Session> {
-    const response = await api.post<Session>('/api/v1/chat/sessions', { title });
+  async createSession(request: { user_id?: string; title?: string }): Promise<Session> {
+    const response = await api.post<Session>('/api/v1/chat/sessions', request);
     return response.data;
   }
 

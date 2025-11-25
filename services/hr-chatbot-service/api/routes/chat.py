@@ -10,11 +10,13 @@ from datetime import datetime
 import logging
 import json
 from sqlalchemy.orm import Session
+from sqlalchemy import desc
 
 from core.agents.orchestrator import Orchestrator
 from services.session_service import SessionService
 from services.memory_service import MemoryService
 from utils.database import get_db
+from models import ChatSession
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
@@ -310,56 +312,178 @@ async def send_message_stream(
 
 
 @router.get("/sessions", response_model=List[Session])
-async def list_sessions(user_id: Optional[str] = None):
+async def list_sessions(
+    user_id: Optional[str] = None,
+    db: Session = Depends(get_db)
+):
     """
     List all chat sessions for a user
-    """
-    # TODO: Implement session retrieval from database
-    logger.info(f"Listing sessions for user: {user_id}")
 
-    # Placeholder response
-    return []
+    Args:
+        user_id: Optional user ID to filter sessions
+        db: Database session (injected)
+
+    Returns:
+        List of sessions for the user
+    """
+    logger.info(f"Listing sessions for user: {user_id or 'all users'}")
+
+    # Get sessions from database
+    if user_id:
+        sessions = SessionService.get_user_sessions(db, user_id)
+    else:
+        # If no user_id provided, return empty list or all sessions
+        # For now, return all sessions by querying without filter
+        sessions = db.query(ChatSession).order_by(desc(ChatSession.updated_at)).limit(50).all()
+
+    return [
+        Session(
+            id=s.id,
+            user_id=s.user_id,
+            title=s.title,
+            created_at=s.created_at.isoformat(),
+            updated_at=s.updated_at.isoformat(),
+            message_count=len(s.messages) if hasattr(s, 'messages') and s.messages else 0
+        )
+        for s in sessions
+    ]
 
 
-@router.get("/sessions/{session_id}")
-async def get_session(session_id: str):
+@router.get("/sessions/{session_id}", response_model=Session)
+async def get_session(
+    session_id: str,
+    db: Session = Depends(get_db)
+):
     """
-    Get a specific session with all messages
+    Get a specific session
+
+    Args:
+        session_id: ID of the session to retrieve
+        db: Database session (injected)
+
+    Returns:
+        Session object with details
     """
-    # TODO: Implement session retrieval
     logger.info(f"Getting session: {session_id}")
 
-    raise HTTPException(
-        status_code=status.HTTP_404_NOT_FOUND,
-        detail="Session not found"
+    session = SessionService.get_session(db, session_id)
+    if not session:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Session {session_id} not found"
+        )
+
+    return Session(
+        id=session.id,
+        user_id=session.user_id,
+        title=session.title,
+        created_at=session.created_at.isoformat(),
+        updated_at=session.updated_at.isoformat(),
+        message_count=len(session.messages) if hasattr(session, 'messages') and session.messages else 0
     )
 
 
-@router.post("/sessions")
-async def create_session(user_id: str, title: Optional[str] = None):
+class CreateSessionRequest(BaseModel):
+    """Create session request model"""
+    user_id: Optional[str] = None
+    title: Optional[str] = None
+
+
+@router.post("/sessions", response_model=Session)
+async def create_session(
+    request: CreateSessionRequest,
+    db: Session = Depends(get_db)
+):
     """
     Create a new chat session
+
+    Args:
+        request: Session creation request with optional user_id and title
+        db: Database session (injected)
+
+    Returns:
+        Session object with generated ID
     """
-    # TODO: Implement session creation
+    user_id = request.user_id or "GUEST"
+    title = request.title or "New Chat"
+
     logger.info(f"Creating session for user: {user_id}")
 
-    session_id = f"session_{datetime.utcnow().timestamp()}"
-    return Session(
-        id=session_id,
+    # Create session in database
+    session = SessionService.create_session(
+        db,
         user_id=user_id,
-        title=title or "New Chat",
-        created_at=datetime.utcnow().isoformat(),
-        updated_at=datetime.utcnow().isoformat(),
+        title=title
+    )
+
+    return Session(
+        id=session.id,
+        user_id=session.user_id,
+        title=session.title,
+        created_at=session.created_at.isoformat(),
+        updated_at=session.updated_at.isoformat(),
         message_count=0
     )
 
 
+@router.get("/sessions/{session_id}/messages")
+async def get_session_messages(
+    session_id: str,
+    db: Session = Depends(get_db)
+):
+    """
+    Get all messages for a specific session
+
+    Args:
+        session_id: ID of the session
+        db: Database session (injected)
+
+    Returns:
+        List of messages in the session
+    """
+    logger.info(f"Getting messages for session: {session_id}")
+
+    # Check if session exists
+    session = SessionService.get_session(db, session_id)
+    if not session:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Session {session_id} not found"
+        )
+
+    # Get messages from memory service
+    memory_service = MemoryService(db)
+    messages = memory_service.get_conversation_context(session_id)
+
+    return messages
+
+
 @router.delete("/sessions/{session_id}")
-async def delete_session(session_id: str):
+async def delete_session(
+    session_id: str,
+    db: Session = Depends(get_db)
+):
     """
-    Delete a chat session
+    Delete a chat session and all its messages
+
+    Args:
+        session_id: ID of the session to delete
+        db: Database session (injected)
+
+    Returns:
+        Success message
     """
-    # TODO: Implement session deletion
     logger.info(f"Deleting session: {session_id}")
 
-    return {"message": "Session deleted successfully"}
+    # Check if session exists
+    session = SessionService.get_session(db, session_id)
+    if not session:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Session {session_id} not found"
+        )
+
+    # Delete session (this should also delete associated messages via cascade)
+    SessionService.delete_session(db, session_id)
+
+    return {"message": "Session deleted successfully", "session_id": session_id}
