@@ -1,8 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useChat } from '../../contexts/ChatContext';
 
 const SessionList: React.FC = () => {
-  const { sessions, currentSession, createSession, selectSession, deleteSession } = useChat();
+  const navigate = useNavigate();
+  const { sessions, currentSession, selectSession, deleteSession, setCurrentSession, setMessages } = useChat();
+
 
   const handleDelete = async (sessionId: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -16,20 +19,10 @@ const SessionList: React.FC = () => {
   };
 
   return (
-    <div className="d-flex flex-column h-100">
-      {/* New Chat Button */}
-      <div className="p-3 border-bottom">
-        <button
-          className="btn btn-primary w-100"
-          onClick={createSession}
-        >
-          <i className="bi bi-plus-circle me-2"></i>
-          New Chat
-        </button>
-      </div>
+    <div className="d-flex flex-column flex-shrink-1 h-100 overflow-scroll">
 
       {/* Session List */}
-      <div className="flex-grow-1 overflow-auto">
+      <div className="flex-grow-1 w-100">
         {sessions.length === 0 ? (
           <div className="text-center text-muted p-4">
             <i className="bi bi-chat-dots fs-1 d-block mb-2"></i>

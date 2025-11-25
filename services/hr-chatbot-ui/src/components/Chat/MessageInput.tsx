@@ -37,7 +37,7 @@ const MessageInput: React.FC<MessageInputProps> = ({ onSend, disabled = false })
           style={{ resize: 'none' }}
         />
         <button
-          className="btn btn-primary"
+          className="btn btn-primary btn-lg"
           type="submit"
           disabled={disabled || !message.trim()}
         >

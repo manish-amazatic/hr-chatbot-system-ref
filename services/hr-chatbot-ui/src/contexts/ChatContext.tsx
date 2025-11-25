@@ -129,6 +129,8 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
     deleteSession,
     sendMessage,
     loadSessions,
+    setCurrentSession,
+    setMessages,
   };
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;

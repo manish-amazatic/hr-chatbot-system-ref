@@ -47,4 +47,6 @@ export interface ChatContextType {
   deleteSession: (sessionId: string) => Promise<void>;
   sendMessage: (message: string) => Promise<void>;
   loadSessions: () => Promise<void>;
+  setCurrentSession: (session: Session | null) => void;
+  setMessages: (messages: Message[]) => void;
 }

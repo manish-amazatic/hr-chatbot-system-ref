@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useChat } from '../../contexts/ChatContext';
 
 interface ExamplePrompt {
@@ -33,10 +33,28 @@ const examples: ExamplePrompt[] = [
 
 const ExamplesPanel: React.FC = () => {
   const { createSession, sendMessage } = useChat();
+  const [inputMessage, setInputMessage] = useState('');
+  const [isSending, setIsSending] = useState(false);
 
   const handleExampleClick = async (text: string) => {
     await createSession();
     await sendMessage(text);
+  };
+
+  const handleSendMessage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!inputMessage.trim() || isSending) return;
+
+    setIsSending(true);
+    try {
+      await createSession();
+      await sendMessage(inputMessage.trim());
+      setInputMessage('');
+    } catch (error) {
+      console.error('Failed to send message:', error);
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const groupedExamples = examples.reduce((acc, example) => {
@@ -48,18 +66,58 @@ const ExamplesPanel: React.FC = () => {
   }, {} as Record<string, ExamplePrompt[]>);
 
   return (
-    <div className="h-100 overflow-auto">
-      <div className="container py-5">
-        {/* Header */}
-        <div className="text-center mb-5">
-          <h1 className="display-4 mb-3">
-            <i className="bi bi-robot me-3"></i>
-            Welcome to HR Chatbot
-          </h1>
-          <p className="lead text-muted">
-            Your intelligent HR assistant. Ask me anything about policies, leave, attendance, or payroll.
-          </p>
-        </div>
+    <div className="h-100 d-flex flex-column">
+      <div className="flex-grow-1 overflow-auto">
+        <div className="container py-5">
+          {/* Header */}
+          <div className="text-center mb-5">
+            <h1 className="display-4 mb-3">
+              <i className="bi bi-robot me-3"></i>
+              Welcome to HR Chatbot
+            </h1>
+            <p className="lead text-muted">
+              Your intelligent HR assistant. Ask me anything about policies, leave, attendance, or payroll.
+            </p>
+          </div>
+
+          {/* Message Input */}
+          <div className="row mb-5">
+            <div className="col-lg-8 mx-auto">
+              <div className="card shadow-sm">
+                <div className="card-body">
+                  <form onSubmit={handleSendMessage}>
+                    <div className="input-group input-group-lg">
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Type your message to start a new chat..."
+                        value={inputMessage}
+                        onChange={(e) => setInputMessage(e.target.value)}
+                        disabled={isSending}
+                      />
+                      <button
+                        className="btn btn-primary"
+                        type="submit"
+                        disabled={!inputMessage.trim() || isSending}
+                      >
+                        {isSending ? (
+                          <>
+                            <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            <i className="bi bi-send-fill me-2"></i>
+                            Send
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
 
         {/* Example Prompts */}
         <div className="row g-4">
@@ -124,6 +182,7 @@ const ExamplesPanel: React.FC = () => {
               <p className="text-muted small">Search and understand policies</p>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>
