@@ -20,7 +20,9 @@
       "Bash(/tmp/status_check.sh:*)",
       "Bash(git add:*)",
       "Bash(python3:*)",
-      "Bash(/Users/mw/workbench/ai_workshoap/hr-chatbot-system-ref/test_hrms_api_complete.sh)"
+      "Bash(/Users/mw/workbench/ai_workshoap/hr-chatbot-system-ref/test_hrms_api_complete.sh)",
+      "Bash(./test_updated_agents.sh:*)",
+      "Bash(/Users/mw/workbench/ai_workshoap/hr-chatbot-system-ref/test_rag_flow.sh)"
     ],
     "deny": [],
     "ask": []

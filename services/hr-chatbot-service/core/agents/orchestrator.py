@@ -95,7 +95,10 @@ class Orchestrator:
 
     def classify_intent(self, query: str) -> Intent:
         """
-        Classify user intent using keyword matching
+        Classify user intent using keyword matching with policy priority
+
+        Static knowledge questions (policy/informational) → RAG tool
+        Transactional actions (apply, cancel, check my) → Agents
 
         Args:
             query: User query text
@@ -105,17 +108,58 @@ class Orchestrator:
         """
         query_lower = query.lower()
 
-        # Count keyword matches for each intent
+        # STEP 1: Check for explicit policy keywords (highest priority)
+        # These indicate static knowledge questions that should use RAG
+        explicit_policy_keywords = [
+            "policy", "policies", "guideline", "guidelines", "handbook",
+            "manual", "rule", "rules", "regulation", "code of conduct",
+            "procedure", "protocol", "standard"
+        ]
+        if any(keyword in query_lower for keyword in explicit_policy_keywords):
+            return Intent.POLICY
+
+        # STEP 2: Check for informational question patterns
+        # Questions like "what is", "how many", "explain" are usually policy/knowledge queries
+        question_patterns = [
+            "what is", "what are", "what's", "how many", "how much", "how is",
+            "explain", "tell me about", "describe", "can you explain",
+            "how does", "how do", "when is", "when do", "who is eligible",
+            "eligibility", "criteria", "requirements for"
+        ]
+
+        has_question_pattern = any(pattern in query_lower for pattern in question_patterns)
+
+        # STEP 3: Check for transactional action verbs
+        # These indicate the user wants to DO something, not just learn about it
+        action_verbs = [
+            "apply for", "cancel", "book", "request", "submit",
+            "check my", "show my", "get my", "view my", "see my",
+            "i want to", "i need to", "help me"
+        ]
+
+        has_action_verb = any(verb in query_lower for verb in action_verbs)
+
+        # DECISION LOGIC:
+        # If it's a question pattern WITHOUT action verbs → POLICY (static knowledge)
+        # If it has action verbs → Route to appropriate transactional agent
+
+        if has_question_pattern and not has_action_verb:
+            # Informational question → Use RAG for policy lookup
+            return Intent.POLICY
+
+        # STEP 4: Count keyword matches for transactional intents
         intent_scores = {}
         for intent, keywords in self.intent_keywords.items():
+            if intent == Intent.POLICY:
+                continue  # Already handled above
             score = sum(1 for keyword in keywords if keyword in query_lower)
             intent_scores[intent] = score
 
         # Get intent with highest score
-        if max(intent_scores.values()) > 0:
+        if intent_scores and max(intent_scores.values()) > 0:
             return max(intent_scores, key=intent_scores.get)
 
-        # Check if query is a general HR question (contains question words)
+        # STEP 5: Fallback to general HR if it's a question
         question_words = ["what", "how", "when", "where", "why", "who", "can", "should", "is", "are", "do"]
         if any(word in query_lower.split() for word in question_words):
             return Intent.GENERAL_HR

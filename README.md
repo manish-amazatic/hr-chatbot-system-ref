@@ -90,8 +90,14 @@ cd services/hr-chatbot-service
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-python scripts/generate_hr_policies.py
-python scripts/ingest_to_milvus.py
+
+# Generate HR policy documents (8 files, 46.6 KB)
+python3 scripts/generate_hr_policies.py
+
+# Ingest into Milvus (63 chunks with OpenAI embeddings)
+python3 scripts/ingest_hr_policies.py --drop-existing
+
+# Start service
 uvicorn api.main:app --reload --port 8000
 ```
 
@@ -117,19 +123,27 @@ npm run dev
 ### hr-chatbot-service (Python FastAPI)
 
 **Features**:
-- Orchestrator Agent (intent routing)
-- Leave Agent (leave management)
-- Attendance Agent (attendance tracking)
-- Payroll Agent (payroll queries)
-- hr_rag_tool (Milvus vector search)
-- JWT authentication
-- Session management with chat history
+- **Orchestrator Agent** (improved intent routing with policy priority)
+  - Explicit policy keyword detection
+  - Informational question pattern matching
+  - Smart routing: Questions → RAG, Actions → Agents
+- **Leave Agent** (leave management via HRMS API)
+- **Attendance Agent** (attendance tracking via HRMS API)
+- **Payroll Agent** (payroll queries via HRMS API)
+- **hr_rag_tool** (Milvus vector search with 8 HR policy documents)
+  - 63 chunks ingested with OpenAI embeddings
+  - Covers: leave, attendance, payroll, WFH, code of conduct, performance reviews, onboarding, handbook
+- JWT authentication with token passthrough
+- Session management with persistent chat history
+- Streaming responses via Server-Sent Events (SSE)
 
 **Key Files**:
 - `core/processors/llm_processor.py` - Factory + Singleton LLM
-- `core/agents/orchestrator.py` - Main routing agent
+- `core/agents/orchestrator.py` - Main routing agent with improved intent classification
 - `core/tools/hr_rag_tool.py` - Milvus RAG retriever
-- `api/routes/chat.py` - Chat endpoints
+- `api/routes/chat.py` - Chat endpoints (standard + streaming)
+- `scripts/generate_hr_policies.py` - Generate 8 HR policy documents
+- `scripts/ingest_hr_policies.py` - Ingest policies into Milvus (63 chunks)
 
 ### hrms-mock-api (Python FastAPI)
 
@@ -176,12 +190,48 @@ npm run dev
 - **Week 3**: Integration
 - **Week 4**: Testing & Polish
 
-## 🧪 Testing
+## 🧪 Testing & Demo
 
+### Complete System Demo
+Showcases both RAG flow (policy questions) and Agent flow (transactional queries):
 ```bash
-# Run all tests
-./infrastructure/scripts/test-all.sh
+./demo_complete_system.sh
+```
 
+**Demo includes**:
+- 5 RAG flow tests (annual leave, WFH, performance reviews, maternity leave, code of conduct)
+- 6 Agent flow tests (leave balance, apply leave, attendance, payroll)
+- Complete end-to-end demonstration
+
+### RAG Flow Tests
+Test policy question routing and retrieval:
+```bash
+./test_rag_flow.sh
+```
+
+**Tests**:
+- Annual leave policy → rag_tool (retrieves "20 days per year")
+- WFH policy → rag_tool (retrieves eligibility and options)
+- Performance reviews → rag_tool (retrieves review cycles)
+- Maternity leave → rag_tool (retrieves "26 weeks, fully paid")
+- Probation period → rag_tool
+
+**Status**: ✅ 5/5 tests passing
+
+### Integration Tests
+Test all chatbot service endpoints:
+```bash
+./test_hr_chatbot_service.sh
+```
+
+### Agent-Specific Tests
+Test attendance and payroll agents:
+```bash
+./test_updated_agents.sh
+```
+
+### Unit Tests
+```bash
 # Individual service tests
 cd services/hr-chatbot-service && pytest
 cd services/hrms-mock-api && pytest
@@ -258,5 +308,12 @@ Proprietary - Amazatic Technologies
 
 ---
 
-*Last Updated: 2025-01-24*
+**Latest Updates (2025-11-26)**:
+- ✅ 8 HR policy documents generated and ingested into Milvus (63 chunks)
+- ✅ Intent classification improved to prioritize policy/informational queries
+- ✅ RAG flow fully tested and validated (5/5 tests passing)
+- ✅ Complete system demo script created
+- ✅ All documentation updated
+
+*Last Updated: 2025-11-26*
 *Project Owner: manish.w@amazatic.com*
