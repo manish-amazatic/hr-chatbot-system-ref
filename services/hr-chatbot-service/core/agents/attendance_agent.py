@@ -61,18 +61,28 @@ class AttendanceAgent:
                 List of attendance records with check-in/check-out times
             """
             try:
-                # Note: HRMS API attendance endpoints not yet implemented
-                # This is a placeholder for when the API is ready
-                return (
-                    "Attendance tracking feature is currently being enhanced. "
-                    "For now, please check your attendance records in the HRMS portal "
-                    "or contact HR for attendance-related queries.\n\n"
-                    "Coming soon:\n"
-                    "• View daily attendance records\n"
-                    "• Check-in/Check-out history\n"
-                    "• Monthly attendance summary\n"
-                    "• Late arrival tracking"
-                )
+                import asyncio
+                records = asyncio.run(self.hrms_client.get_attendance_records(
+                    start_date=start_date,
+                    end_date=end_date
+                ))
+
+                if not records:
+                    return "No attendance records found for the specified period."
+
+                result = f"Attendance Records:\n\n"
+                for record in records:
+                    result += f"• Date: {record.get('date')}\n"
+                    result += f"  Status: {record.get('status')}\n"
+                    if record.get('check_in_time'):
+                        result += f"  Check-in: {record['check_in_time']}\n"
+                    if record.get('check_out_time'):
+                        result += f"  Check-out: {record['check_out_time']}\n"
+                    if record.get('work_hours'):
+                        result += f"  Work hours: {record['work_hours']} hours\n"
+                    result += "\n"
+
+                return result
             except Exception as e:
                 logger.error(f"Error viewing attendance history: {str(e)}")
                 return f"Error viewing attendance history: {str(e)}"
@@ -90,11 +100,25 @@ class AttendanceAgent:
                 Summary of attendance for the month
             """
             try:
-                # Placeholder for when API is ready
-                return (
-                    "Monthly attendance summary feature is coming soon. "
-                    "For now, please refer to the HRMS portal for your attendance reports."
-                )
+                import asyncio
+                month_int = int(month) if month else None
+                year_int = int(year) if year else None
+
+                summary = asyncio.run(self.hrms_client.get_attendance_summary(
+                    month=month_int,
+                    year=year_int
+                ))
+
+                result = f"Attendance Summary for {summary.get('month')}/{summary.get('year')}:\n\n"
+                result += f"• Total Working Days: {summary.get('total_working_days', 0)}\n"
+                result += f"• Present Days: {summary.get('present_days', 0)}\n"
+                result += f"• Absent Days: {summary.get('absent_days', 0)}\n"
+                result += f"• Leave Days: {summary.get('leave_days', 0)}\n"
+                result += f"• Half Days: {summary.get('half_days', 0)}\n"
+                result += f"• Total Work Hours: {summary.get('total_work_hours', 0)} hours\n"
+                result += f"• Attendance Percentage: {summary.get('attendance_percentage', 0):.1f}%\n"
+
+                return result
             except Exception as e:
                 logger.error(f"Error getting monthly summary: {str(e)}")
                 return f"Error getting monthly summary: {str(e)}"

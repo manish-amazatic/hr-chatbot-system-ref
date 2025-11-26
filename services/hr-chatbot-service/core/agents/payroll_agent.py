@@ -55,20 +55,33 @@ class PayrollAgent:
                 Details of the most recent payslip
             """
             try:
-                # Note: HRMS API payroll endpoints not yet implemented
-                # This is a placeholder for when the API is ready
-                return (
-                    "Payslip retrieval feature is currently being enhanced. "
-                    "For now, please access your payslips through:\n\n"
-                    "• HRMS Portal: Check 'My Payslips' section\n"
-                    "• Email: Payslips are sent monthly to your work email\n"
-                    "• HR Department: Contact hr@company.com for assistance\n\n"
-                    "Coming soon:\n"
-                    "• Direct payslip viewing in chat\n"
-                    "• YTD earnings summary\n"
-                    "• Tax calculation breakdown\n"
-                    "• Historical payslip access"
-                )
+                import asyncio
+                payslip = asyncio.run(self.hrms_client.get_current_payslip())
+
+                result = f"Current Month Payslip:\n\n"
+                result += f"• Month/Year: {payslip.get('month')}/{payslip.get('year')}\n"
+                result += f"• Base Salary: ${payslip.get('base_salary', 0):,.2f}\n"
+                result += f"• Gross Salary: ${payslip.get('gross_salary', 0):,.2f}\n"
+                result += f"• Total Deductions: ${payslip.get('total_deductions', 0):,.2f}\n"
+                result += f"• Net Salary: ${payslip.get('net_salary', 0):,.2f}\n"
+                result += f"• Payment Status: {payslip.get('payment_status', 'Pending')}\n"
+
+                if payslip.get('payment_date'):
+                    result += f"• Payment Date: {payslip['payment_date']}\n"
+
+                # Show allowances if available
+                if payslip.get('allowances'):
+                    result += "\nAllowances:\n"
+                    for key, value in payslip['allowances'].items():
+                        result += f"  • {key}: ${value:,.2f}\n"
+
+                # Show deductions if available
+                if payslip.get('deductions'):
+                    result += "\nDeductions:\n"
+                    for key, value in payslip['deductions'].items():
+                        result += f"  • {key}: ${value:,.2f}\n"
+
+                return result
             except Exception as e:
                 logger.error(f"Error getting payslip: {str(e)}")
                 return f"Error retrieving payslip: {str(e)}"
@@ -85,14 +98,21 @@ class PayrollAgent:
                 YTD earnings, deductions, and net pay summary
             """
             try:
-                # Placeholder for when API is ready
-                return (
-                    "Year-to-date summary feature is coming soon. "
-                    "For now, you can find this information:\n\n"
-                    "• In your monthly payslips (cumulative section)\n"
-                    "• HRMS Portal under 'Payroll Summary'\n"
-                    "• By contacting the payroll team at payroll@company.com"
-                )
+                import asyncio
+                year_int = int(year) if year else None
+
+                ytd = asyncio.run(self.hrms_client.get_ytd_summary(year=year_int))
+
+                result = f"Year-to-Date Summary ({ytd.get('year')}):\n\n"
+                result += f"• YTD Gross Salary: ${ytd.get('ytd_gross_salary', 0):,.2f}\n"
+                result += f"• YTD Deductions: ${ytd.get('ytd_deductions', 0):,.2f}\n"
+                result += f"• YTD Net Salary: ${ytd.get('ytd_net_salary', 0):,.2f}\n"
+                result += f"• Months Processed: {ytd.get('months_processed', 0)}\n"
+
+                if ytd.get('average_monthly_salary'):
+                    result += f"• Average Monthly Salary: ${ytd['average_monthly_salary']:,.2f}\n"
+
+                return result
             except Exception as e:
                 logger.error(f"Error getting YTD summary: {str(e)}")
                 return f"Error getting YTD summary: {str(e)}"

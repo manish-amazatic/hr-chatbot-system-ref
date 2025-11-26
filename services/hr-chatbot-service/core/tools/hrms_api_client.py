@@ -226,18 +226,241 @@ class HRMSClient:
             raise
 
     # ==================== Attendance Management ====================
-    # TODO: Implement when attendance API is available
 
-    async def mark_attendance(self):
-        """Mark attendance (not yet implemented)"""
-        raise NotImplementedError("Attendance API not yet available")
+    async def get_attendance_records(
+        self,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
+        status: Optional[str] = None
+    ) -> List[Dict[str, Any]]:
+        """
+        Get attendance records for authenticated user
+
+        Args:
+            start_date: Filter from this date (YYYY-MM-DD)
+            end_date: Filter to this date (YYYY-MM-DD)
+            status: Filter by status (Present, Absent, etc.)
+
+        Returns:
+            List of attendance records
+        """
+        try:
+            params = {}
+            if start_date:
+                params["start_date"] = start_date
+            if end_date:
+                params["end_date"] = end_date
+            if status:
+                params["status"] = status
+
+            response = await self.client.get(
+                f"{self.base_url}/api/v1/attendance/records",
+                headers=self._get_headers(),
+                params=params
+            )
+            response.raise_for_status()
+            return response.json()
+        except httpx.HTTPStatusError as e:
+            logger.error(f"HTTP error getting attendance records: {e.response.status_code} - {e.response.text}")
+            raise
+        except Exception as e:
+            logger.error(f"Error getting attendance records: {str(e)}")
+            raise
+
+    async def get_attendance_summary(
+        self,
+        month: Optional[int] = None,
+        year: Optional[int] = None
+    ) -> Dict[str, Any]:
+        """
+        Get attendance summary for a month
+
+        Args:
+            month: Month (1-12)
+            year: Year
+
+        Returns:
+            Attendance summary with statistics
+        """
+        try:
+            params = {}
+            if month:
+                params["month"] = month
+            if year:
+                params["year"] = year
+
+            response = await self.client.get(
+                f"{self.base_url}/api/v1/attendance/summary",
+                headers=self._get_headers(),
+                params=params
+            )
+            response.raise_for_status()
+            return response.json()
+        except httpx.HTTPStatusError as e:
+            logger.error(f"HTTP error getting attendance summary: {e.response.status_code} - {e.response.text}")
+            raise
+        except Exception as e:
+            logger.error(f"Error getting attendance summary: {str(e)}")
+            raise
+
+    async def check_in(self) -> Dict[str, Any]:
+        """
+        Mark check-in for today
+
+        Returns:
+            Attendance record
+        """
+        try:
+            response = await self.client.post(
+                f"{self.base_url}/api/v1/attendance/checkin",
+                headers=self._get_headers()
+            )
+            response.raise_for_status()
+            return response.json()
+        except httpx.HTTPStatusError as e:
+            logger.error(f"HTTP error checking in: {e.response.status_code} - {e.response.text}")
+            raise
+        except Exception as e:
+            logger.error(f"Error checking in: {str(e)}")
+            raise
+
+    async def check_out(self) -> Dict[str, Any]:
+        """
+        Mark check-out for today
+
+        Returns:
+            Updated attendance record
+        """
+        try:
+            response = await self.client.post(
+                f"{self.base_url}/api/v1/attendance/checkout",
+                headers=self._get_headers()
+            )
+            response.raise_for_status()
+            return response.json()
+        except httpx.HTTPStatusError as e:
+            logger.error(f"HTTP error checking out: {e.response.status_code} - {e.response.text}")
+            raise
+        except Exception as e:
+            logger.error(f"Error checking out: {str(e)}")
+            raise
 
     # ==================== Payroll Management ====================
-    # TODO: Implement when payroll API is available
 
-    async def get_payslip(self):
-        """Get payslip (not yet implemented)"""
-        raise NotImplementedError("Payroll API not yet available")
+    async def get_current_payslip(self) -> Dict[str, Any]:
+        """
+        Get current month's payslip
+
+        Returns:
+            Payslip details
+        """
+        try:
+            response = await self.client.get(
+                f"{self.base_url}/api/v1/payroll/current",
+                headers=self._get_headers()
+            )
+            response.raise_for_status()
+            return response.json()
+        except httpx.HTTPStatusError as e:
+            logger.error(f"HTTP error getting current payslip: {e.response.status_code} - {e.response.text}")
+            raise
+        except Exception as e:
+            logger.error(f"Error getting current payslip: {str(e)}")
+            raise
+
+    async def get_payslip(
+        self,
+        month: Optional[int] = None,
+        year: Optional[int] = None
+    ) -> Dict[str, Any]:
+        """
+        Get payslip for a specific month
+
+        Args:
+            month: Month (1-12)
+            year: Year
+
+        Returns:
+            Payslip details
+        """
+        try:
+            params = {}
+            if month:
+                params["month"] = month
+            if year:
+                params["year"] = year
+
+            response = await self.client.get(
+                f"{self.base_url}/api/v1/payroll/breakdown",
+                headers=self._get_headers(),
+                params=params
+            )
+            response.raise_for_status()
+            return response.json()
+        except httpx.HTTPStatusError as e:
+            logger.error(f"HTTP error getting payslip: {e.response.status_code} - {e.response.text}")
+            raise
+        except Exception as e:
+            logger.error(f"Error getting payslip: {str(e)}")
+            raise
+
+    async def get_ytd_summary(self, year: Optional[int] = None) -> Dict[str, Any]:
+        """
+        Get year-to-date payroll summary
+
+        Args:
+            year: Year (defaults to current year)
+
+        Returns:
+            YTD summary with earnings and deductions
+        """
+        try:
+            params = {}
+            if year:
+                params["year"] = year
+
+            response = await self.client.get(
+                f"{self.base_url}/api/v1/payroll/ytd",
+                headers=self._get_headers(),
+                params=params
+            )
+            response.raise_for_status()
+            return response.json()
+        except httpx.HTTPStatusError as e:
+            logger.error(f"HTTP error getting YTD summary: {e.response.status_code} - {e.response.text}")
+            raise
+        except Exception as e:
+            logger.error(f"Error getting YTD summary: {str(e)}")
+            raise
+
+    async def get_tax_summary(self, year: Optional[int] = None) -> Dict[str, Any]:
+        """
+        Get tax summary for a year
+
+        Args:
+            year: Tax year (defaults to current year)
+
+        Returns:
+            Tax summary
+        """
+        try:
+            params = {}
+            if year:
+                params["year"] = year
+
+            response = await self.client.get(
+                f"{self.base_url}/api/v1/payroll/tax-summary",
+                headers=self._get_headers(),
+                params=params
+            )
+            response.raise_for_status()
+            return response.json()
+        except httpx.HTTPStatusError as e:
+            logger.error(f"HTTP error getting tax summary: {e.response.status_code} - {e.response.text}")
+            raise
+        except Exception as e:
+            logger.error(f"Error getting tax summary: {str(e)}")
+            raise
 
     # ==================== Context Manager Support ====================
 
