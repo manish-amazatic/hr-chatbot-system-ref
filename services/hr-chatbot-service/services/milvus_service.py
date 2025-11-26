@@ -5,7 +5,7 @@ Handles vector database operations for RAG
 import logging
 from typing import List, Dict, Any, Optional
 from pymilvus import connections, Collection, FieldSchema, CollectionSchema, DataType, utility
-from langchain.embeddings import OpenAIEmbeddings
+from langchain_classic.embeddings import OpenAIEmbeddings
 
 from utils.config import settings
 

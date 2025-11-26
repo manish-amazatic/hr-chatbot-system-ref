@@ -4,8 +4,8 @@ Integrates LangChain ConversationBufferMemory with database storage
 """
 import logging
 from typing import Optional, Dict, Any, List
-from langchain.memory import ConversationBufferMemory
-from langchain.schema import HumanMessage, AIMessage
+from langchain_classic.memory import ConversationBufferMemory
+from langchain_classic.schema import HumanMessage, AIMessage
 
 from models import ChatSession, ChatMessage
 from services.session_service import SessionService

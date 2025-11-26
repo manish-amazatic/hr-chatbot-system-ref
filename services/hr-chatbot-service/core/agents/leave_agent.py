@@ -7,9 +7,9 @@ from typing import Dict, Any, Optional
 from datetime import datetime
 import json
 
-from langchain.agents import AgentExecutor, create_react_agent
+from langchain_classic.agents import AgentExecutor, create_react_agent
 from langchain.tools import tool
-from langchain.prompts import PromptTemplate
+from langchain_classic.prompts import PromptTemplate
 
 from core.processors.llm_processor import LLMProcessor, LLMProvider
 from core.tools.hrms_api_client import HRMSClient
