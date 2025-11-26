@@ -1,0 +1,380 @@
+# Health and Safety Policy
+
+**Company**: Amazatic Technologies
+**Effective Date**: January 2025
+**Version**: 1.5
+
+## 1. Purpose
+
+Amazatic Technologies is committed to providing a safe and healthy work environment for all employees, contractors, and visitors. This policy outlines safety standards, procedures, and responsibilities.
+
+## 2. Health and Safety Commitment
+
+### 2.1 Management Commitment
+- Zero tolerance for safety violations
+- Continuous improvement of safety standards
+- Regular risk assessments
+- Safety training for all employees
+- Compliance with Occupational Safety and Health regulations
+
+### 2.2 Employee Responsibility
+- Follow all safety procedures
+- Report hazards immediately
+- Use safety equipment provided
+- Participate in safety training
+- Look out for colleagues' safety
+
+## 3. Workplace Safety
+
+### 3.1 Physical Safety
+- **Ergonomic workstations**: Adjustable chairs, proper desk height, monitor placement
+- **Lighting**: Adequate natural and artificial lighting
+- **Temperature control**: AC maintained at 22-24°C
+- **Air quality**: Proper ventilation and air purification systems
+- **Noise levels**: Quiet zones, noise-cancelling options
+
+### 3.2 Fire Safety
+- **Fire extinguishers**: On every floor, inspected monthly
+- **Fire alarms**: Tested quarterly
+- **Emergency exits**: Clearly marked, never blocked
+- **Fire drills**: Conducted twice a year
+- **Assembly points**: Designated safe areas outside building
+- **Fire wardens**: Trained employees on each floor
+
+### 3.3 Electrical Safety
+- Regular inspection of electrical equipment
+- No overloading of power outlets
+- Report frayed wires or damaged equipment immediately
+- Only certified electricians for repairs
+- Unplug devices when not in use
+
+### 3.4 Housekeeping
+- Clutter-free walkways and emergency exits
+- Spills cleaned immediately
+- Cables and wires organized (no tripping hazards)
+- Regular cleaning and pest control
+- Waste disposal in designated bins
+
+## 4. Health and Wellness
+
+### 4.1 Medical Facilities
+- **On-site medical room**: First aid, basic medications
+- **Nurse on duty**: 9 AM to 6 PM on weekdays
+- **Tie-ups with hospitals**: For emergencies
+- **Ambulance service**: On call 24×7
+
+### 4.2 First Aid
+- First aid kits on every floor
+- Trained first aiders (2 per floor)
+- Contact list displayed prominently
+- Monthly replenishment of supplies
+
+### 4.3 Mental Health
+- Employee Assistance Program (EAP): Free counseling (5 sessions per year)
+- Mental health awareness sessions
+- Stress management workshops
+- Flexible work arrangements for mental health needs
+- Confidential support
+
+### 4.4 Ergonomics
+- Ergonomic assessments available
+- Adjustable chairs and desks
+- Monitor stands and laptop risers
+- External keyboard and mouse for laptop users
+- Eye care: Anti-glare screens, 20-20-20 rule (every 20 mins, look 20 feet away for 20 seconds)
+
+## 5. Emergency Procedures
+
+### 5.1 Fire Emergency
+1. **Alert**: Activate fire alarm
+2. **Evacuate**: Leave via nearest exit (don't use elevators)
+3. **Assemble**: At designated assembly point
+4. **Roll call**: Fire wardens conduct headcount
+5. **Wait**: For all-clear from fire department
+
+**Do not**:
+- Use elevators
+- Collect belongings
+- Re-enter building
+
+### 5.2 Medical Emergency
+1. Call on-site nurse (Ext. 111)
+2. Call ambulance if serious (108 or tied-up hospital)
+3. Provide first aid if trained
+4. Notify HR and employee's emergency contact
+5. Accompany employee to hospital if needed
+
+### 5.3 Earthquake
+- **During**: Drop, Cover, and Hold (under desk)
+- **After**: Evacuate cautiously, watch for aftershocks
+- Assemble at open area away from buildings
+
+### 5.4 Active Shooter / Security Threat
+- **Run**: Evacuate if safe to do so
+- **Hide**: Lock doors, turn off lights, silence phones
+- **Fight**: Last resort, use any means to defend
+- Call security (Ext. 100) and police (100)
+
+## 6. COVID-19 and Infectious Disease Protocol
+
+### 6.1 Prevention
+- Hand sanitizers at every entry point and on desks
+- Masks available (voluntary unless mandate)
+- Social distancing norms during outbreaks
+- Regular sanitization of common areas
+- Touchless attendance systems
+
+### 6.2 Symptoms Reporting
+- Report symptoms immediately (fever, cough, cold)
+- Work from home if unwell
+- Testing facility available on-site
+- Sick leave without medical certificate (for flu-like symptoms)
+
+### 6.3 Positive Case Protocol
+- Isolate immediately
+- Contact tracing conducted
+- Deep sanitization of area
+- Notify employees who were in contact (anonymously)
+- Work from home for close contacts
+
+## 7. Substance Abuse Policy
+
+### 7.1 Alcohol and Drugs
+- **Prohibited**: Being under the influence at work
+- **Zero tolerance**: For illegal drugs
+- **Prescription medications**: Notify manager if it affects job performance
+
+### 7.2 Smoking
+- Smoking prohibited inside office premises
+- Designated smoking zones outside building
+- Vaping treated same as smoking
+- Smoking cessation support available
+
+### 7.3 Consequences
+- First offense: Warning
+- Second offense: Suspension
+- Third offense: Termination
+
+## 8. Occupational Health
+
+### 8.1 Annual Health Checkups
+- Free comprehensive health checkup for all employees
+- At empanelled hospitals
+- Includes blood tests, ECG, chest X-ray, doctor consultation
+- Reports confidential (only employee receives)
+
+### 8.2 Vision Care
+- Eye checkups every 6 months for employees with computer-intensive roles
+- Subsidy for prescription glasses (₹5,000 per year)
+- Blue light filter lenses recommended
+
+### 8.3 Workplace Injuries
+- Report all injuries, however minor
+- Document in incident register
+- Medical treatment provided
+- Workers' compensation as per law
+- Investigation to prevent recurrence
+
+### 8.4 Repetitive Strain Injury (RSI) Prevention
+- Ergonomic training
+- Regular breaks (5 min every hour)
+- Stretching exercises
+- Physiotherapy support if needed
+
+## 9. Travel Safety
+
+### 9.1 Domestic Travel
+- Fly with reputed airlines
+- Stay in safe hotels (company-approved)
+- Avoid late-night travel alone
+- Share itinerary with manager
+- Travel insurance provided
+
+### 9.2 International Travel
+- Check travel advisories
+- Vaccinations if required
+- International health insurance
+- Emergency contact: 24×7 hotline
+- Security briefing for high-risk destinations
+
+### 9.3 Commute Safety
+- Cab service for late working hours (post 8 PM)
+- Background-verified drivers
+- GPS tracking of cabs
+- Emergency button in cab app
+- Women employees: Preference for evening cab service
+
+## 10. Security
+
+### 10.1 Physical Security
+- Security guards at all entry/exit points
+- Visitor management system (check-in required)
+- CCTV surveillance (common areas, not inside rooms)
+- Access control (ID card required)
+- Security audit annually
+
+### 10.2 Personal Safety
+- Don't share personal information with unauthorized persons
+- Report suspicious activity
+- Escort policy for visitors
+- After-hours access: Register with security
+
+### 10.3 Workplace Violence
+- Zero tolerance policy
+- Includes physical violence, threats, intimidation
+- Report to security and HR immediately
+- Investigation and action within 24 hours
+- Legal action if warranted
+
+## 11. Incident Reporting
+
+### 11.1 What to Report
+- Accidents and injuries
+- Near misses
+- Safety hazards
+- Security concerns
+- Health issues related to work
+
+### 11.2 Reporting Process
+1. Immediate: Notify supervisor or security
+2. Document: Fill incident report form (on HRMS)
+3. Investigation: Safety officer investigates
+4. Action: Corrective measures implemented
+5. Follow-up: Ensure issue resolved
+
+### 11.3 Anonymous Reporting
+- Safety hotline: 1800-xxx-xxxx
+- Email: safety@amazatic.com
+- Suggestion box
+
+## 12. Personal Protective Equipment (PPE)
+
+### 12.1 Provided by Company
+- Face masks (during health emergencies)
+- Gloves (for housekeeping, facilities staff)
+- Safety shoes (for facilities, warehouse staff)
+- Helmets (for construction/server room visits)
+
+### 12.2 Usage
+- Mandatory in designated areas
+- Training provided
+- Report damaged PPE for replacement
+
+## 13. Hazardous Materials
+
+### 13.1 Identification
+- Clearly labeled storage
+- Material Safety Data Sheets (MSDS) available
+- Restricted access
+
+### 13.2 Handling
+- Only trained personnel
+- Use PPE
+- Proper disposal as per regulations
+
+### 13.3 Spill Response
+- Evacuate area
+- Notify facilities team
+- Trained responders handle cleanup
+
+## 14. Safety Training
+
+### 14.1 Mandatory Training
+- **New joiner orientation**: Safety basics (1 hour)
+- **Fire safety**: Annual drill and training
+- **First aid**: Voluntary (certified training for interested employees)
+- **Ergonomics**: For all desk workers
+
+### 14.2 Specialized Training
+- Fire wardens: Advanced training
+- First aiders: Certified first aid course
+- Floor coordinators: Emergency procedures
+
+### 14.3 Refresher Training
+- Safety training: Annual
+- Fire drills: Semi-annual
+
+## 15. Pregnancy and New Mothers
+
+### 15.1 Workplace Accommodations
+- No heavy lifting or hazardous tasks
+- Flexible hours
+- Additional breaks
+- Ergonomic seating
+- Parking close to entrance
+
+### 15.2 Maternity Room
+- Private room for nursing mothers
+- Comfortable seating, refrigerator
+- Available 9 AM to 7 PM
+
+## 16. Roles and Responsibilities
+
+### 16.1 Management
+- Provide safe workplace
+- Allocate budget for safety measures
+- Lead by example
+
+### 16.2 Safety Officer
+- Conduct risk assessments
+- Investigate incidents
+- Implement safety programs
+- Ensure compliance
+
+### 16.3 Employees
+- Follow safety rules
+- Use PPE when required
+- Report hazards
+- Participate in drills
+- Don't take shortcuts
+
+### 16.4 Security Team
+- Control access
+- Respond to emergencies
+- Patrol premises
+- Monitor CCTV
+
+## 17. Compliance and Audits
+
+### 17.1 Legal Compliance
+- Factories Act (if applicable)
+- Building safety codes
+- Fire safety regulations
+- Electrical safety standards
+
+### 17.2 Audits
+- Internal safety audit: Quarterly
+- External audit: Annual
+- Fire department inspection: Annual
+- Electrical inspection: Annual
+
+### 17.3 Certifications
+- ISO 45001 (Occupational Health and Safety)
+- Building occupancy certificate
+- Fire NOC
+
+## 18. Working Hours and Breaks
+
+### 18.1 Standard Hours
+- 9 AM to 6 PM (with 1-hour lunch)
+- Breaks: Lunch (1 hour) + short breaks (15 min in AM and PM)
+
+### 18.2 Overtime
+- Discouraged for extended periods
+- Breaks mandatory even during overtime
+- Cab facility if working late
+
+### 18.3 Continuous Work
+- Maximum 5 hours without break
+- Screen breaks every hour
+
+## 19. Contact
+
+**Safety and Health Team**
+- Emergency: Ext. 100 (Security) or Ext. 111 (Medical)
+- Safety Officer: safety@amazatic.com
+- Anonymous hotline: 1800-xxx-xxxx
+
+---
+*Your safety is our priority*
+*Last Updated: January 2025*

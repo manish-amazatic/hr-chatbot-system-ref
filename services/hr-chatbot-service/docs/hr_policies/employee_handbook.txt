@@ -1,0 +1,350 @@
+# Employee Handbook
+
+**Amazatic Technologies Private Limited**
+
+**Edition**: 2025
+**Effective Date**: January 1, 2025
+
+---
+
+## Welcome Message
+
+Dear Team Member,
+
+Welcome to Amazatic Technologies! This handbook is your guide to our company culture, policies, and what you can expect as part of our team.
+
+At Amazatic, we believe in:
+- **Innovation**: Pushing boundaries
+- **Integrity**: Doing what's right
+- **Excellence**: Delivering our best
+- **Collaboration**: Succeeding together
+- **Growth**: Continuous improvement
+
+This handbook outlines your rights, responsibilities, and the resources available to you. Please read it carefully and refer to it whenever you have questions.
+
+We're thrilled to have you on board!
+
+**Manish Wadhwani**
+Founder & CEO
+
+---
+
+## Table of Contents
+
+1. About Amazatic
+2. Employment Basics
+3. Compensation and Benefits
+4. Time Off and Leave
+5. Workplace Policies
+6. Professional Development
+7. Performance Management
+8. Health and Safety
+9. Technology and Security
+10. Termination and Separation
+
+---
+
+## 1. About Amazatic
+
+### 1.1 Company Overview
+- **Founded**: 2018
+- **Headquarters**: Bangalore, Karnataka
+- **Industry**: Technology Services
+- **Employees**: 250+
+- **Mission**: Deliver innovative solutions that transform businesses
+
+### 1.2 Our Values
+- **Customer First**: Client success is our success
+- **Innovation**: Embrace change and creativity
+- **Integrity**: Honesty and transparency
+- **Excellence**: High standards in everything
+- **Teamwork**: Collaborate and support each other
+
+### 1.3 Products and Services
+- Custom Software Development
+- Cloud Solutions
+- Mobile App Development
+- AI/ML Consulting
+- DevOps Services
+
+---
+
+## 2. Employment Basics
+
+### 2.1 Employment Status
+- **Full-time**: 40 hours per week
+- **Part-time**: Less than 40 hours (prorated benefits)
+- **Contract**: Fixed-term agreements
+- **Intern**: Training program (3-6 months)
+
+### 2.2 Probation Period
+- Duration: 6 months
+- Performance evaluation at 3 and 6 months
+- Either party may terminate with 1 week notice
+- Upon confirmation: Full benefits and 2-month notice period
+
+### 2.3 Work Hours
+- Standard: 9:00 AM - 6:00 PM, Monday-Friday
+- Flexible hours available after probation
+- Core hours: 10:00 AM - 4:00 PM (mandatory)
+
+### 2.4 Employee Classification
+- **Non-Exempt**: Eligible for overtime
+- **Exempt**: Salaried, no overtime
+
+---
+
+## 3. Compensation and Benefits
+
+### 3.1 Salary
+- Paid monthly on the 28th
+- Direct deposit to bank account
+- Annual increment in April
+- Performance-based bonuses
+
+### 3.2 Benefits Package
+- **Health Insurance**: Employee + Family
+- **Life Insurance**: 3x annual CTC
+- **Accidental Insurance**: 5x annual CTC
+- **Provident Fund**: 12% contribution
+- **Gratuity**: As per law (after 5 years)
+
+### 3.3 Additional Benefits
+- Meal allowance: ₹1,500/month
+- Transport allowance: ₹2,000/month
+- Internet allowance: ₹500/month (for WFH)
+- Mobile allowance: ₹1,000/month
+
+### 3.4 Perks
+- Free snacks and beverages
+- Friday lunches (sponsored)
+- Gym membership subsidy
+- Learning and development budget
+- Team outings (quarterly)
+- Festival bonuses
+
+---
+
+## 4. Time Off and Leave
+
+### 4.1 Leave Types
+- **Annual Leave**: 20 days
+- **Sick Leave**: 12 days
+- **Casual Leave**: 10 days
+- **Maternity Leave**: 26 weeks
+- **Paternity Leave**: 15 days
+- **Compassionate Leave**: 5 days
+- **Marriage Leave**: 5 days
+
+### 4.2 Holidays
+- National holidays: ~12 per year
+- Optional holidays: 3 (choose from list)
+- Published annually in advance
+
+### 4.3 Leave Application
+- Apply through HRMS portal
+- Manager approval required
+- Minimum notice varies by leave type
+- Check detailed Leave Policy
+
+---
+
+## 5. Workplace Policies
+
+### 5.1 Attendance
+- Punctuality expected
+- Check-in/out via HRMS or biometric
+- 90% minimum attendance required
+- See Attendance Policy for details
+
+### 5.2 Dress Code
+- Business casual
+- Client meetings: Formal attire
+- Fridays: Casual (jeans allowed)
+- No offensive clothing
+
+### 5.3 Workplace Behavior
+- Respectful communication
+- No harassment or discrimination
+- Professional conduct
+- Collaborative attitude
+
+### 5.4 Substance Abuse
+- Alcohol-free workplace
+- No illegal drugs
+- Violation may lead to termination
+
+### 5.5 Confidentiality
+- Protect company information
+- NDA binding during and after employment
+- No sharing of proprietary data
+- Secure handling of client information
+
+---
+
+## 6. Professional Development
+
+### 6.1 Learning Opportunities
+- Online course subscriptions
+- Conference attendance
+- Workshop sponsorship
+- Certification support
+- Internal training programs
+
+### 6.2 Career Growth
+- Annual performance reviews
+- Development plans
+- Mentorship programs
+- Internal job postings
+- Promotion opportunities
+
+### 6.3 Learning Budget
+- ₹25,000 per year per employee
+- For courses, certifications, books
+- Manager approval required
+- Use it or lose it (no carry forward)
+
+---
+
+## 7. Performance Management
+
+### 7.1 Review Cycle
+- Annual review in March
+- Mid-year check-in in September
+- Quarterly 1:1s with manager
+- Continuous feedback encouraged
+
+### 7.2 Goals and Objectives
+- Set at beginning of year
+- SMART goals
+- Regular progress tracking
+- Adjusted as needed
+
+### 7.3 Ratings
+- 5-point scale
+- Linked to increment and bonus
+- See Performance Review Policy
+
+---
+
+## 8. Health and Safety
+
+### 8.1 Workplace Safety
+- First aid kits available
+- Fire exits marked
+- Emergency procedures displayed
+- Drills conducted quarterly
+
+### 8.2 Health Support
+- Annual health checkups
+- Mental health counseling (confidential)
+- Ergonomic assessments
+- Wellness programs
+
+### 8.3 Reporting
+- Report incidents immediately
+- Near-misses also reported
+- Investigation conducted
+- Corrective actions taken
+
+---
+
+## 9. Technology and Security
+
+### 9.1 IT Equipment
+- Company laptop provided
+- Mobile phone (if role requires)
+- Accessories as needed
+- Return upon separation
+
+### 9.2 Data Security
+- Use strong passwords
+- Enable 2FA
+- VPN for remote work
+- No sharing of credentials
+- Report security incidents
+
+### 9.3 Acceptable Use
+- Business use primary
+- Limited personal use okay
+- No illegal activities
+- No offensive content
+- Company reserves right to monitor
+
+### 9.4 Social Media
+- Personal accounts separate from work
+- Don't speak for company
+- Respect confidentiality
+- Professional conduct online
+
+---
+
+## 10. Termination and Separation
+
+### 10.1 Resignation
+- Submit in writing
+- Notice period: 2 months (post-probation)
+- Exit interview conducted
+- Full and final settlement
+
+### 10.2 Termination
+- With or without cause
+- Notice or payment in lieu
+- Exit formalities
+- Return company property
+
+### 10.3 Retirement
+- Retirement age: 60 years
+- Gratuity and PF settlement
+- Recognition and farewell
+
+### 10.4 Exit Process
+- Resignation acceptance
+- Knowledge transfer
+- Clearances obtained
+- Exit interview
+- Final settlement (within 45 days)
+
+---
+
+## Important Contacts
+
+### HR Department
+- **Email**: hr@amazatic.com
+- **Phone**: +91-80-1234-5678
+- **In-person**: 3rd Floor, HR Wing
+
+### IT Support
+- **Email**: itsupport@amazatic.com
+- **Phone**: +91-80-1234-5679
+- **Help Desk**: Ground Floor
+
+### Finance
+- **Email**: finance@amazatic.com
+- **Phone**: +91-80-1234-5680
+
+### Facilities
+- **Email**: facilities@amazatic.com
+- **Phone**: +91-80-1234-5681
+
+### Emergency
+- **Security**: +91-98765-43212
+- **Medical**: +91-98765-43213
+
+---
+
+## Acknowledgment
+
+This handbook provides an overview of company policies. Detailed policies are available on the intranet. The company reserves the right to modify policies at any time.
+
+By joining Amazatic, you acknowledge receipt of this handbook and agree to comply with all policies.
+
+**Have questions?** Contact HR at hr@amazatic.com
+
+---
+
+**Thank you for being part of Amazatic Technologies!**
+
+Together, we'll achieve great things.
+
+**Version**: 4.0 | **Date**: January 2025

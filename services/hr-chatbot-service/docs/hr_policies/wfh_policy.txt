@@ -1,0 +1,246 @@
+# Work From Home (WFH) Policy
+
+**Company**: Amazatic Technologies
+**Effective Date**: January 2025
+**Policy Code**: HR-WFH-002
+
+## 1. Policy Overview
+
+This policy outlines guidelines for remote work arrangements, ensuring productivity, accountability, and work-life balance while maintaining team collaboration.
+
+## 2. Eligibility
+
+### 2.1 General Eligibility
+- Completed probation period (6 months)
+- Consistent good performance
+- Role suitable for remote work
+- Reliable internet and workspace at home
+
+### 2.2 Ineligible Roles
+- Roles requiring physical presence
+- New joiners (first 6 months)
+- Employees on performance improvement plan
+
+## 3. WFH Options
+
+### 3.1 Regular WFH
+- Up to 2 days per week
+- Manager pre-approval required
+- Schedule in advance on HRMS
+
+### 3.2 Ad-hoc WFH
+- Same-day request with valid reason
+- Manager approval required
+- Limited to 1 day per week
+
+### 3.3 Extended WFH
+- Medical reasons or special circumstances
+- Requires documentation
+- Manager and HR approval
+- Duration: Up to 2 weeks
+
+### 3.4 Hybrid Work Model
+- Team decides fixed WFH days
+- Mandatory office days: Tuesday, Thursday
+- Optional: Monday, Wednesday, Friday
+
+## 4. Work Expectations
+
+### 4.1 Availability
+- Online during core hours (10 AM - 4 PM)
+- Respond to messages within 30 minutes
+- Available for video calls
+- Update status on communication tools
+
+### 4.2 Communication
+- Daily standup: Mandatory attendance
+- Team meetings: Video on required
+- Use company-approved tools: Slack, Zoom, Teams
+- Update calendar with availability
+
+### 4.3 Productivity
+- Complete assigned tasks on time
+- Track time using approved tools
+- Same deliverables as office work
+- Proactive communication about blockers
+
+## 5. Technology Requirements
+
+### 5.1 Mandatory
+- Stable internet connection (minimum 20 Mbps)
+- Laptop/desktop with updated software
+- Headset with microphone
+- Webcam for video calls
+
+### 5.2 Company Provided
+- Laptop (company property)
+- VPN access for secure connection
+- Access to required software/tools
+- IT support available remotely
+
+### 5.3 Employee Responsibility
+- Home internet costs
+- Electricity
+- Ergonomic setup
+- Secure workspace
+
+## 6. Data Security
+
+### 6.1 Mandatory Practices
+- Use VPN for company network access
+- Secure home WiFi with strong password
+- Lock screen when away
+- No sharing of credentials
+
+### 6.2 Prohibited
+- Using public WiFi for work
+- Storing company data on personal devices
+- Sharing screen with unauthorized persons
+- Working from cafes or co-working spaces without approval
+
+### 6.3 Data Breach
+- Report immediately to IT and manager
+- Investigation initiated
+- Disciplinary action for negligence
+
+## 7. Work Environment
+
+### 7.1 Home Office Requirements
+- Dedicated quiet workspace
+- Minimal distractions
+- Proper lighting
+- Ergonomic setup recommended
+
+### 7.2 Professionalism
+- Appropriate background for video calls
+- Professional attire (at least business casual)
+- Minimize background noise
+- Family members aware of work hours
+
+## 8. Attendance and Time Tracking
+
+### 8.1 Check-in Process
+- Log in via HRMS mobile app
+- Update status on communication platform
+- Log work hours accurately
+
+### 8.2 Break Times
+- Regular break times same as office
+- Lunch break: 1 hour
+- Short breaks: Allowed
+
+### 8.3 Overtime
+- Prior manager approval required
+- Track accurately in HRMS
+- Same rules as office work
+
+## 9. Meeting Guidelines
+
+### 9.1 Video Calls
+- Camera on for team meetings
+- Mute when not speaking
+- Test audio/video before important meetings
+- Be on time
+
+### 9.2 In-person Meetings
+- Attend office meetings when scheduled
+- Minimum 24 hours notice given
+- WFH not applicable on meeting days
+
+## 10. Performance Management
+
+### 10.1 Evaluation Criteria
+- Quality and timeliness of deliverables
+- Communication and collaboration
+- Availability and responsiveness
+- Achievement of goals and KPIs
+
+### 10.2 WFH Privileges
+- May be revoked for poor performance
+- Regular monitoring by managers
+- Feedback sessions as needed
+
+## 11. Special Circumstances
+
+### 11.1 Medical Conditions
+- Pregnant employees: Flexible WFH
+- Medical conditions: With doctor's note
+- Duration as needed
+- Regular check-ins with HR
+
+### 11.2 Natural Disasters/Emergencies
+- Company-wide WFH announced
+- Flexible hours allowed
+- Focus on safety first
+- Regular team communication
+
+### 11.3 Parental Responsibilities
+- Emergencies: Immediate WFH
+- Childcare issues: Discuss with manager
+- Flexible arrangements possible
+
+## 12. Equipment and Support
+
+### 12.1 IT Support
+- Help desk: 9 AM to 6 PM
+- Email: itsupport@amazatic.com
+- Remote assistance available
+- SLA: 4 hours response time
+
+### 12.2 Equipment Issues
+- Report to IT immediately
+- Backup laptop available if needed
+- Repair/replacement process
+- No personal device usage for work
+
+## 13. Expenses and Reimbursements
+
+### 13.1 Not Reimbursable
+- Home internet
+- Electricity
+- Furniture
+- Stationary
+
+### 13.2 Reimbursable
+- VPN/security software (if required)
+- Specific tools approved by IT
+- Business calls/communication
+
+## 14. Termination of WFH Privilege
+
+### 14.1 Reasons
+- Poor performance
+- Productivity decline
+- Security violations
+- Abuse of policy
+- Project requirements
+
+### 14.2 Process
+- Manager discussion
+- HR notification
+- Notice period: 1 week
+- Return to office arrangement
+
+## 15. Policy Review
+
+- Reviewed quarterly
+- Updated based on feedback
+- Changes communicated via email
+
+## 16. Approval Process
+
+1. Request WFH on HRMS portal
+2. Manager reviews and approves/rejects
+3. Notification sent to employee
+4. Update calendar and team
+
+## 17. Contact
+
+**WFH Coordinators**
+- HR: wfh@amazatic.com
+- IT Support: itsupport@amazatic.com
+- Manager: Direct communication
+
+---
+*This policy promotes flexibility while ensuring business continuity*
+*Subject to periodic review and updates*

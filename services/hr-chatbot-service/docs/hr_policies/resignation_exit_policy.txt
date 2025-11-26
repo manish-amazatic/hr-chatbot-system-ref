@@ -1,0 +1,291 @@
+# Resignation and Exit Policy
+
+**Company**: Amazatic Technologies
+**Effective Date**: January 2025
+**Version**: 2.0
+
+## 1. Purpose
+
+This policy outlines the procedures for voluntary resignations, exits, and offboarding to ensure smooth transitions and maintain positive relationships with departing employees.
+
+## 2. Notice Period
+
+### 2.1 Standard Notice Period
+- **Probation period (0-6 months)**: 30 days
+- **Confirmed employees (post-probation)**: 60 days
+- **Manager and above**: 90 days
+- **Senior leadership**: 90 days or as per contract
+
+### 2.2 Notice Period Buyout
+- **Employee request**: Pay in lieu of notice (1 month salary per month)
+- **Company approval**: Required from department head and HR
+- **Processing**: Full and final settlement within 15 days
+
+### 2.3 Waiver of Notice
+- **Company discretion**: May release employee earlier
+- **Reasons**: Redundancy, mutual agreement, performance issues
+- **No payment**: If company initiates early release
+
+## 3. Resignation Process
+
+### 3.1 Resignation Submission
+**Step 1**: Email resignation to manager and HR (resignation@amazatic.com)
+**Step 2**: Resignation letter must include:
+- Last working date (after notice period)
+- Brief reason for leaving (optional)
+- Signature
+
+**Step 3**: HR acknowledges receipt within 24 hours
+
+### 3.2 Resignation Acceptance
+- Manager and HR review
+- Acceptance letter issued within 3 business days
+- Confirms last working date
+- Outlines exit formalities
+
+### 3.3 Counter Offer
+- Manager may make counter offer if employee is valuable
+- **Components**: Salary increase, promotion, role change, project assignment
+- **Employee decision**: Within 3 business days
+- **Acceptance**: Withdraw resignation in writing
+- **Decline**: Exit process continues
+
+## 4. Exit Formalities
+
+### 4.1 Knowledge Transfer (KT)
+- **Duration**: Entire notice period
+- **Components**:
+  - Document ongoing projects and status
+  - Prepare handover notes
+  - Train replacement or team member
+  - Share access to files/systems
+- **Handover meeting**: With manager and team
+- **Completion certificate**: Manager signs off
+
+### 4.2 Return of Company Property
+Items to return before last day:
+- Laptop, mouse, keyboard, accessories
+- Mobile phone (if company-provided)
+- ID card, access cards, building passes
+- Documents, files, hard drives
+- Keys, parking pass
+- Company credit card
+- Books from company library
+- Any other company property
+
+**Process**: IT and Admin verify and sign off
+
+### 4.3 Access Revocation
+- **Last working day**: All system access revoked
+- Email, HRMS, VPN, project tools
+- Building access disabled
+- Remote access disabled
+
+### 4.4 Exit Interview
+- **Conducted by**: HR manager
+- **Duration**: 30-45 minutes
+- **Purpose**: Understand reasons for leaving, gather feedback
+- **Topics**:
+  - Reason for resignation
+  - Work experience at company
+  - Manager relationship
+  - Career growth opportunities
+  - Salary and benefits satisfaction
+  - Suggestions for improvement
+- **Confidential**: Feedback aggregated, not attributed
+
+## 5. Final Settlement
+
+### 5.1 Components
+- **Salary**: Prorated for days worked in final month
+- **Leave encashment**: Unused annual leave balance (max 5 days)
+- **Variable pay**: Prorated annual bonus (if applicable)
+- **Notice period recovery**: Deducted if short notice
+- **Loan recovery**: Any outstanding advances/loans deducted
+
+### 5.2 Deductions
+- Notice period shortfall (if applicable)
+- Any outstanding dues (laptop damage, etc.)
+- Advances and loans
+
+### 5.3 Payment Timeline
+- **With full notice period**: Within 30 days of last working day
+- **Buyout/short notice**: Within 45 days
+
+### 5.4 Documents Provided
+- Full and final settlement statement
+- Experience letter
+- Relieving letter
+- Form 16 (for tax)
+- Service certificate
+- PF withdrawal forms (if required)
+
+## 6. Experience and Relieving Letters
+
+### 6.1 Experience Letter
+- **Content**: Designation, tenure, brief responsibilities
+- **Issuance**: Within 7 days of last working day
+- **Format**: Company letterhead, signed by HR
+
+### 6.2 Relieving Letter
+- **Content**: Confirmation of relieving, last working date, clearance
+- **Issuance**: On last working day (after all clearances)
+- **Important**: Required for joining new company
+
+## 7. References and Background Verification
+
+### 7.1 Reference Checks
+- Future employers may contact HR for reference
+- HR provides: Designation, tenure, employment dates
+- **Not provided**: Salary details, performance ratings (without employee consent)
+
+### 7.2 Background Verification
+- Company may participate in BGV for ex-employees
+- Verification: Employment dates, designation, reason for exit
+- No negative comments unless serious misconduct
+
+## 8. Post-Exit Obligations
+
+### 8.1 Non-Disclosure Agreement (NDA)
+- Remains valid after exit
+- Cannot share confidential information
+- Trade secrets, client data, proprietary code
+- **Penalty**: Legal action, damages
+
+### 8.2 Non-Compete Clause
+- **Duration**: 6-12 months (as per employment contract)
+- **Restrictions**: Cannot join direct competitors, solicit clients/employees
+- **Exceptions**: Mutual agreement to waive
+
+### 8.3 Intellectual Property
+- All work created during employment belongs to company
+- Cannot use company code, designs, ideas in new role
+- Cannot claim ownership post-exit
+
+## 9. Rehire Policy
+
+### 9.1 Eligibility
+- Left in good standing (voluntary resignation)
+- No disciplinary issues
+- Minimum 12 months gap
+- Open position available
+
+### 9.2 Rehire Process
+- Apply through careers portal or contact HR
+- Simplified interview process (1-2 rounds)
+- Reference from previous manager
+- HR and department head approval
+
+### 9.3 Rehire Benefits
+- Previous service not counted for leave accrual or long-service benefits
+- Fresh probation period: 3 months (instead of 6)
+- Market-rate salary (previous salary not considered)
+
+## 10. Retirement
+
+### 10.1 Retirement Age
+- **Standard retirement age**: 60 years
+- **Extension**: Case-by-case for critical roles (max 2 years)
+
+### 10.2 Retirement Process
+- Notify HR 6 months in advance
+- Phased knowledge transfer
+- Retirement farewell event
+- Retirement gifts and recognition
+
+### 10.3 Retirement Benefits
+- **Gratuity**: As per Payment of Gratuity Act
+- **Provident Fund**: Full PF balance
+- **Leave encashment**: All unused leave
+- **Pension**: If enrolled in superannuation
+
+## 11. Exit Types
+
+### 11.1 Voluntary Resignation
+- Employee-initiated
+- Standard notice period applies
+- Full benefits upon exit
+
+### 11.2 Retirement
+- After completing service tenure or reaching age
+- Enhanced benefits
+- Special recognition
+
+### 11.3 End of Contract
+- Fixed-term contracts ending
+- Mutual decision not to renew
+- 30 days notice or as per contract
+
+### 11.4 Absconding
+- Unauthorized absence for 3+ consecutive days
+- No intimation to manager
+- **Action**:
+  - Termination for abandonment of employment
+  - No relieving letter
+  - Notice period dues recovered
+  - Negative reference
+
+## 12. Clearance Certificate
+
+### 12.1 Department Clearances Required
+- **IT**: Return all equipment and accessories
+- **Admin**: Return ID card, access cards, keys
+- **Finance**: Clear any outstanding dues or advances
+- **Library**: Return books
+- **Manager**: Knowledge transfer sign-off
+
+### 12.2 Final Clearance
+- All departments must sign clearance form
+- HR issues No Objection Certificate (NOC)
+- Final settlement processed only after clearances
+
+## 13. Alumni Network
+
+### 13.1 Amazatic Alumni Program
+- All ex-employees automatically enrolled
+- LinkedIn group for networking
+- Invitations to company events
+- Quarterly newsletter
+
+### 13.2 Benefits
+- Referral bonuses continue (if you refer candidates)
+- Rehire preference
+- Networking opportunities
+- Access to company events (select occasions)
+
+## 14. Manager Checklist
+
+When an employee resigns:
+- [ ] Acknowledge resignation immediately
+- [ ] Forward to HR
+- [ ] Discuss reasons and possibility of retention
+- [ ] Plan knowledge transfer
+- [ ] Identify replacement or redistribute work
+- [ ] Conduct exit interview or provide input to HR
+- [ ] Sign clearance after KT completion
+- [ ] Wish employee well
+
+## 15. Employee Checklist
+
+Before last working day:
+- [ ] Submit resignation email
+- [ ] Serve notice period (or buyout)
+- [ ] Complete knowledge transfer
+- [ ] Prepare handover document
+- [ ] Return all company property
+- [ ] Complete exit interview
+- [ ] Obtain clearances from all departments
+- [ ] Collect experience and relieving letters
+- [ ] Verify final settlement amount
+- [ ] Update personal email for future communication
+
+## 16. Contact
+
+**Exit Process Queries**
+- Email: resignation@amazatic.com
+- Phone: +91-80-1234-5680
+- HRMS Portal: Submit resignation online
+
+---
+*We appreciate your contributions and wish you the best in your future endeavors*
+*Last Updated: January 2025*

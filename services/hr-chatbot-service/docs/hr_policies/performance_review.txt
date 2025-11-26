@@ -1,0 +1,323 @@
+# Performance Review Policy
+
+**Organization**: Amazatic Technologies
+**Policy ID**: HR-PERF-001
+**Version**: 2.0
+**Last Updated**: January 2025
+
+## 1. Overview
+
+This policy outlines the performance management system at Amazatic Technologies, including review cycles, evaluation criteria, and development planning.
+
+## 2. Philosophy
+
+Performance management at Amazatic is:
+- **Continuous**: Not just annual reviews
+- **Developmental**: Focus on growth and improvement
+- **Fair**: Based on objective criteria
+- **Transparent**: Clear expectations and feedback
+- **Collaborative**: Manager and employee partnership
+
+## 3. Review Cycles
+
+### 3.1 Annual Performance Review
+- **Timing**: March each year
+- **Period Covered**: April to March
+- **Outcomes**: Rating, increment, promotion decisions
+- **Process**: Self-assessment + Manager review + Calibration
+
+### 3.2 Mid-Year Review
+- **Timing**: September
+- **Purpose**: Progress check-in
+- **Format**: Informal discussion
+- **Outcomes**: Course correction, goal adjustment
+
+### 3.3 Quarterly Check-ins
+- **Frequency**: Quarterly
+- **Duration**: 30-60 minutes
+- **Focus**: Recent performance, immediate goals
+- **Documentation**: Brief notes in HRMS
+
+### 3.4 Continuous Feedback
+- Ongoing throughout the year
+- Real-time feedback encouraged
+- Both positive and constructive
+
+## 4. Performance Rating Scale
+
+### 4.1 5-Point Rating System
+1. **Exceptional (E)** - Consistently exceeds expectations
+   - Far surpasses goals
+   - Significant impact
+   - Role model for others
+   - Top 5% of employees
+
+2. **Exceeds Expectations (EE)** - Regularly exceeds goals
+   - Surpasses all objectives
+   - High-quality work
+   - Proactive and initiative-taking
+   - 15-20% of employees
+
+3. **Meets Expectations (ME)** - Fully meets all requirements
+   - Achieves all goals
+   - Consistent performance
+   - Reliable and dependable
+   - 60-65% of employees
+
+4. **Needs Improvement (NI)** - Partially meets expectations
+   - Some goals not met
+   - Requires support
+   - Developmental areas identified
+   - 10-15% of employees
+
+5. **Unsatisfactory (U)** - Does not meet basic requirements
+   - Significant gaps in performance
+   - Immediate improvement required
+   - May lead to PIP or termination
+   - <5% of employees
+
+### 4.2 Rating Distribution
+- Calibration ensures fairness
+- Forced distribution not mandatory but guidelines exist
+- Focus on accurate assessment, not quota
+
+## 5. Evaluation Criteria
+
+### 5.1 Goal Achievement (40%)
+- Completion of assigned objectives
+- Quality of deliverables
+- Timeliness
+- Impact on team/company goals
+
+### 5.2 Core Competencies (30%)
+- **Technical Skills**: Role-specific expertise
+- **Communication**: Clear and effective
+- **Collaboration**: Teamwork and cooperation
+- **Problem-Solving**: Analytical and creative
+- **Adaptability**: Flexibility and learning agility
+
+### 5.3 Values Alignment (15%)
+- Integrity
+- Respect
+- Excellence
+- Innovation
+- Customer focus
+
+### 5.4 Leadership/Potential (15%)
+- For individual contributors: Self-leadership
+- For managers: Team leadership
+- Initiative and ownership
+- Mentoring and knowledge sharing
+- Future potential
+
+## 6. Review Process
+
+### 6.1 Goal Setting (April)
+- SMART goals defined
+- Aligned with team/company objectives
+- Documented in HRMS
+- Regular tracking throughout year
+
+### 6.2 Self-Assessment (February)
+- Employee completes self-review
+- Evidence of achievements
+- Areas of strength
+- Development needs
+- Career aspirations
+
+### 6.3 Manager Assessment (Early March)
+- Comprehensive evaluation
+- 360-degree feedback considered
+- Rating and comments
+- Development recommendations
+
+### 6.4 Calibration (Mid March)
+- Manager presents to calibration committee
+- Ratings reviewed for consistency
+- Final ratings determined
+- Increment/promotion decisions
+
+### 6.5 Review Discussion (Late March)
+- One-on-one meeting
+- Manager shares rating and feedback
+- Discussion of strengths and areas for improvement
+- New goals set for next year
+- Development plan created
+
+### 6.6 Documentation
+- Review form completed in HRMS
+- Employee acknowledgment
+- Action items documented
+- Filed in employee record
+
+## 7. 360-Degree Feedback
+
+### 7.1 Participants
+- Self
+- Manager
+- Peers (2-3)
+- Direct reports (for managers)
+- Skip-level manager (for senior roles)
+
+### 7.2 Process
+- Anonymous peer feedback
+- Focus on behaviors, not personality
+- Considered in manager's assessment
+- Shared with employee
+
+### 7.3 Areas Assessed
+- Communication
+- Collaboration
+- Leadership
+- Technical expertise
+- Professionalism
+
+## 8. Development Planning
+
+### 8.1 Individual Development Plan (IDP)
+- Created during annual review
+- Skill gaps identified
+- Learning opportunities
+- Timeline and milestones
+- Manager support
+
+### 8.2 Development Activities
+- Training programs
+- Online courses
+- Workshops and seminars
+- Stretch assignments
+- Mentoring
+- Cross-functional projects
+
+### 8.3 Career Progression
+- Career paths discussed
+- Promotion readiness
+- Skill building for next role
+- Long-term goals
+
+## 9. Performance Improvement Plan (PIP)
+
+### 9.1 When Initiated
+- "Needs Improvement" or "Unsatisfactory" rating
+- Consistent underperformance
+- Specific performance issues
+
+### 9.2 PIP Process
+- Clearly defined expectations
+- Specific improvement goals
+- Timeline (typically 60-90 days)
+- Regular check-ins
+- HR involvement
+- Documented progress
+
+### 9.3 PIP Outcomes
+- **Successful**: Return to normal performance management
+- **Unsuccessful**: May lead to role change or termination
+- **Extended**: Additional time if progress shown
+
+## 10. Rewards and Recognition
+
+### 10.1 Based on Performance
+- **Exceptional**: 15-20% increment, promotion consideration
+- **Exceeds Expectations**: 12-15% increment
+- **Meets Expectations**: 8-10% increment
+- **Needs Improvement**: 0-5% increment
+- **Unsatisfactory**: No increment
+
+### 10.2 Promotions
+- Based on performance and readiness
+- Must have "Exceeds" or "Exceptional" rating
+- Demonstrated skills for next level
+- Typically 2-3 years in current role
+
+### 10.3 Bonuses
+- Annual bonus based on rating
+- Company performance factor
+- Individual contribution
+
+## 11. Appeals Process
+
+### 11.1 Grounds for Appeal
+- Process not followed
+- Bias or discrimination
+- Factual errors
+- Significant new information
+
+### 11.2 Appeal Process
+1. Discuss with manager first
+2. Submit written appeal to HR within 10 days
+3. HR reviews with senior management
+4. Decision within 15 working days
+5. Decision is final
+
+## 12. Special Situations
+
+### 12.1 New Hires
+- No review in first year if joining after October
+- Included in next cycle if joining before October
+
+### 12.2 Role Changes
+- Reviewed in previous role if change after October
+- Prorated assessment if significant time in new role
+
+### 12.3 Long Absences
+- Medical leave: Rating based on time worked
+- Maternity/Paternity: No adverse impact
+- Other leave: Case by case basis
+
+### 12.4 Terminations
+- Exit during cycle: Prorated review if applicable
+- No bonus or increment
+
+## 13. Manager Responsibilities
+
+- Set clear expectations
+- Provide regular feedback
+- Document performance (good and bad)
+- Conduct fair and timely reviews
+- Support employee development
+- Address performance issues promptly
+
+## 14. Employee Responsibilities
+
+- Understand performance expectations
+- Seek feedback regularly
+- Document achievements
+- Complete self-assessment honestly
+- Engage in development activities
+- Take ownership of performance
+
+## 15. HR Responsibilities
+
+- Administer review process
+- Provide training on performance management
+- Ensure consistency and fairness
+- Facilitate calibration
+- Handle appeals
+- Maintain records
+
+## 16. Training and Support
+
+- Manager training on performance reviews
+- Employee orientation on process
+- Templates and guidelines available
+- HR support throughout process
+
+## 17. Policy Review
+
+This policy is reviewed annually and may be updated based on:
+- Business needs
+- Best practices
+- Employee feedback
+- Legal requirements
+
+## 18. Contact Information
+
+**Performance Management Team**
+- Email: performance@amazatic.com
+- Phone: +91-80-1234-5681
+- HRMS Support: hrms.support@amazatic.com
+
+---
+*Effective performance management is key to employee development and company success*
+*We're committed to fair, transparent, and developmental review processes*

@@ -1,0 +1,400 @@
+# Data Privacy and Confidentiality Policy
+
+**Company**: Amazatic Technologies
+**Effective Date**: January 2025
+**Version**: 3.0
+
+## 1. Purpose
+
+This policy establishes guidelines for protecting confidential information, personal data, intellectual property, and ensuring compliance with data protection laws including GDPR and Indian IT Act.
+
+## 2. Scope
+
+Applies to:
+- All employees (permanent, contract, intern)
+- Contractors and consultants
+- Third-party vendors with data access
+- All company data (customer, employee, business, technical)
+
+## 3. Types of Confidential Information
+
+### 3.1 Business Information
+- Business strategies and plans
+- Financial data (revenue, costs, projections)
+- Sales data, pricing, discounts
+- Customer lists and contracts
+- Marketing plans and campaigns
+- Supplier and vendor information
+- M&A plans and negotiations
+
+### 3.2 Technical Information
+- Source code and algorithms
+- Technical designs and architectures
+- Patents, inventions, trade secrets
+- Product roadmaps
+- Research and development data
+- Security protocols
+
+### 3.3 Personal Data
+- **Employee data**: Name, address, salary, performance, medical records
+- **Customer data**: PII (Personally Identifiable Information), payment details, usage data
+- **Visitor data**: Access logs, contact information
+
+### 3.4 Intellectual Property
+- Software developed by company
+- Designs, logos, branding
+- Documentation and manuals
+- Presentations and training materials
+
+## 4. Data Classification
+
+### 4.1 Public
+- Marketing materials
+- Public website content
+- Press releases
+- Job postings
+
+**Handling**: Can be shared publicly
+
+### 4.2 Internal
+- General company information
+- Internal announcements
+- Employee directories
+- Policies and procedures
+
+**Handling**: Can be shared within company, not outside
+
+### 4.3 Confidential
+- Customer data
+- Financial reports (non-public)
+- Employee personal data
+- Business plans
+
+**Handling**: Need-to-know basis, encrypted storage and transmission
+
+### 4.4 Highly Confidential / Restricted
+- Trade secrets
+- Merger and acquisition plans
+- Security credentials
+- Legal documents
+- Executive communications
+
+**Handling**: Extremely limited access, MFA required, audit trail
+
+## 5. Employee Data Privacy
+
+### 5.1 Data Collected
+- **Personal**: Name, DOB, address, contact, photo, ID proofs
+- **Professional**: Resume, qualifications, experience, references
+- **Financial**: Bank account, PAN, salary, tax declarations
+- **Attendance**: Work hours, leave records, location data
+- **Performance**: Reviews, ratings, feedback
+- **Health**: Medical records (for insurance), disability information
+
+### 5.2 Purpose of Collection
+- Employment administration
+- Payroll processing
+- Benefits administration
+- Performance management
+- Legal compliance
+
+### 5.3 Employee Rights
+- **Access**: View your personal data (request via HR)
+- **Correction**: Update incorrect data
+- **Deletion**: Request deletion (post-employment, subject to legal retention requirements)
+- **Portability**: Receive data in portable format
+- **Objection**: Object to certain processing (e.g., marketing communications)
+
+### 5.4 Data Retention
+- **Active employment**: Throughout employment + 7 years post-exit
+- **Resumes (not hired)**: 1 year
+- **Payroll records**: 7 years
+- **Performance records**: 5 years post-exit
+
+## 6. Customer Data Privacy
+
+### 6.1 Data Minimization
+- Collect only necessary data
+- Purpose-specific collection
+- Explicit consent obtained
+
+### 6.2 Data Usage
+- Only for agreed purposes
+- No selling of customer data
+- No sharing without consent (except legal requirements)
+
+### 6.3 Data Security
+- Encryption at rest and in transit
+- Access controls (role-based)
+- Regular security audits
+- Vulnerability assessments
+
+### 6.4 Breach Notification
+- Customers notified within 72 hours of discovery
+- Details of breach, data affected, remediation steps
+- Regulatory notification as required
+
+## 7. Confidentiality Obligations
+
+### 7.1 During Employment
+- Do not share confidential information outside company
+- Share internally only on need-to-know basis
+- Use secure channels (company email, encrypted storage)
+- Do not discuss in public places
+- Lock screens when away from desk
+
+### 7.2 Post-Employment
+- Confidentiality obligation continues indefinitely for trade secrets
+- 5 years for other confidential information
+- Return all company data and documents
+- Do not use in new employment
+
+### 7.3 Non-Disclosure Agreement (NDA)
+- Signed at joining
+- Legally binding
+- Breach may result in legal action and damages
+- Extends to freelancers, contractors, vendors
+
+## 8. Data Handling Best Practices
+
+### 8.1 Email
+- Do not send confidential data to personal emails
+- Use encryption for sensitive attachments
+- BCC for mass emails (protect recipient privacy)
+- Auto-delete emails policy: 90 days for non-critical emails
+
+### 8.2 Physical Documents
+- Store in locked cabinets
+- Shred confidential documents (don't just trash)
+- Clean desk policy
+- Visitor escort (don't leave documents unattended)
+
+### 8.3 Digital Storage
+- Use company-approved cloud storage (Google Drive, SharePoint)
+- Do not use personal cloud (Dropbox, personal Google Drive)
+- Encrypt sensitive files
+- Set appropriate access permissions
+
+### 8.4 Devices
+- Company laptops only for work
+- Strong passwords (12+ characters, complex)
+- Enable full-disk encryption
+- Antivirus and security patches up-to-date
+- Remote wipe capability enabled
+
+### 8.5 Printing
+- Minimize printing of confidential documents
+- Collect printouts immediately
+- Use secure print (release at printer with PIN)
+- Shred when no longer needed
+
+## 9. Third-Party Data Sharing
+
+### 9.1 When Sharing is Allowed
+- Legal requirements (court orders, government requests)
+- Service providers under contract (payroll, benefits admin)
+- With customer consent (for specific purposes)
+
+### 9.2 Vendor Management
+- Data Processing Agreements (DPA) signed
+- Security assessments conducted
+- Audit rights retained
+- Data breach notification clauses
+
+## 10. Data Security Measures
+
+### 10.1 Technical Controls
+- **Access control**: Role-based access (RBAC)
+- **Encryption**: AES-256 for data at rest, TLS 1.3 for data in transit
+- **Multi-factor authentication (MFA)**: For all systems with sensitive data
+- **Firewalls and IDS/IPS**: Perimeter security
+- **DLP (Data Loss Prevention)**: Monitor and block unauthorized data transfers
+- **Regular backups**: Daily backups, tested quarterly
+
+### 10.2 Physical Controls
+- **Badge access**: Restricted areas
+- **CCTV**: Common areas (not private spaces)
+- **Visitor management**: Sign-in, escort, badge
+- **Secure disposal**: Shredding, certified e-waste disposal
+
+### 10.3 Administrative Controls
+- Security awareness training (annual, mandatory)
+- Background verification for employees
+- Confidentiality agreements
+- Incident response plan
+- Security audits (quarterly internal, annual external)
+
+## 11. Incident Response
+
+### 11.1 Data Breach Definition
+- Unauthorized access to data
+- Accidental data exposure
+- Data theft or loss
+- Ransomware or cyberattack
+
+### 11.2 Response Steps
+1. **Detect and contain**: Isolate affected systems
+2. **Assess**: Determine scope and impact
+3. **Notify**: Security team, management, legal
+4. **Investigate**: Root cause analysis
+5. **Notify stakeholders**: Customers, employees, regulators (as required)
+6. **Remediate**: Fix vulnerability, restore systems
+7. **Document**: Incident report, lessons learned
+8. **Review**: Update policies and controls
+
+### 11.3 Reporting
+- **Internal**: Report to security@amazatic.com immediately
+- **External**: To regulators within 72 hours (if required by law)
+- **Customers**: Within 72 hours
+
+## 12. Compliance
+
+### 12.1 Indian Laws
+- **Information Technology Act, 2000**
+- **IT (Reasonable Security Practices) Rules, 2011**
+- **Personal Data Protection Bill** (when enacted)
+
+### 12.2 International Laws
+- **GDPR** (for EU customers/employees)
+- **CCPA** (for California customers)
+- Industry-specific (HIPAA for healthcare data, PCI-DSS for payment data)
+
+### 12.3 Audits and Certifications
+- **ISO 27001** (Information Security Management)
+- **SOC 2 Type II** (Security, Availability, Confidentiality)
+- Annual compliance audits
+- Penetration testing (bi-annual)
+
+## 13. Employee Monitoring
+
+### 13.1 What is Monitored
+- Work email (for security and legal purposes)
+- Internet usage (company network)
+- Access logs (systems accessed, times)
+- Time and attendance
+- CCTV in common areas
+
+### 13.2 Purpose
+- Security threat detection
+- Legal compliance
+- Investigation of misconduct
+- Productivity monitoring (transparent)
+
+### 13.3 Employee Rights
+- Informed about monitoring
+- No monitoring in private spaces (restrooms, changing rooms, private cabins)
+- No personal communications monitoring without legal cause
+
+## 14. Social Media and Public Communications
+
+### 14.1 Personal Use
+- Do not share confidential company information
+- Do not speak on behalf of company (unless authorized)
+- Disclaimer: "Views are my own"
+- No defamation of company, colleagues, or clients
+
+### 14.2 Professional Use
+- Authorized employees only for company social media
+- Social media policy training
+- Pre-approval for content
+- Crisis management plan
+
+## 15. Remote Work and BYOD
+
+### 15.1 Work From Home
+- Use company VPN
+- Secure home WiFi (WPA3, strong password)
+- Private workspace (away from family/guests)
+- Screen privacy (no shoulder-surfing)
+
+### 15.2 Bring Your Own Device (BYOD)
+- Discouraged for access to confidential data
+- If allowed: MDM (Mobile Device Management) software installed
+- Company can remote-wipe business data
+- Separate business and personal data
+
+## 16. Consequences of Violation
+
+### 16.1 Disciplinary Action
+- **Minor violation**: Warning, retraining
+- **Serious violation**: Suspension, termination
+- **Gross violation**: Immediate termination, legal action
+
+### 16.2 Legal Consequences
+- Civil lawsuit for damages
+- Criminal charges (under IT Act)
+- Non-compete and NDA enforcement
+
+## 17. Training and Awareness
+
+### 17.1 Mandatory Training
+- Data privacy and security: At joining
+- Refresher training: Annual
+- Specialized training: For roles handling sensitive data (HR, Finance)
+
+### 17.2 Awareness Programs
+- Monthly security tips via email
+- Phishing simulation exercises
+- Data Privacy Day events
+- Posters and reminders
+
+## 18. Data Subject Requests
+
+### 18.1 Request Process
+- Email: privacy@amazatic.com
+- Request form available on intranet
+- Identity verification required
+- Response within 30 days
+
+### 18.2 Types of Requests
+- Access (copy of data)
+- Correction (update data)
+- Deletion (erase data)
+- Portability (transfer data)
+- Objection (stop processing)
+
+## 19. Privacy by Design
+
+### 19.1 Principles
+- Privacy considered from design stage
+- Data minimization
+- Purpose limitation
+- Transparency
+- User control
+
+### 19.2 Privacy Impact Assessment (PIA)
+- Conducted for new projects involving personal data
+- Identify and mitigate privacy risks
+- Documented and approved before launch
+
+## 20. Roles and Responsibilities
+
+### 20.1 Data Protection Officer (DPO)
+- Oversees data protection strategy
+- Ensures compliance
+- Point of contact for regulators and data subjects
+- Reports to CEO
+
+### 20.2 IT Security Team
+- Implement security controls
+- Monitor for threats
+- Respond to incidents
+- Conduct audits
+
+### 20.3 All Employees
+- Follow data handling policies
+- Report incidents immediately
+- Complete training
+- Safeguard credentials
+
+## 21. Contact
+
+**Data Privacy and Security**
+- Data Protection Officer: dpo@amazatic.com
+- Security Incidents: security@amazatic.com (urgent)
+- Privacy Requests: privacy@amazatic.com
+- Phone: +91-80-1234-5700
+
+---
+*Protecting data is everyone's responsibility*
+*Last Updated: January 2025*

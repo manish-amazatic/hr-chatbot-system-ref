@@ -1,0 +1,420 @@
+# Disciplinary Action Policy
+
+**Company**: Amazatic Technologies
+**Effective Date**: January 2025
+**Version**: 1.5
+
+## 1. Purpose
+
+This policy establishes fair and consistent procedures for addressing employee misconduct, performance issues, and policy violations while ensuring due process and legal compliance.
+
+## 2. Core Principles
+
+### 2.1 Progressive Discipline
+- Start with least severe action
+- Escalate if behavior continues
+- Opportunity for improvement
+
+### 2.2 Fairness and Consistency
+- Same rules apply to everyone
+- Similar offenses = similar consequences
+- No discrimination or bias
+
+### 2.3 Documentation
+- Written record of all disciplinary actions
+- Evidence preservation
+- Clear communication
+
+### 2.4 Confidentiality
+- Disciplinary matters kept confidential
+- Disclosed only on need-to-know basis
+
+## 3. Types of Misconduct
+
+### 3.1 Minor Misconduct
+- Occasional lateness or absenteeism
+- Minor policy violations
+- Isolated incidents of poor judgment
+- Inappropriate language (non-offensive)
+- Dress code violations
+
+**Typical Action**: Verbal warning → Written warning
+
+### 3.2 Serious Misconduct
+- Repeated minor misconduct after warnings
+- Insubordination
+- Unauthorized absence (1-2 days)
+- Misuse of company resources
+- Violation of safety procedures
+- Poor performance despite feedback
+- Breach of confidentiality (minor)
+
+**Typical Action**: Written warning → Final written warning → Suspension
+
+### 3.3 Gross Misconduct (Immediate Termination)
+- Theft, fraud, or dishonesty
+- Physical violence or threats
+- Sexual harassment
+- Discrimination or hate speech
+- Substance abuse at work
+- Intentional damage to company property
+- Sharing confidential information with competitors
+- Forgery of documents
+- Bribery or corruption
+- Viewing inappropriate content at work
+- Unauthorized absence (3+ days)
+- Serious safety violations
+
+**Typical Action**: Immediate termination (may bypass progressive discipline)
+
+## 4. Disciplinary Actions
+
+### 4.1 Verbal Warning
+- **Purpose**: Address minor, first-time issues
+- **Process**:
+  1. Private discussion between manager and employee
+  2. Explain the issue and expectation
+  3. Employee acknowledges understanding
+  4. Document the conversation (not given to employee)
+- **Impact**: No formal record in HR file
+- **Validity**: 3 months
+
+### 4.2 Written Warning
+- **Purpose**: Formal notice for repeated or serious issues
+- **Process**:
+  1. Manager documents the issue in writing
+  2. Includes:
+     - Description of violation
+     - Date, time, location
+     - Expected behavior
+     - Consequences if repeated
+     - Employee right to respond
+  3. Meeting with employee to discuss
+  4. Employee signs (signature = acknowledgment, not agreement)
+  5. Copy to HR file
+- **Impact**: Formal record
+- **Validity**: 6 months
+
+### 4.3 Final Written Warning
+- **Purpose**: Last chance before serious action
+- **Process**:
+  1. Detailed written document
+  2. States clearly this is final warning
+  3. Specific improvement plan with timeline
+  4. Consequences of non-compliance (suspension or termination)
+  5. Meeting with employee, manager, and HR
+  6. Employee signature
+  7. Original to HR file
+- **Impact**: Serious mark on record
+- **Validity**: 12 months
+- **Note**: During this period, no promotions or salary increments
+
+### 4.4 Suspension Without Pay
+- **Purpose**: Time to investigate serious misconduct or cool-off period
+- **Duration**: Typically 1-5 days
+- **Process**:
+  1. Immediate suspension letter
+  2. Investigation conducted during suspension
+  3. Decision communicated before end of suspension
+  4. Possible outcomes: Return to work, further disciplinary action, termination
+- **Impact**: Pay deduction + formal record
+
+### 4.5 Demotion
+- **Purpose**: Alternative to termination for poor performance
+- **Process**:
+  1. Offered when performance doesn't meet role requirements
+  2. Move to lower-level role with reduced pay
+  3. Employee consent required (or resignation)
+  4. Performance Improvement Plan (PIP) in new role
+- **Impact**: Salary reduction, title change
+
+### 4.6 Termination
+- **Purpose**: End employment for gross misconduct or repeated violations
+- **Types**:
+  - **Termination for cause**: Immediate (gross misconduct)
+  - **Termination for poor performance**: After PIP failure
+  - **Termination for repeated policy violations**: After progressive discipline
+- **Process**:
+  1. Thorough investigation and documentation
+  2. Legal review (HR + Legal team)
+  3. Termination meeting (manager + HR)
+  4. Termination letter with reasons
+  5. Exit formalities
+- **Impact**: Employment ends, no severance (for cause), legal implications
+
+## 5. Performance Improvement Plan (PIP)
+
+### 5.1 When PIP is Used
+- Consistent underperformance
+- Skills gap
+- Behavioral issues affecting work
+
+### 5.2 PIP Components
+1. **Clear performance gaps**: Specific issues documented
+2. **Measurable goals**: SMART goals for improvement
+3. **Timeline**: Typically 30-90 days
+4. **Support**: Resources, training, coaching
+5. **Check-ins**: Weekly meetings with manager
+6. **Evaluation**: Final assessment at end of PIP
+
+### 5.3 PIP Outcomes
+- **Successful**: Continue in role, PIP closed
+- **Partially successful**: Extend PIP by 30 days
+- **Unsuccessful**: Demotion or termination
+
+## 6. Investigation Process
+
+### 6.1 When Investigation is Required
+- Harassment or discrimination complaints
+- Theft or fraud allegations
+- Policy violations with conflicting accounts
+- Any serious misconduct
+
+### 6.2 Investigation Steps
+1. **Complaint received**: Document in writing
+2. **Immediate action**: Separate parties if needed
+3. **Appoint investigator**: HR or external (for senior roles)
+4. **Gather evidence**: Documents, emails, CCTV, logs
+5. **Interview witnesses**: Complainant, accused, witnesses
+6. **Maintain confidentiality**: Only inform those who need to know
+7. **Document findings**: Investigation report
+8. **Decision**: Within 10 business days
+9. **Action**: Disciplinary action if warranted
+10. **Communication**: To involved parties
+
+### 6.3 Timeline
+- Simple cases: 5-7 business days
+- Complex cases: Up to 30 days
+- Extensions communicated if needed
+
+### 6.4 Suspended During Investigation
+- For serious allegations (harassment, theft, violence)
+- With pay (unless charged criminally)
+- Duration: Until investigation concludes
+
+## 7. Employee Rights During Disciplinary Process
+
+### 7.1 Right to Explanation
+- Understand what policy was violated
+- Receive specific details of allegations
+
+### 7.2 Right to Respond
+- Provide their side of the story
+- Submit written response
+- Present evidence
+
+### 7.3 Right to Representation
+- Have colleague present (not lawyer) in meetings
+- Union representative (if applicable)
+
+### 7.4 Right to Appeal
+- All disciplinary actions can be appealed
+- Appeal within 5 business days
+- Reviewed by higher authority
+
+### 7.5 Right to Confidentiality
+- Disciplinary matters not shared publicly
+- No retaliation for complaints
+
+## 8. Appeal Process
+
+### 8.1 Who Can Appeal
+- Employee who received disciplinary action
+- Must appeal within 5 business days
+
+### 8.2 Appeal Submission
+- Written appeal to HR
+- State reasons for appeal
+- Provide supporting evidence
+
+### 8.3 Appeal Review
+- Reviewed by senior manager or HR director (not involved in original decision)
+- Review within 10 business days
+- May interview employee and witnesses
+- Decision is final
+
+### 8.4 Appeal Outcomes
+- Uphold original decision
+- Reduce severity of action
+- Overturn decision (no action)
+
+## 9. Special Situations
+
+### 9.1 Attendance Issues
+- **First offense**: Verbal warning
+- **Second offense** (within 3 months): Written warning
+- **Third offense**: Final written warning
+- **Fourth offense**: Termination
+
+### 9.2 Performance Issues
+- Regular feedback and coaching first
+- If no improvement: PIP
+- PIP failure: Demotion or termination
+
+### 9.3 Code of Conduct Violations
+- Depends on severity
+- Range from warning to immediate termination
+
+### 9.4 Manager Misconduct
+- Same process applies
+- Investigated by HR + senior leadership
+- Higher standard of conduct expected
+
+## 10. Retaliation Prohibition
+
+- **Prohibited**: Retaliation against employees who report misconduct or participate in investigations
+- **Examples of retaliation**: Demotion, poor review, exclusion, hostility
+- **Consequences**: Termination for retaliation
+
+## 11. Record Keeping
+
+### 11.1 What is Documented
+- All disciplinary actions
+- Investigation reports
+- Employee responses
+- Appeal outcomes
+
+### 11.2 Where Records are Kept
+- Confidential HR file
+- Restricted access (HR only)
+
+### 11.3 How Long Records are Kept
+- Verbal warnings: Not in official file (manager note only)
+- Written warnings: 6 months (then purged if no further issues)
+- Final written warnings: 12 months
+- Terminations: Permanent
+
+## 12. Manager Responsibilities
+
+### 12.1 Address Issues Promptly
+- Don't ignore misconduct
+- Act within 48 hours of becoming aware
+
+### 12.2 Document Everything
+- Keep contemporaneous notes
+- Document date, time, witnesses, what was said/done
+
+### 12.3 Consistency
+- Apply rules fairly to all team members
+- No favoritism
+
+### 12.4 Consult HR
+- Before issuing written warnings or above
+- For complex situations
+- For legal implications
+
+### 12.5 Follow Process
+- No "off the books" disciplinary actions
+- Follow company procedures
+
+## 13. HR Responsibilities
+
+### 13.1 Policy Guidance
+- Advise managers on appropriate actions
+- Ensure legal compliance
+- Maintain consistency
+
+### 13.2 Investigation
+- Conduct or oversee investigations
+- Ensure fair process
+
+### 13.3 Documentation
+- Maintain disciplinary records
+- Prepare documentation for legal defense if needed
+
+### 13.4 Training
+- Train managers on disciplinary procedures
+- Update policy as laws change
+
+## 14. Examples of Violations and Typical Actions
+
+### 14.1 Attendance
+- 1 unauthorized absence: Verbal warning
+- 2-3 absences: Written warning
+- 4+ absences: Termination
+
+### 14.2 Performance
+- One poor quarter: Coaching
+- Two poor quarters: PIP
+- PIP failure: Demotion or termination
+
+### 14.3 Policy Violations
+- Minor (dress code): Verbal warning
+- Serious (data breach): Final warning or termination
+- Gross misconduct (theft): Immediate termination
+
+### 14.4 Behavioral Issues
+- Unprofessional language: Verbal warning
+- Insubordination: Written warning
+- Harassment: Suspension + termination
+
+## 15. Immediate Termination Guidelines
+
+### 15.1 When Immediate Termination is Appropriate
+- Gross misconduct (see Section 3.3)
+- After thorough investigation and evidence
+- Legal review completed
+- CEO/CHRO approval
+
+### 15.2 Process
+1. Immediate suspension (with pay) during investigation
+2. Investigation (typically 3-7 days)
+3. Decision meeting (manager + HR + Legal)
+4. Termination meeting (if warranted)
+5. Exit formalities same day
+
+### 15.3 Termination Meeting
+- Keep it brief (15 minutes)
+- State decision clearly
+- Provide termination letter
+- Collect company property
+- Escort out of office
+- Disable access immediately
+
+## 16. Reinstatement After Termination
+
+### 16.1 When Allowed
+- Termination overturned on appeal
+- Court order
+- Investigation reveals termination was unjustified
+
+### 16.2 Process
+- Back pay for time not worked
+- Expungement of termination from record
+- Public communication (if termination was public)
+
+## 17. Legal Compliance
+
+### 17.1 Applicable Laws
+- Industrial Employment (Standing Orders) Act
+- Shops and Establishments Act (State-specific)
+- Labor laws (State and Central)
+
+### 17.2 Consultation
+- Legal team reviews all terminations
+- Employment lawyer consulted for complex cases
+
+## 18. Union and Labor Relations
+- Disciplinary process may differ for unionized employees
+- Follow collective bargaining agreement
+- Union representative present in meetings
+
+## 19. Confidentiality and Privacy
+
+- Disciplinary matters not discussed publicly
+- Information shared only with:
+  - Employee's direct chain of command
+  - HR
+  - Legal team (if required)
+  - Government authorities (if required by law)
+
+## 20. Contact
+
+**HR Team**
+- For questions: hr@amazatic.com
+- For reporting misconduct: ethics@amazatic.com (anonymous reporting available)
+- Phone: +91-80-1234-5670
+
+---
+*This policy ensures fair, consistent, and legal disciplinary actions*
+*Last Updated: January 2025*

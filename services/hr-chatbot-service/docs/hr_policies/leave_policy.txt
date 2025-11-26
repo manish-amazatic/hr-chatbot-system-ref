@@ -1,0 +1,115 @@
+# Leave Policy - Amazatic Technologies
+
+**Effective Date**: January 1, 2025
+**Version**: 2.0
+
+## 1. Overview
+
+This leave policy outlines the various types of leave available to employees at Amazatic Technologies and the procedures for requesting and approving leave.
+
+## 2. Types of Leave
+
+### 2.1 Annual Leave
+- **Entitlement**: 20 days per calendar year
+- **Accrual**: Prorated based on joining date
+- **Carry Forward**: Maximum 5 days to next year
+- **Encashment**: Allowed upon resignation (unused balance)
+- **Notice Period**: Minimum 7 days advance notice required
+
+### 2.2 Sick Leave
+- **Entitlement**: 12 days per calendar year
+- **Documentation**: Medical certificate required for 3+ consecutive days
+- **Carry Forward**: Not allowed
+- **Encashment**: Not allowed
+
+### 2.3 Casual Leave
+- **Entitlement**: 10 days per calendar year
+- **Usage**: For short-term, unplanned absences
+- **Notice Period**: Can be taken with short notice
+- **Carry Forward**: Not allowed
+
+### 2.4 Maternity Leave
+- **Duration**: 26 weeks (6 months)
+- **Eligibility**: Available to all female employees
+- **Notice**: Inform manager 8 weeks before expected date
+- **Benefits**: Full salary during leave period
+
+### 2.5 Paternity Leave
+- **Duration**: 15 days
+- **Eligibility**: Available to all male employees
+- **Usage**: Must be taken within 3 months of child's birth
+- **Benefits**: Full salary during leave period
+
+### 2.6 Compassionate Leave
+- **Duration**: 5 days per incident
+- **Purpose**: Death of immediate family member
+- **Benefits**: Fully paid
+
+### 2.7 Marriage Leave
+- **Duration**: 5 days
+- **Eligibility**: Once during employment
+- **Notice**: Minimum 30 days advance notice
+- **Benefits**: Fully paid
+
+## 3. Leave Application Process
+
+### 3.1 Advance Planning
+- Submit leave request via HRMS portal
+- Manager approval required
+- Minimum notice periods must be observed
+
+### 3.2 Emergency Leave
+- Inform manager immediately via phone/email
+- Submit formal request within 24 hours
+- Provide supporting documentation
+
+### 3.3 Approval Workflow
+1. Employee submits request
+2. Manager reviews and approves/rejects
+3. HR records the decision
+4. Employee receives notification
+
+## 4. Leave Restrictions
+
+- Maximum 10 consecutive working days without special approval
+- Blackout periods during critical project phases
+- No leave encashment during active employment (except annual leave)
+- Unused sick and casual leave lapses at year-end
+
+## 5. Leave Balance Tracking
+
+- Check balance via HRMS portal
+- Monthly statements sent via email
+- Annual balance reset on January 1
+
+## 6. Special Circumstances
+
+### 6.1 Extended Medical Leave
+- Beyond sick leave entitlement
+- Requires medical board certification
+- May be unpaid based on tenure
+
+### 6.2 Sabbatical
+- Available after 5 years of service
+- Up to 6 months unpaid
+- Requires 6 months advance notice
+- Position not guaranteed upon return
+
+## 7. Policy Violations
+
+Unauthorized absence or misuse of leave may result in:
+- Written warning
+- Salary deduction
+- Disciplinary action
+- Termination (for repeat offenses)
+
+## 8. Contact Information
+
+For questions about leave policy:
+- Email: hr@amazatic.com
+- Phone: +91-80-1234-5678
+- HRMS Portal: https://hrms.amazatic.com
+
+---
+*Last Updated: January 2025*
+*Policy Owner: HR Department*

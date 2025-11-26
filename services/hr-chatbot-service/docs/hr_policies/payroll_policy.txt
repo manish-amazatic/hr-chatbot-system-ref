@@ -1,0 +1,193 @@
+# Payroll and Compensation Policy
+
+**Organization**: Amazatic Technologies
+**Policy ID**: HR-PAY-001
+**Version**: 3.0
+**Effective**: January 2025
+
+## 1. Salary Structure
+
+### 1.1 Components
+- **Basic Salary**: 40% of CTC
+- **House Rent Allowance (HRA)**: 30% of Basic
+- **Special Allowance**: 20% of CTC
+- **Transport Allowance**: ₹2,000 per month
+- **Meal Allowance**: ₹1,500 per month
+
+### 1.2 Variable Components
+- **Performance Bonus**: Up to 20% of annual CTC
+- **Quarterly Incentives**: Based on team/company performance
+- **Annual Increment**: 8-15% based on performance
+
+## 2. Payroll Processing
+
+### 2.1 Pay Schedule
+- **Pay Date**: 28th of every month
+- **Pay Period**: 1st to last day of month
+- **Advance Salary**: Not allowed
+- **Holiday Pay Date**: If 28th is holiday, payment on previous working day
+
+### 2.2 Payslip Distribution
+- Digital payslips via email
+- Downloadable from HRMS portal
+- Confidential - not to be shared
+
+### 2.3 Payment Method
+- Direct bank transfer
+- Salary account with designated bank
+- Account details must be updated in HRMS
+
+## 3. Deductions
+
+### 3.1 Statutory Deductions
+- **Provident Fund (PF)**: 12% of Basic
+- **Professional Tax**: As per state regulations
+- **Income Tax (TDS)**: As per IT Act
+- **Employee State Insurance (ESI)**: If applicable
+
+### 3.2 Other Deductions
+- Loan repayments (if any)
+- Advance recovery
+- Loss of pay for unap proved absence
+- Notice period recovery
+
+### 3.3 Loss of Pay Calculation
+- Per day deduction = Monthly Basic / 30
+- Applies to unauthorized absence
+- Half-day absence = 50% deduction
+
+## 4. Allowances and Reimbursements
+
+### 4.1 Travel Allowances
+- Local travel: Actuals with bills
+- Outstation: Per diem + actual expenses
+- International: As per company policy
+- Claim submission within 30 days
+
+### 4.2 Medical Reimbursement
+- Annual limit: ₹25,000
+- Covers employee and immediate family
+- Requires original bills
+- Submit claims quarterly
+
+### 4.3 Communication Allowance
+- Mobile: ₹1,000 per month
+- Internet: ₹500 per month
+- Actual bill submission not required
+
+### 4.4 Education Allowance
+- ₹2,000 per child per month
+- Maximum 2 children
+- School fee reimbursement
+- Requires fee receipts
+
+## 5. Performance Bonuses
+
+### 5.1 Quarterly Performance Bonus
+- Based on individual and team performance
+- Rating: 1-5 scale
+- Payout: 0-10% of quarterly salary
+- Paid in following quarter
+
+### 5.2 Annual Performance Bonus
+- Based on annual performance review
+- Range: 0-20% of annual CTC
+- Exceptional performers: Up to 30%
+- Paid in April following appraisal cycle
+
+### 5.3 Retention Bonus
+- After 3 years: 1 month salary
+- After 5 years: 2 months salary
+- After 10 years: 3 months salary
+- Payable upon completion anniversary
+
+## 6. Salary Revision
+
+### 6.1 Annual Increment
+- Performance review in March
+- Increments effective from April
+- Range: 8-15% based on rating
+- Exceptional: Up to 20%
+
+### 6.2 Promotion Increment
+- Minimum 15% increment
+- Effective from promotion date
+- Revised designation and responsibilities
+
+### 6.3 Market Correction
+- Periodic salary benchmarking
+- Adjustments for market competitiveness
+- Ad-hoc revisions as needed
+
+## 7. Taxation
+
+### 7.1 Tax Regime
+- Employees may choose old or new tax regime
+- Declaration required by April 30th
+- Changes allowed once per year
+
+### 7.2 Investment Declarations
+- Submit proofs by January 31st
+- Section 80C: Up to ₹1.5 lakhs
+- HRA exemption: Requires rent receipts
+- Form 12BB submission mandatory
+
+### 7.3 Income Tax Statement
+- Form 16 issued by May 31st
+- Available on HRMS portal
+- Required for ITR filing
+
+## 8. Final Settlement
+
+### 8.1 Resignation
+- Full and final settlement within 45 days
+- Includes: Salary, leave encashment, bonus (prorated)
+- Deductions: Notice period recovery, loans
+
+### 8.2 Termination
+- Payment as per termination terms
+- No bonus or incentive payout
+- Statutory dues settled
+
+### 8.3 Retirement
+- Gratuity as per Payment of Gratuity Act
+- PF withdrawal process initiated
+- All pending dues settled
+
+## 9. Salary Confidentiality
+
+- Salary information is strictly confidential
+- Disclosure prohibited (except to authorized personnel)
+- Violation may result in termination
+
+## 10. Grievance Redressal
+
+### 10.1 Query Resolution
+- Contact HR for payroll queries
+- Response within 2 working days
+- Escalate to HR Head if unresolved
+
+### 10.2 Dispute Resolution
+- Submit written complaint to HR
+- Review within 10 working days
+- Escalation to Management if needed
+
+## 11. Payroll Calendar
+
+- **January**: Annual tax declaration
+- **February**: Investment proof submission
+- **March**: Performance appraisals
+- **April**: Increment processing
+- **May**: Form 16 distribution
+- **Quarterly**: Bonus processing
+
+## 12. Contact
+
+**Payroll Team**
+- Email: payroll@amazatic.com
+- Phone: +91-80-1234-5679
+- HRMS Support: hrms.support@amazatic.com
+
+---
+*Policy managed by Finance & HR Department*
+*Review frequency: Annual*

@@ -1,0 +1,392 @@
+# Recruitment and Hiring Policy
+
+**Company**: Amazatic Technologies
+**Effective Date**: January 2025
+**Version**: 3.0
+
+## 1. Purpose and Scope
+
+This policy establishes guidelines for recruiting, selecting, and hiring qualified candidates who align with Amazatic Technologies' values, culture, and business objectives.
+
+**Applies to**: All departments, hiring managers, HR team, and candidates
+
+## 2. Recruitment Principles
+
+### 2.1 Equal Opportunity Employment
+- Merit-based selection
+- No discrimination based on race, gender, age, religion, disability, or sexual orientation
+- Compliance with local labor laws and regulations
+- Fair and transparent process
+
+### 2.2 Hiring Authority
+- Department heads: Approve hiring needs
+- HR: Manages recruitment process
+- Hiring managers: Conduct interviews
+- CEO/COO: Final approval for senior positions
+
+## 3. Workforce Planning
+
+### 3.1 Annual Planning
+- Q4: Department heads submit hiring plans for next year
+- Budget approval required
+- Headcount caps defined
+- Quarterly review and adjustments
+
+### 3.2 Unplanned Hiring
+- Business case required
+- Budget reallocation
+- Emergency hiring (resignation, termination)
+- Approval from department head and CFO
+
+## 4. Position Creation and Approval
+
+### 4.1 Job Description
+- Title and department
+- Reporting relationship
+- Key responsibilities (5-10 points)
+- Required qualifications (education, experience, skills)
+- Preferred qualifications
+- Compensation range
+- Location (office/remote/hybrid)
+
+### 4.2 Approval Workflow
+1. Hiring manager creates job description
+2. HR reviews for compliance and market standards
+3. Department head approves
+4. Finance approves budget
+5. HR publishes job posting
+
+**Timeline**: 5-7 business days for approval
+
+## 5. Sourcing Strategies
+
+### 5.1 Internal Recruitment
+- **First Priority**: Internal candidates
+- Post on company intranet for 7 days
+- Current employees can apply
+- Referral bonus: ₹50,000 for successful hires
+- Internal transfers: Minimum 1 year in current role
+
+### 5.2 External Recruitment
+- Company career portal
+- Job boards (LinkedIn, Naukri, Indeed)
+- Campus recruitment (IITs, NITs, top colleges)
+- Professional networking
+- Recruitment agencies (senior roles only)
+- Social media campaigns
+
+### 5.3 Recruitment Agencies
+- **When to use**: Senior positions, specialized roles, urgent hiring
+- **Fees**: 8-15% of annual CTC
+- **Replacement guarantee**: 90 days
+- **Approved vendors**: Pre-qualified agencies only
+
+## 6. Candidate Experience
+
+### 6.1 Application Process
+- Online application form (10 minutes to complete)
+- Resume/CV upload (PDF, DOC formats)
+- Cover letter (optional)
+- LinkedIn profile (preferred)
+- Portfolio (for design/creative roles)
+
+### 6.2 Communication
+- Acknowledgment within 24 hours
+- Status updates every 7 days
+- Personalized rejection emails
+- Feedback for final round candidates
+- Average response time: 3-5 business days
+
+### 6.3 Application Tracking System (ATS)
+- All applications tracked in HRMS
+- Hiring pipeline visibility
+- Automated communications
+- Compliance documentation
+- Analytics and reporting
+
+## 7. Screening and Assessment
+
+### 7.1 Resume Screening
+- **Criteria**: Education, experience, skills match
+- **Timeline**: Within 3 business days
+- **Outcome**: Shortlist 5-10 candidates per position
+- **Communication**: Email to shortlisted candidates
+
+### 7.2 Phone Screening (Round 1)
+- **Duration**: 15-20 minutes
+- **Conducted by**: HR recruiter
+- **Topics**: Background, motivation, salary expectations, notice period
+- **Outcome**: Shortlist for technical interview
+
+### 7.3 Technical Assessment (Round 2)
+- **Duration**: 60-90 minutes
+- **Format**: Coding test, case study, presentation, or practical assignment
+- **Evaluated by**: Technical team lead
+- **Scoring**: Standardized rubric (0-100)
+- **Pass threshold**: 70%
+
+### 7.4 Technical Interview (Round 3)
+- **Duration**: 60 minutes
+- **Panel**: Hiring manager + 1-2 team members
+- **Focus**: Technical skills, problem-solving, domain knowledge
+- **Format**: Live coding, system design, technical discussion
+- **Evaluation**: Competency-based assessment
+
+### 7.5 Managerial Interview (Round 4)
+- **Duration**: 45 minutes
+- **Conducted by**: Department head
+- **Focus**: Cultural fit, leadership potential, team collaboration
+- **Format**: Behavioral questions (STAR method)
+- **Topics**: Past experiences, conflict resolution, achievements
+
+### 7.6 HR Interview (Round 5)
+- **Duration**: 30 minutes
+- **Conducted by**: HR manager
+- **Topics**: Company culture, benefits, salary negotiation, joining formalities
+- **Documents**: Verify education, experience certificates
+- **Offer discussion**: Compensation, benefits, joining date
+
+## 8. Interview Guidelines
+
+### 8.1 Interview Preparation
+- Review candidate's resume and assessment
+- Prepare structured questions
+- Define evaluation criteria
+- Ensure uninterrupted time and space
+- Use video conferencing for remote candidates
+
+### 8.2 Prohibited Questions
+- Age, marital status, family planning
+- Religious or political beliefs
+- Health conditions (except job-related)
+- Financial status
+- Sexual orientation
+
+### 8.3 Interview Evaluation
+- Complete within 24 hours of interview
+- Standardized scoring (1-5 scale)
+- Written feedback required
+- Collaborative decision-making
+- Consensus for hiring decision
+
+## 9. Background Verification
+
+### 9.1 Mandatory Checks
+- **Education verification**: Degrees, certifications
+- **Employment verification**: Last 2 employers, roles, tenure
+- **Reference checks**: 2 professional references
+- **Identity verification**: Government ID, address proof
+- **Criminal background check**: For all positions
+
+### 9.2 Additional Checks (Senior Roles)
+- Credit check (finance roles)
+- Social media screening
+- Drug testing (specific roles)
+- Driving record (if driving required)
+
+### 9.3 Process
+- **Timing**: After offer acceptance, before joining
+- **Vendor**: Third-party verification agency
+- **Timeline**: 7-10 business days
+- **Action on discrepancy**: Offer withdrawn if major discrepancies found
+
+## 10. Offer Management
+
+### 10.1 Offer Components
+- Job title and department
+- Reporting manager
+- Annual CTC (Cost to Company) breakdown
+- Fixed salary (monthly)
+- Variable pay (performance bonus)
+- Stock options (if applicable)
+- Benefits (health insurance, PF, gratuity)
+- Joining date
+- Probation period: 6 months
+- Notice period: 60 days (post-probation)
+- Work location
+- Offer validity: 7 days
+
+### 10.2 Offer Approval
+1. HR prepares offer letter
+2. Department head approves
+3. Finance approves (budget check)
+4. CHRO/CEO approves (for senior roles)
+5. HR sends offer to candidate
+
+**Timeline**: 2-3 business days
+
+### 10.3 Salary Negotiation
+- Negotiation window: ±10% of initial offer
+- Based on experience and market data
+- Final approval from department head
+- No negotiation on benefits (standardized)
+
+### 10.4 Offer Acceptance
+- Candidate signs offer letter
+- Returns scanned copy via email
+- Confirmation within 7 days
+- Joining date agreed (typically 30-60 days)
+
+## 11. Campus Recruitment
+
+### 11.1 Target Institutions
+- **Tier 1**: IITs, IISC, NITs (top 10)
+- **Tier 2**: Top private engineering colleges
+- **Tier 3**: Top B-schools for MBA roles
+
+### 11.2 Campus Process
+- Pre-placement talk (45 minutes)
+- Written test (aptitude + technical)
+- Group discussion (for MBA candidates)
+- Technical interview
+- HR interview
+- Offer on campus or within 48 hours
+
+### 11.3 Fresher Package
+- **Entry-level Engineer**: ₹6-10 LPA
+- **Senior Engineer (PG)**: ₹12-18 LPA
+- **MBA (Business roles)**: ₹10-15 LPA
+- **Probation**: 6 months
+- **Bond**: 2 years (with repayment clause if leaving early)
+
+## 12. Internship Program
+
+### 12.1 Types of Internships
+- **Summer Internship**: 2-3 months (May-July)
+- **Winter Internship**: 2-3 months (Dec-Jan)
+- **Industrial Training**: 6 months (BTech final year)
+
+### 12.2 Eligibility
+- Students from target institutions
+- Minimum GPA: 7.0/10
+- Relevant skills/coursework
+
+### 12.3 Stipend
+- ₹15,000 - ₹25,000 per month
+- Based on skills and college tier
+
+### 12.4 Pre-Placement Offer (PPO)
+- Top performing interns (top 30%)
+- Full-time offer upon graduation
+- Same package as campus hire
+- Validity: 1 year
+
+## 13. Onboarding Process
+
+### 13.1 Pre-Joining
+- Welcome email with joining details
+- Document submission list
+- First-day agenda
+- IT setup coordination
+- Buddy assignment
+
+### 13.2 First Day
+- Welcome by HR
+- Office tour
+- ID card and access cards
+- IT equipment (laptop, phone if applicable)
+- Introduction to team
+- HR orientation (2 hours)
+
+### 13.3 First Week
+- Department orientation
+- Training schedule
+- Meet key stakeholders
+- Goal setting with manager
+- HRMS portal training
+
+### 13.4 First Month
+- Role-specific training
+- Regular check-ins with manager
+- Buddy meetings
+- HR check-in (feedback session)
+
+### 13.5 Probation Review
+- **3-month review**: Mid-probation feedback
+- **6-month review**: Final probation evaluation
+- **Confirmation**: Probation cleared or extended/terminated
+
+## 14. Diversity and Inclusion
+
+### 14.1 Commitment
+- Diverse hiring panels
+- Blind resume screening (remove personal info)
+- Inclusive job descriptions (avoid gender-biased language)
+- Partnerships with diversity organizations
+
+### 14.2 Goals
+- Gender diversity: Target 40% women in workforce
+- Leadership diversity: Diverse representation at all levels
+- Disability hiring: 3% of workforce
+
+## 15. Recruitment Metrics
+
+### 15.1 Key Performance Indicators (KPIs)
+- Time to hire: Average 30 days
+- Cost per hire: ₹50,000
+- Offer acceptance rate: >80%
+- New hire retention (1 year): >85%
+- Quality of hire (performance rating): >3.5/5
+- Diversity hiring rate: 40%
+
+### 15.2 Reporting
+- Weekly recruitment pipeline updates
+- Monthly hiring dashboard
+- Quarterly diversity report
+- Annual recruitment report
+
+## 16. Compliance and Documentation
+
+### 16.1 Legal Compliance
+- Labor laws (Contract Labour Act, Shops and Establishments Act)
+- Equal opportunity laws
+- Data privacy (candidate data protection)
+- Immigration laws (for international hires)
+
+### 16.2 Document Retention
+- Applications: 1 year
+- Interview evaluations: 2 years
+- Offer letters: Permanent
+- Background verification: Permanent
+
+## 17. Recruitment Budget
+
+### 17.1 Budget Components
+- Job board subscriptions
+- Recruitment agency fees
+- Campus recruitment costs
+- Referral bonuses
+- Recruitment marketing
+- ATS/HRMS license
+
+### 17.2 Budget Approval
+- Annual budget in Q4
+- Quarterly review and reallocation
+- Emergency budget requests
+
+## 18. Exceptions and Escalations
+
+### 18.1 Fast-Track Hiring
+- Critical business need
+- Accelerated process (15-day target)
+- Senior leadership approval
+- Premium compensation allowed
+
+### 18.2 Rehiring (Boomerang Employees)
+- Left in good standing (voluntary resignation)
+- Minimum 1 year gap
+- Manager and HR approval
+- Simplified interview process
+- Joining bonus waived
+
+## 19. Contact Information
+
+**Recruitment Team**
+- General queries: recruitment@amazatic.com
+- Campus hiring: campus@amazatic.com
+- Internships: internships@amazatic.com
+- Phone: +91-80-1234-5600
+
+---
+*This policy ensures fair, efficient, and compliant recruitment practices*
+*Last Updated: January 2025*

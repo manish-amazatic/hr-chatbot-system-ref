@@ -1,0 +1,386 @@
+# Travel and Expense Reimbursement Policy
+
+**Company**: Amazatic Technologies
+**Effective Date**: January 2025
+**Version**: 2.5
+
+## 1. Purpose
+
+This policy outlines guidelines for business travel, expense reimbursement, and ensures cost-effective, compliant, and comfortable travel for employees on company business.
+
+## 2. Scope
+
+**Applies to**: All business-related travel, accommodation, meals, and other expenses incurred by employees for company purposes.
+
+**Not covered**: Personal travel, commuting to office, personal expenses.
+
+## 3. Travel Approval
+
+### 3.1 Approval Requirements
+- **Local travel (same city)**: Manager approval
+- **Domestic travel**: Manager + Travel desk approval
+- **International travel**: Manager + Department head + Travel desk
+
+### 3.2 Advance Notice
+- **Domestic**: 7 days advance notice (preferred)
+- **International**: 15 days advance notice (preferred)
+- **Emergency travel**: Same-day approval possible with justification
+
+### 3.3 Travel Request Process
+1. Submit travel request on HRMS portal
+2. Provide: Destination, dates, purpose, estimated cost
+3. Approval workflow triggered
+4. Once approved, book via company travel portal or travel desk
+
+## 4. Air Travel
+
+### 4.1 Domestic Flights
+- **Fare class**:
+  - Band 1-4: Economy
+  - Band 5-7: Economy (Premium Economy for flights > 2 hours)
+  - Band 8+: Business class (flights > 2 hours)
+- **Booking**: At least 7 days in advance (for best rates)
+- **Preferred airlines**: Indigo, Air India, Vistara, SpiceJet
+- **Direct flights**: Preferred when cost difference is < 20%
+
+### 4.2 International Flights
+- **Fare class**:
+  - Band 1-5: Economy
+  - Band 6-7: Premium Economy or Business (for long-haul > 6 hours)
+  - Band 8+: Business class
+- **Stopovers**: Allowed if reduces cost significantly
+- **Routing**: Most economical route within reason
+
+### 4.3 Flight Booking
+- **Booking via**: Company travel portal (cheaper rates negotiated) or travel desk
+- **Personal bookings**: Reimbursement limited to company portal rates
+- **Cancellation**: Inform travel desk immediately, change fees reimbursed if business reason
+
+### 4.4 Upgrades and Perks
+- **Personal upgrades**: Allowed at employee's cost
+- **Airline loyalty points**: Employee can retain
+- **Lounge access**: Via company credit card or employee's personal card
+
+## 5. Rail Travel
+
+### 5.1 Train Class
+- **Band 1-4**: AC 3-tier or AC 2-tier
+- **Band 5+**: AC 2-tier or AC 1-tier
+- **Overnight travel (>6 hours)**: Higher class allowed for rest
+
+### 5.2 Booking
+- Book via IRCTC or company travel desk
+- Tatkal charges reimbursed (with justification)
+
+## 6. Road Travel
+
+### 6.1 Taxi/Cab
+- **For local travel**: Uber, Ola, or company-approved cabs
+- **Bill submission**: Screenshot or invoice
+- **Approval**: No pre-approval for < ₹1,000
+- **Reimbursement**: Actual fare (within reason)
+
+### 6.2 Car Rental
+- For outstation travel or multiple local visits
+- Book via company travel desk
+- Sedan or SUV based on occupancy
+- Fuel included in rental
+
+### 6.3 Personal Vehicle
+- **Reimbursement**: ₹10 per km (for car), ₹5 per km (for bike)
+- **Requirements**: Valid DL, insurance, vehicle RC
+- **Parking and tolls**: Reimbursed with receipts
+
+### 6.4 Auto-Rickshaw
+- For short local travel
+- Reimbursed up to ₹500 per day without bills
+- With bills for higher amounts
+
+## 7. Accommodation
+
+### 7.1 Hotel Limits (per night)
+- **Tier 1 cities** (Mumbai, Delhi, Bangalore, etc.):
+  - Band 1-4: ₹4,000
+  - Band 5-7: ₹6,000
+  - Band 8+: ₹10,000
+  
+- **Tier 2 cities**:
+  - Band 1-4: ₹3,000
+  - Band 5-7: ₹4,500
+  - Band 8+: ₹7,500
+
+- **Tier 3 cities**:
+  - Band 1-4: ₹2,500
+  - Band 5-7: ₹3,500
+  - Band 8+: ₹5,000
+
+**International**: Based on location, consult travel desk
+
+### 7.2 Hotel Booking
+- Book via company travel portal (preferred hotels with corporate rates)
+- Personal bookings: Reimbursement limited to company rates
+- Preferred: 3-star or 4-star hotels (clean, safe, convenient location)
+
+### 7.3 Hotel Inclusions
+- Room charges (single occupancy)
+- Taxes
+- Breakfast (if included)
+
+### 7.4 Extended Stays
+- For stays > 7 days: Service apartments or monthly hotel rates negotiated
+- Lower per-night cost acceptable
+
+## 8. Meals and Per Diem
+
+### 8.1 Meal Reimbursement (while traveling)
+- **Breakfast**: ₹300 (if not included in hotel)
+- **Lunch**: ₹500
+- **Dinner**: ₹700
+- **Total per day**: ₹1,500
+
+**Actual bills required for amounts > limits**
+
+### 8.2 Per Diem (without bills)
+- **Domestic**: ₹1,000 per day (for meals and incidentals)
+- **International**: As per location (consult travel desk)
+  - US/Europe: $75-100 per day
+  - Southeast Asia: $40-60 per day
+  - Middle East: $60-80 per day
+
+### 8.3 Client Meals
+- Business meals with clients/partners
+- Reasonable expenses (no extravagant dining)
+- Approval: Manager (for > ₹5,000 per meal)
+- Bill must include names of attendees and purpose
+
+### 8.4 Alcohol
+- Alcohol not reimbursed (unless client entertainment and pre-approved)
+- If included in group meal bill, separate out personal alcohol cost
+
+## 9. Other Expenses
+
+### 9.1 Internet and Communication
+- Hotel WiFi (usually free)
+- Mobile roaming (for international travel): Activate and submit bills
+- Local SIM card: Reimbursed if needed for long stays (> 7 days)
+
+### 9.2 Visa and Passport
+- **Business visa**: 100% reimbursed
+- **Passport**: Reimbursed if new or renewal for business travel
+- **Visa photos, courier**: Reimbursed
+
+### 9.3 Travel Insurance
+- Provided by company for international travel
+- Covers: Medical, trip cancellation, lost baggage
+
+### 9.4 Baggage Fees
+- 1 check-in bag reimbursed (if not included in ticket)
+- Excess baggage: Only if carrying company materials (with approval)
+
+### 9.5 Airport Lounge
+- Via company credit card or reimbursed up to ₹1,500 per visit
+
+### 9.6 Currency Exchange
+- Use company forex card (for international travel)
+- Or reimburse forex commission up to 2%
+
+### 9.7 Laundry
+- For trips > 5 days: Up to ₹500 per week
+
+### 9.8 Covid-19 Related
+- RT-PCR tests (if required for travel): Reimbursed
+- Travel vaccinations: Reimbursed
+
+## 10. Expense Submission
+
+### 10.1 Submission Timeline
+- Submit within 15 days of travel completion
+- Late submissions: May not be reimbursed
+
+### 10.2 Required Documentation
+- Original bills and receipts
+- Boarding passes (for flights)
+- Hotel check-out bill
+- Taxi/cab invoices
+- Justification for expenses
+
+### 10.3 Submission Process
+1. Log into HRMS portal
+2. Create expense report
+3. Upload scanned receipts
+4. Submit for approval
+5. Manager reviews and approves
+6. Finance processes payment
+
+### 10.4 Reimbursement Timeline
+- Processed within 10 working days of approval
+- Credited to salary account
+
+### 10.5 Advance Payments
+- For high-cost travel (international, long trips)
+- Request advance (up to 80% of estimated cost)
+- Settle within 15 days of return (refund excess or claim shortfall)
+
+## 11. Company Credit Card
+
+### 11.1 Eligibility
+- Band 6 and above
+- Frequent business travelers
+- Approval from department head
+
+### 11.2 Usage
+- Only for business expenses
+- Submit expense report with bills
+- Personal expenses prohibited (subject to disciplinary action)
+- Monthly reconciliation
+
+### 11.3 Credit Limit
+- Band 6-7: ₹1,00,000
+- Band 8+: ₹2,00,000
+
+## 12. Group Travel
+
+### 12.1 When Applicable
+- Team offsites
+- Conferences
+- Client visits with multiple team members
+
+### 12.2 Arrangements
+- Travel desk coordinates
+- Bulk booking discounts
+- Shared transport where feasible
+- Team meals allowance: ₹800 per person per meal
+
+## 13. Conference and Training Travel
+
+### 13.1 Conference Attendance
+- Registration fee: Reimbursed (pre-approved)
+- Travel and accommodation: As per travel policy
+- Extend for tourism: Personal cost (only accommodation/meals)
+
+### 13.2 Training Programs
+- If company-sponsored: All costs covered
+- If employee-requested: Partial reimbursement (50-100% based on relevance)
+
+## 14. Client Site Visits
+
+### 14.1 Extended Stays
+- If client provides accommodation: No hotel cost
+- Meals: As per per diem or client arrangement
+- Local travel: Reimbursed
+
+### 14.2 Client Hospitality
+- Client dinners, gifts: Pre-approved budget
+- Invoice must mention client name and purpose
+
+## 15. Unutilized Tickets/Bookings
+
+### 15.1 Cancellation
+- If trip cancelled: Cancel bookings immediately
+- Cancellation fees: Reimbursed if unavoidable
+- Refund: Credited back to company
+
+### 15.2 No-Show
+- Employee responsible if failed to cancel
+- May be deducted from reimbursement or salary
+
+## 16. Lost or Missing Receipts
+
+### 16.1 Policy
+- Original receipts required
+- Digital copies acceptable (photo or PDF)
+
+### 16.2 Missing Receipt
+- Affidavit or declaration (for > ₹1,000)
+- Manager approval required
+- Limited to 10% of total expenses per report
+
+## 17. Prohibited Expenses
+
+The following are NOT reimbursed:
+- Personal entertainment (movies, spa, shopping)
+- Alcohol (except pre-approved client entertainment)
+- Traffic fines, parking violations
+- Personal grooming (haircut, salon)
+- Gifts for family/friends
+- Damage charges (hotel, car)
+- Extravagant expenses without justification
+- Expenses without bills (except per diem limits)
+
+## 18. Audit and Compliance
+
+### 18.1 Random Audits
+- Expense reports randomly audited
+- Receipts verified
+- Policy compliance checked
+
+### 18.2 Violations
+- First time: Warning and recovery
+- Repeated: Disciplinary action, expense privileges revoked
+- Fraud: Termination and legal action
+
+## 19. Travel Safety
+
+### 19.1 High-Risk Destinations
+- Travel advisory checked
+- Security briefing required
+- Emergency contact 24×7
+- Additional insurance
+
+### 19.2 Travel Registry
+- All international travel registered with HR
+- Emergency contact provided
+- Itinerary shared
+
+### 19.3 Emergency Support
+- 24×7 helpline for travelers
+- Medical assistance
+- Travel disruption support
+
+## 20. Family Travel
+
+### 20.1 When Allowed
+- Long-term assignments (> 30 days)
+- Relocation
+- Approval from department head
+
+### 20.2 Coverage
+- Spouse and children (up to 2) tickets
+- Family accommodation (larger room or apartment)
+- Additional per diem for family meals
+- Family travel insurance
+
+## 21. Frequent Traveler Benefits
+
+### 21.1 Airline Miles and Hotel Points
+- Employee can retain for personal use
+- Company doesn't claim
+
+### 21.2 Travel Perks
+- Access to premium airport services
+- Priority check-in and boarding
+- Lounge access via company card
+
+## 22. Exceptions
+
+### 22.1 When Exceptions Allowed
+- Client requirements (client pays, higher standards)
+- Emergency situations
+- Health or accessibility needs
+- High-cost locations (e.g., conferences)
+
+### 22.2 Approval
+- Pre-approval from department head or CFO
+- Justification documented
+
+## 23. Contact
+
+**Travel and Expense Team**
+- Travel bookings: travel@amazatic.com
+- Expense queries: expenses@amazatic.com
+- Emergency helpline (24×7): +91-xxxx-xxxxxx
+- HRMS Portal: https://hrms.amazatic.com
+
+---
+*Travel smart, spend wisely*
+*Last Updated: January 2025*

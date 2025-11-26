@@ -1,0 +1,144 @@
+# Attendance and Work Hours Policy
+
+**Company**: Amazatic Technologies
+**Effective Date**: January 1, 2025
+**Policy Number**: HR-ATT-001
+
+## 1. Work Schedule
+
+### 1.1 Standard Working Hours
+- **Monday to Friday**: 9:00 AM to 6:00 PM
+- **Lunch Break**: 1:00 PM to 2:00 PM (unpaid)
+- **Total Work Hours**: 40 hours per week
+- **Saturday**: Optional (as required by project)
+- **Sunday**: Holiday
+
+### 1.2 Flexible Working Hours
+- Core hours: 10:00 AM to 4:00 PM (mandatory presence)
+- Flexible start time: 8:00 AM to 10:00 AM
+- Flexible end time: 5:00 PM to 7:00 PM
+- Must complete 8 hours excluding lunch break
+
+## 2. Attendance Recording
+
+### 2.1 Check-in/Check-out Process
+- Use biometric system or HRMS mobile app
+- Check-in required within 15 minutes of arrival
+- Check-out required before leaving
+- Forgotten check-in/out: Report to HR within 24 hours
+
+### 2.2 Late Arrival
+- Grace period: 15 minutes (twice per month)
+- Beyond grace: Deduction of 1 hour salary
+- Habitual lateness: Subject to disciplinary action
+- More than 3 late arrivals per month: Written warning
+
+### 2.3 Early Departure
+- Requires manager approval
+- Must complete minimum 6 hours
+- Adjust arrival time to compensate
+- Medical emergencies: Exempt from deductions
+
+## 3. Absence Management
+
+### 3.1 Planned Absence
+- Apply for leave through HRMS portal
+- Get manager approval before absence
+- Minimum 24 hours notice for casual leave
+
+### 3.2 Unplanned Absence
+- Notify manager within 2 hours of shift start
+- Submit leave application within 24 hours
+- Medical certificate required for sick leave
+- Unapproved absence: Loss of pay
+
+### 3.3 No Call, No Show
+- First instance: Written warning + salary deduction
+- Second instance: Final warning + 2 days salary deduction
+- Third instance: Termination of employment
+
+## 4. Remote Work Attendance
+
+### 4.1 Work From Home (WFH)
+- Must be pre-approved by manager
+- Check-in via HRMS mobile app
+- Available during core hours for meetings
+- Track work hours same as office days
+
+### 4.2 Remote Work Expectations
+- Respond to emails within 2 hours
+- Attend all scheduled meetings
+- Deliver work as per agreed timelines
+- Maintain communication with team
+
+## 5. Overtime
+
+### 5.1 Overtime Eligibility
+- Prior approval from manager required
+- Maximum 10 hours per week
+- Not applicable to senior management
+
+### 5.2 Overtime Compensation
+- Regular days: 1.5x hourly rate
+- Weekends: 2x hourly rate
+- Holidays: 2.5x hourly rate
+- Compensatory off for extended hours
+
+## 6. Attendance Monitoring
+
+### 6.1 Monthly Reports
+- Attendance reports generated monthly
+- Sent to employees and managers
+- Discrepancies must be reported within 5 days
+
+### 6.2 Attendance Thresholds
+- Minimum attendance: 90% per month
+- Below 85%: Performance review triggered
+- Below 75%: Salary deduction + warning
+
+## 7. Special Situations
+
+### 7.1 Company Events
+- All-hands meetings: Mandatory attendance
+- Team building activities: Encouraged
+- Training sessions: As scheduled
+
+### 7.2 Inclement Weather
+- Use judgment about commute safety
+- WFH option available with manager approval
+- Company may announce work-from-home days
+
+### 7.3 Medical Appointments
+- Schedule during non-core hours when possible
+- Inform manager in advance
+- Adjust work hours to compensate
+- Extended medical appointments: Apply for leave
+
+## 8. Disciplinary Actions
+
+### 8.1 Progressive Discipline
+1. Verbal warning (first offense)
+2. Written warning (second offense)
+3. Final written warning (third offense)
+4. Termination (fourth offense or severe violation)
+
+### 8.2 Serious Violations
+- Falsifying attendance records: Immediate termination
+- Buddy punching: Termination of both parties
+- Consistent policy violations: Termination
+
+## 9. Appeals Process
+
+- Submit written appeal to HR within 5 working days
+- HR reviews with manager and employee
+- Decision made within 10 working days
+- Decision is final
+
+## 10. Policy Review
+
+This policy is reviewed annually and updated as needed.
+Last review date: January 1, 2025
+Next review date: January 1, 2026
+
+---
+*For questions: hr@amazatic.com | +91-80-1234-5678*

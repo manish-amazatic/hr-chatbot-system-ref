@@ -1,0 +1,167 @@
+[
+  {
+    "id": "pol_001",
+    "content": "Leave Policy: Full-time employees are entitled to 20 days of paid annual leave per year. Annual leave accrues monthly at a rate of 1.67 days per month. Leave must be requested at least 2 weeks in advance for approval. Unused leave can be carried forward up to 5 days to the next year. Leave encashment is allowed for a maximum of 10 days per year.",
+    "metadata": {
+      "title": "Annual Leave Entitlement",
+      "category": "Leave Policy",
+      "document_type": "policy",
+      "version": "1.0",
+      "last_updated": "2024-01-01"
+    }
+  },
+  {
+    "id": "pol_002",
+    "content": "Sick Leave Policy: Employees are entitled to 12 days of paid sick leave annually. Medical certificate is required for sick leave exceeding 3 consecutive days. Sick leave cannot be carried forward or encashed. In case of serious illness or hospitalization, additional medical leave may be granted on a case-by-case basis with proper medical documentation.",
+    "metadata": {
+      "title": "Sick Leave Guidelines",
+      "category": "Leave Policy",
+      "document_type": "policy",
+      "version": "1.0",
+      "last_updated": "2024-01-01"
+    }
+  },
+  {
+    "id": "pol_003",
+    "content": "Parental Leave Policy: New mothers are entitled to 16 weeks of paid maternity leave. New fathers or partners are entitled to 2 weeks of paid paternity leave. Adoption leave of 12 weeks is available for employees adopting a child under 12 months old. Parental leave must be applied for at least 4 weeks in advance with supporting documents.",
+    "metadata": {
+      "title": "Maternity and Paternity Leave",
+      "category": "Leave Policy",
+      "document_type": "policy",
+      "version": "1.0",
+      "last_updated": "2024-01-01"
+    }
+  },
+  {
+    "id": "pol_004",
+    "content": "Work Hours and Attendance: Standard working hours are 9:00 AM to 6:00 PM, Monday through Friday, with a 1-hour lunch break. Flexible working hours are available with manager approval, with core hours between 10:00 AM and 4:00 PM. Employees must clock in and out using the attendance system. Late arrival (after 9:15 AM) must be reported to the manager. Three instances of late arrival in a month will result in a written warning.",
+    "metadata": {
+      "title": "Working Hours and Attendance Policy",
+      "category": "Attendance",
+      "document_type": "policy",
+      "version": "1.0",
+      "last_updated": "2024-01-01"
+    }
+  },
+  {
+    "id": "pol_005",
+    "content": "Remote Work Policy: Eligible employees may work remotely up to 2 days per week with manager approval. Remote work arrangements must be formalized in writing. Employees working remotely are expected to be available during core working hours and maintain the same productivity levels. All company policies, including data security and confidentiality, apply to remote work.",
+    "metadata": {
+      "title": "Remote Work Guidelines",
+      "category": "Work Arrangements",
+      "document_type": "policy",
+      "version": "1.0",
+      "last_updated": "2024-01-01"
+    }
+  },
+  {
+    "id": "pol_006",
+    "content": "Payroll Schedule: Salaries are paid on the last working day of each month via bank transfer. Pay slips are available electronically through the HRMS portal. Any payroll discrepancies must be reported to HR within 5 working days. Year-end bonuses are paid in December and are subject to performance evaluation and company profitability.",
+    "metadata": {
+      "title": "Payroll and Compensation",
+      "category": "Payroll",
+      "document_type": "policy",
+      "version": "1.0",
+      "last_updated": "2024-01-01"
+    }
+  },
+  {
+    "id": "pol_007",
+    "content": "Performance Review Process: Annual performance reviews are conducted in December for all employees. Mid-year check-ins occur in June. Performance ratings range from 1 (Needs Improvement) to 5 (Exceptional). Salary increments and promotions are based on performance ratings, with decisions communicated in January. Employees rated below 2 will be placed on a Performance Improvement Plan (PIP).",
+    "metadata": {
+      "title": "Performance Management",
+      "category": "Performance",
+      "document_type": "policy",
+      "version": "1.0",
+      "last_updated": "2024-01-01"
+    }
+  },
+  {
+    "id": "pol_008",
+    "content": "Code of Conduct: All employees must maintain professional behavior at all times. Harassment, discrimination, or bullying of any kind is strictly prohibited. Confidential company information must not be shared externally. Use of company resources for personal gain is forbidden. Violations may result in disciplinary action up to and including termination.",
+    "metadata": {
+      "title": "Employee Code of Conduct",
+      "category": "Conduct",
+      "document_type": "policy",
+      "version": "1.0",
+      "last_updated": "2024-01-01"
+    }
+  },
+  {
+    "id": "pol_009",
+    "content": "Health and Safety Policy: The company is committed to providing a safe work environment. All workplace accidents must be reported immediately to HR and the safety officer. First aid kits are available on each floor. Emergency evacuation procedures are posted throughout the building. Fire drills are conducted quarterly. Employees must not work under the influence of alcohol or drugs.",
+    "metadata": {
+      "title": "Workplace Health and Safety",
+      "category": "Safety",
+      "document_type": "policy",
+      "version": "1.0",
+      "last_updated": "2024-01-01"
+    }
+  },
+  {
+    "id": "pol_010",
+    "content": "Training and Development: Employees are encouraged to pursue professional development opportunities. The company provides an annual training budget of $1,500 per employee for approved courses and certifications. Training requests must be submitted through the HRMS portal with manager approval. Employees who receive company-sponsored training must commit to staying with the company for at least 1 year or reimburse the training costs.",
+    "metadata": {
+      "title": "Training and Development",
+      "category": "Learning",
+      "document_type": "policy",
+      "version": "1.0",
+      "last_updated": "2024-01-01"
+    }
+  },
+  {
+    "id": "pol_011",
+    "content": "Resignation and Notice Period: Employees wishing to resign must provide written notice. Notice period is 30 days for junior positions, 60 days for senior positions, and 90 days for management positions. Exit interviews are mandatory. Final settlement including unused leave encashment will be processed within 30 days of the last working day. Company property must be returned before final settlement.",
+    "metadata": {
+      "title": "Resignation Policy",
+      "category": "Separation",
+      "document_type": "policy",
+      "version": "1.0",
+      "last_updated": "2024-01-01"
+    }
+  },
+  {
+    "id": "pol_012",
+    "content": "Dress Code Policy: Business casual attire is expected Monday through Thursday. Casual Friday allows jeans and casual wear, but clothing should remain professional. Client-facing roles should dress in business formal attire. Offensive or inappropriate clothing is not permitted. During summer months (June-August), relaxed dress code allows shorts and sandals.",
+    "metadata": {
+      "title": "Dress Code Guidelines",
+      "category": "Workplace Standards",
+      "document_type": "policy",
+      "version": "1.0",
+      "last_updated": "2024-01-01"
+    }
+  },
+  {
+    "id": "pol_013",
+    "content": "Holiday Calendar: The company observes 12 public holidays annually as per the national calendar. The official holiday list is published at the start of each year. When a public holiday falls on a weekend, a compensatory off will be granted on the nearest working day. Employees working on public holidays are entitled to double pay or compensatory time off.",
+    "metadata": {
+      "title": "Public Holidays",
+      "category": "Leave Policy",
+      "document_type": "policy",
+      "version": "1.0",
+      "last_updated": "2024-01-01"
+    }
+  },
+  {
+    "id": "pol_014",
+    "content": "Expense Reimbursement: Business expenses must be pre-approved by the manager. Reimbursement claims must be submitted within 30 days with original receipts. Approved categories include travel, accommodation, meals during business trips, and client entertainment. Mileage reimbursement is $0.50 per kilometer. All claims are processed within 15 working days of submission.",
+    "metadata": {
+      "title": "Expense Reimbursement Policy",
+      "category": "Finance",
+      "document_type": "policy",
+      "version": "1.0",
+      "last_updated": "2024-01-01"
+    }
+  },
+  {
+    "id": "pol_015",
+    "content": "Data Security and Privacy: Employees must protect company and customer data. All devices must use company-approved security software and be password-protected. Confidential documents should not be left unattended. Data breaches must be reported immediately to IT and HR. Personal use of company email for sensitive matters is discouraged. GDPR and data protection regulations must be followed at all times.",
+    "metadata": {
+      "title": "Data Security Policy",
+      "category": "IT Security",
+      "document_type": "policy",
+      "version": "1.0",
+      "last_updated": "2024-01-01"
+    }
+  }
+]

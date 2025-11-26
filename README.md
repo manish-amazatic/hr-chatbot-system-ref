@@ -91,11 +91,17 @@ python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
-# Generate HR policy documents (8 files, 46.6 KB)
+# Option 1: Generate and ingest TEXT files (recommended for development)
 python3 scripts/generate_hr_policies.py
-
-# Ingest into Milvus (63 chunks with OpenAI embeddings)
 python3 scripts/ingest_hr_policies.py --drop-existing
+
+# Option 2: Generate and ingest PDF files (assignment requirement)
+python3 scripts/generate_hr_policies_pdf.py
+python3 scripts/ingest_hr_policies_pdf.py --drop-existing
+
+# Both approaches work equally well for RAG
+# Text: 8 files → 63 chunks (877 chars avg)
+# PDF:  8 files → 10 chunks (773 chars avg)
 
 # Start service
 uvicorn api.main:app --reload --port 8000
@@ -309,9 +315,11 @@ Proprietary - Amazatic Technologies
 ---
 
 **Latest Updates (2025-11-26)**:
-- ✅ 8 HR policy documents generated and ingested into Milvus (63 chunks)
+- ✅ PDF generation and ingestion implemented (8 PDFs, 25.8 KB)
+- ✅ Both text and PDF approaches fully operational
+- ✅ PDF-based RAG validated (5/5 tests passing)
+- ✅ 8 HR policy documents available in both formats
 - ✅ Intent classification improved to prioritize policy/informational queries
-- ✅ RAG flow fully tested and validated (5/5 tests passing)
 - ✅ Complete system demo script created
 - ✅ All documentation updated
 
