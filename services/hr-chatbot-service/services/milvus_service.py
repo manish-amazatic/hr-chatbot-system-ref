@@ -42,8 +42,10 @@ class MilvusService:
         self._connected = False
 
         logger.info(
-            f"MilvusService initialized with {settings.embedding_provider} "
-            f"embeddings (model: {settings.embedding_model}, dim: {self.dimension})"
+            "MilvusService initialized with %s embeddings (model: %s, dim: %s)",
+            settings.embedding_provider,
+            settings.embedding_model,
+            self.dimension,
         )
 
     def _create_embedding_model(self):
@@ -56,7 +58,7 @@ class MilvusService:
         provider = settings.embedding_provider
         model = settings.embedding_model
 
-        logger.info(f"Creating embedding model: {provider} - {model}")
+        logger.info("Creating embedding model: %s - %s", provider, model)
 
         if provider == "openai":
             return self._create_openai_embeddings(model)
@@ -159,11 +161,11 @@ class MilvusService:
             )
 
             self._connected = True
-            logger.info(f"Connected to Milvus at {host}:{port}")
+            logger.info("Connected to Milvus at %s:%s", host, port)
             return True
 
         except Exception as e:
-            logger.warning(f"Failed to connect to Milvus: {e}")
+            logger.warning("Failed to connect to Milvus: %s", str(e))
             self._connected = False
             return False
 
@@ -185,12 +187,12 @@ class MilvusService:
             # Drop existing collection if requested
             if drop_existing and utility.has_collection(self.collection_name):
                 utility.drop_collection(self.collection_name)
-                logger.info(f"Dropped existing collection: {self.collection_name}")
+                logger.info("Dropped existing collection: %s", self.collection_name)
 
             # Check if collection already exists
             if utility.has_collection(self.collection_name):
                 self.collection = Collection(self.collection_name)
-                logger.info(f"Using existing collection: {self.collection_name}")
+                logger.info("Using existing collection: %s", self.collection_name)
                 return True
 
             # Define schema
@@ -225,11 +227,11 @@ class MilvusService:
                 index_params=index_params
             )
 
-            logger.info(f"Created collection: {self.collection_name}")
+            logger.info("Created collection: %s", self.collection_name)
             return True
 
         except Exception as e:
-            logger.error(f"Error creating collection: {e}")
+            logger.error("Error creating collection: %s", str(e), exc_info=True)
             return False
 
     def insert_documents(
@@ -268,11 +270,11 @@ class MilvusService:
             self.collection.insert(data)
             self.collection.flush()
 
-            logger.info(f"Inserted {len(documents)} documents into Milvus")
+            logger.info("Inserted %s documents into Milvus", len(documents))
             return True
 
         except Exception as e:
-            logger.error(f"Error inserting documents: {e}")
+            logger.error("Error inserting documents: %s", str(e))
             return False
 
     def search(
@@ -335,11 +337,11 @@ class MilvusService:
                             "distance": hit.distance
                         })
 
-            logger.info(f"Found {len(formatted_results)} results for query: {query[:50]}...")
+            logger.info("Found %s results for query: %s", len(formatted_results), query[:50])
             return formatted_results
 
         except Exception as e:
-            logger.error(f"Error searching: {e}")
+            logger.error("Error searching: %s", str(e), exc_info=True)
             return []
 
     def close(self):
@@ -350,7 +352,7 @@ class MilvusService:
                 self._connected = False
                 logger.info("Disconnected from Milvus")
         except Exception as e:
-            logger.error(f"Error closing Milvus connection: {e}")
+            logger.error("Error closing Milvus connection: %s", str(e), exc_info=True)
 
     def is_available(self) -> bool:
         """Check if Milvus is available"""

@@ -1,5 +1,6 @@
 import api from './api';
 import { Session, Message, ChatRequest, ChatResponse } from '../types/chat.types';
+import { tokenManager } from '../utils/tokenManager';
 
 export class ChatService {
   async getSessions(): Promise<Session[]> {
@@ -37,12 +38,18 @@ export class ChatService {
     onSessionId: (sessionId: string) => void,
     onComplete: (agentUsed: string) => void
   ): Promise<void> {
-    const authHeader = api.defaults.headers.common['Authorization'];
+    // const authHeader = api.defaults.headers.common['Authorization'];
+    let authHeader = '';
+    const token = tokenManager.getToken();
+    if (token ) {
+        authHeader = `Bearer ${token}`;
+    }
+    console.log('Auth Header:', authHeader);
     const response = await fetch(`${api.defaults.baseURL}/api/v1/chat/message/stream`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: authHeader as string,
+        Authorization: authHeader,
       },
       body: JSON.stringify(request),
     });

@@ -12,7 +12,8 @@ import json
 from sqlalchemy.orm import Session
 from sqlalchemy import desc
 
-from core.agents.orchestrator import Orchestrator
+from core.orchestrator import orchestrator
+from core.services.hrms_api import AuthToken
 from services.session_service import SessionService
 from services.memory_service import MemoryService
 from utils.database import get_db
@@ -46,6 +47,7 @@ class Session(BaseModel):
     created_at: str
     updated_at: str
     message_count: int = 0
+
 
 
 @router.post("/message", response_model=ChatResponse)
@@ -115,57 +117,57 @@ async def send_message(
             hrms_token = f"Bearer {authorization}"
 
         # Initialize orchestrator with HRMS token
-        orchestrator = Orchestrator(hrms_token=hrms_token)
 
         # Process the message through orchestrator with memory context
-        result = await orchestrator.process(
-            query=request.message,
-            context={
-                "session_id": session_id,
-                "user_id": user_id,
-                "memory": memory,
-                "conversation_history": memory_service.get_conversation_context(session_id, as_string=True)
-            }
-        )
+        with AuthToken(hrms_token):
+            result = await orchestrator.process(
+                query=request.message,
+                context={
+                    "session_id": session_id,
+                    "user_id": user_id,
+                    "memory": memory,
+                    "conversation_history": memory_service.get_conversation_context(session_id, as_string=True)
+                }
+            )
 
-        # Clean up orchestrator resources
-        await orchestrator.close()
+            # Clean up orchestrator resources
+            await orchestrator.close()
 
-        # Get response details
-        response_text = result.get("response", "I apologize, but I couldn't process your request.")
-        agent_used = result.get("agent_used", "unknown")
-        sources = result.get("metadata", {}).get("sources", [])
-        
-        # Ensure sources is a list of dicts (validate format)
-        if not isinstance(sources, list):
-            sources = []
-        else:
-            # Filter out any non-dict items
-            sources = [s for s in sources if isinstance(s, dict)]
+            # Get response details
+            response_text = result.get("response", "I apologize, but I couldn't process your request.")
+            agent_used = result.get("agent_used", "unknown")
+            sources = result.get("metadata", {}).get("sources", [])
+            
+            # Ensure sources is a list of dicts (validate format)
+            if not isinstance(sources, list):
+                sources = []
+            else:
+                # Filter out any non-dict items
+                sources = [s for s in sources if isinstance(s, dict)]
 
-        # Store assistant message in DB and memory
-        memory_service.add_assistant_message(
-            session_id,
-            response_text,
-            memory,
-            sources=sources,
-            agent_used=agent_used
-        )
+            # Store assistant message in DB and memory
+            memory_service.add_assistant_message(
+                session_id,
+                response_text,
+                memory,
+                sources=sources,
+                agent_used=agent_used
+            )
 
-        # Update session title if it's the first exchange
-        if session.title == "New Chat":
-            # Generate title from first user message (first 50 chars)
-            title = request.message[:50] + "..." if len(request.message) > 50 else request.message
-            SessionService.update_session_title(db, session_id, title)
+            # Update session title if it's the first exchange
+            if session.title == "New Chat":
+                # Generate title from first user message (first 50 chars)
+                title = request.message[:50] + "..." if len(request.message) > 50 else request.message
+                SessionService.update_session_title(db, session_id, title)
 
-        # Build response
-        return ChatResponse(
-            session_id=session_id,
-            response=response_text,
-            sources=sources,
-            agent_used=agent_used,
-            timestamp=datetime.utcnow().isoformat()
-        )
+            # Build response
+            return ChatResponse(
+                session_id=session_id,
+                response=response_text,
+                sources=sources,
+                agent_used=agent_used,
+                timestamp=datetime.utcnow().isoformat()
+            )
 
     except HTTPException:
         raise
@@ -245,56 +247,56 @@ async def send_message_stream(
                 hrms_token = f"Bearer {authorization}"
 
             # Initialize orchestrator
-            orchestrator = Orchestrator(hrms_token=hrms_token)
+            with AuthToken(hrms_token):
+    
+                # For streaming, we need to collect the full response first
+                # (Current agents don't support streaming yet)
+                result = await orchestrator.process(
+                    query=request.message,
+                    context={
+                        "session_id": session_id,
+                        "user_id": user_id,
+                        "memory": memory,
+                        "conversation_history": memory_service.get_conversation_context(session_id, as_string=True)
+                    }
+                )
 
-            # For streaming, we need to collect the full response first
-            # (Current agents don't support streaming yet)
-            result = await orchestrator.process(
-                query=request.message,
-                context={
-                    "session_id": session_id,
-                    "user_id": user_id,
-                    "memory": memory,
-                    "conversation_history": memory_service.get_conversation_context(session_id, as_string=True)
-                }
-            )
+                # Clean up orchestrator
+                await orchestrator.close()
 
-            # Clean up orchestrator
-            await orchestrator.close()
+                # Get response details
+                response_text = result.get("response", "I apologize, but I couldn't process your request.")
+                agent_used = result.get("agent_used", "unknown")
+                sources = result.get("metadata", {}).get("sources", [])
+                
+                # Ensure sources is a list of dicts
+                if not isinstance(sources, list):
+                    sources = []
+                else:
+                    sources = [s for s in sources if isinstance(s, dict)]
 
-            # Get response details
-            response_text = result.get("response", "I apologize, but I couldn't process your request.")
-            agent_used = result.get("agent_used", "unknown")
-            sources = result.get("metadata", {}).get("sources", [])
-            
-            # Ensure sources is a list of dicts
-            if not isinstance(sources, list):
-                sources = []
-            else:
-                sources = [s for s in sources if isinstance(s, dict)]
+                # Stream the response word by word to simulate streaming
+                words = response_text.split()
+                for i, word in enumerate(words):
+                    content = word if i == 0 else f" {word}"
+                    yield f"data: {json.dumps({'type': 'token', 'content': content})}\n\n"
 
-            # Stream the response word by word to simulate streaming
-            words = response_text.split()
-            for i, word in enumerate(words):
-                content = word if i == 0 else f" {word}"
-                yield f"data: {json.dumps({'type': 'token', 'content': content})}\n\n"
+                # Store assistant message
+                memory_service.add_assistant_message(
+                    session_id,
+                    response_text,
+                    memory,
+                    sources=sources,
+                    agent_used=agent_used
+                )
 
-            # Store assistant message
-            memory_service.add_assistant_message(
-                session_id,
-                response_text,
-                memory,
-                sources=sources,
-                agent_used=agent_used
-            )
+                # Update session title if needed
+                if session.title == "New Chat":
+                    title = request.message[:50] + "..." if len(request.message) > 50 else request.message
+                    SessionService.update_session_title(db, session_id, title)
 
-            # Update session title if needed
-            if session.title == "New Chat":
-                title = request.message[:50] + "..." if len(request.message) > 50 else request.message
-                SessionService.update_session_title(db, session_id, title)
-
-            # Send completion event
-            yield f"data: {json.dumps({'type': 'done', 'session_id': session_id, 'agent_used': agent_used})}\n\n"
+                # Send completion event
+                yield f"data: {json.dumps({'type': 'done', 'session_id': session_id, 'agent_used': agent_used})}\n\n"
 
         except Exception as e:
             logger.error(f"Error in streaming: {str(e)}", exc_info=True)

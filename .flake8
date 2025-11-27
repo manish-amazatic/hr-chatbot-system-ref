@@ -1,0 +1,15 @@
+[flake8]
+max-line-length = 120
+
+exclude =
+    services/**/tests/*,
+    .venv,
+    .direnv,
+    .git,
+    __pycache__
+
+filename =
+    *src/*.py
+
+per-file-ignores =
+    # imported but unused

@@ -7,7 +7,8 @@ from typing import Optional
 from langchain.tools import tool
 
 from services.milvus_service import MilvusService
-from core.processors.llm_processor import LLMProcessor
+from core.llm_processor import LLMProcessor
+
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +43,8 @@ def search_hr_policies(query: str) -> str:
         Answer based on company HR policies and guidelines
     """
     try:
-        logger.info(f"Searching HR policies for: {query[:100]}...")
+        logger.info("Starting HR policy search tool****************************: %s", query)
+        logger.info("Searching HR policies for: %s", query[:100])
 
         # Get Milvus service
         milvus = get_milvus_service()
@@ -55,7 +57,7 @@ def search_hr_policies(query: str) -> str:
             )
 
         # Search for relevant documents
-        results = milvus.search(query, k=3, similarity_threshold=0.5)
+        results = milvus.search(query, k=4, similarity_threshold=0.5)
 
         if not results:
             return (
@@ -70,20 +72,22 @@ def search_hr_policies(query: str) -> str:
         # Generate answer using LLM with context (uses configured provider)
         llm = LLMProcessor().get_llm()
 
-        prompt = f"""You are a helpful HR assistant. Based on the following company policy documents, answer the user's question.
+        prompt = f"""
+            You are a helpful HR assistant. Based on the following company policy documents, answer the user's question.
 
-Company Policy Context:
-{context}
+            Company Policy Context:
+            {context}
 
-User Question: {query}
+            User Question: {query}
 
-Instructions:
-- Provide a clear, concise answer based on the policy documents above
-- If the policy documents don't fully answer the question, acknowledge this
-- Be professional and helpful
-- If specific details are missing, suggest contacting HR
+            Instructions:
+            - Provide a clear, concise answer based on the policy documents above
+            - If the policy documents don't fully answer the question, acknowledge this
+            - Be professional and helpful
+            - If specific details are missing, suggest contacting HR
 
-Answer:"""
+            Answer:
+        """
 
         response = llm.invoke(prompt)
 
@@ -93,11 +97,11 @@ Answer:"""
         # Add source attribution
         answer += "\n\n---\nBased on company HR policies and guidelines."
 
-        logger.info(f"Generated HR policy answer ({len(results)} sources)")
+        logger.info("Generated HR policy answer (%s sources)", len(results))
         return answer
 
     except Exception as e:
-        logger.error(f"Error in search_hr_policies: {str(e)}", exc_info=True)
+        logger.error("Error in search_hr_policies: %s", str(e), exc_info=True)
         return (
             f"I encountered an error while searching HR policies: {str(e)}. "
             "Please try rephrasing your question or contact HR directly."
@@ -163,12 +167,12 @@ def ingest_hr_policies(policy_documents: list) -> bool:
         success = milvus.insert_documents(policy_documents)
 
         if success:
-            logger.info(f"Successfully ingested {len(policy_documents)} HR policy documents")
+            logger.info("Successfully ingested %s HR policy documents", len(policy_documents))
         else:
             logger.error("Failed to ingest HR policy documents")
 
         return success
 
     except Exception as e:
-        logger.error(f"Error ingesting HR policies: {e}", exc_info=True)
+        logger.error("Error ingesting HR policies: %s", str(e), exc_info=True)
         return False

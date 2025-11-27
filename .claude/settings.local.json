@@ -22,7 +22,15 @@
       "Bash(python3:*)",
       "Bash(/Users/mw/workbench/ai_workshoap/hr-chatbot-system-ref/test_hrms_api_complete.sh)",
       "Bash(./test_updated_agents.sh:*)",
-      "Bash(/Users/mw/workbench/ai_workshoap/hr-chatbot-system-ref/test_rag_flow.sh)"
+      "Bash(/Users/mw/workbench/ai_workshoap/hr-chatbot-system-ref/test_rag_flow.sh)",
+      "Bash(find:*)",
+      "Bash(unset LLM_MODEL)",
+      "Bash(unset:*)",
+      "Bash(docker logs:*)",
+      "Bash(env)",
+      "Bash(docker compose:*)",
+      "Bash(docker exec:*)",
+      "Bash(docker ps:*)"
     ],
     "deny": [],
     "ask": []

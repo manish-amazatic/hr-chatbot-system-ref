@@ -2,14 +2,70 @@
 HRMS API Client
 Async HTTP client for communicating with HRMS Mock API
 """
-import httpx
 import logging
+from contextlib import AbstractContextManager, AbstractAsyncContextManager
+from contextvars import ContextVar
 from typing import Optional, List, Dict, Any
-from datetime import date
+
+import httpx
 
 from core.config import settings
 
 logger = logging.getLogger(__name__)
+
+# Context variable for token (supports both sync and async contexts)
+_auth_token_context: ContextVar[str] = ContextVar('auth_token', default='')
+
+
+class AuthToken(AbstractContextManager, AbstractAsyncContextManager):
+    """
+    Context manager for token management (supports both sync and async)
+
+    Usage:
+        # Synchronous context
+        with AuthToken("your_token"):
+            client = HRMSClient()
+            # token is available
+        # token is automatically cleared
+
+        # Asynchronous context
+        async with AuthToken("your_token"):
+            client = HRMSClient()
+            # token is available
+        # token is automatically cleared
+    """
+    
+    def __init__(self, token: str):
+        """
+        Initialize token context manager
+
+        Args:
+            token: Authentication token to set
+        """
+        self.token = token
+        self.previous_token = ''
+
+    def __enter__(self):
+        """Sync context manager entry"""
+        self.previous_token = _auth_token_context.get()
+        _auth_token_context.set(self.token)
+        return self
+
+    def __exit__(self, *_):
+        """Sync context manager exit - restore previous token"""
+        _auth_token_context.set(self.previous_token)
+        return False
+
+    async def __aenter__(self):
+        """Async context manager entry"""
+        self.previous_token = _auth_token_context.get()
+        _auth_token_context.set(self.token)
+        return self
+
+    async def __aexit__(self, *_):
+        """Async context manager exit - restore previous token"""
+        _auth_token_context.set(self.previous_token)
+        return False
 
 
 class HRMSClient:
@@ -22,27 +78,52 @@ class HRMSClient:
     - Payroll queries (when available)
 
     Usage:
-        client = HRMSClient(token="Bearer xyz...")
+        client = HRMSClient()
         balance = await client.get_leave_balance()
     """
 
-    def __init__(self, token: Optional[str] = None, base_url: Optional[str] = None):
+    def __init__(self, base_url: Optional[str] = None, token: Optional[str] = None):
         """
         Initialize HRMS client
 
         Args:
-            token: JWT token for authentication (format: "Bearer <token>")
             base_url: HRMS API base URL (defaults to settings)
+            token: Optional authentication token (can also be set via set_token method)
         """
         self.base_url = base_url or settings.hrms_api_url
-        self.token = token
         self.client = httpx.AsyncClient(timeout=30.0)
+        self._instance_token = token
+
+        # If token provided, set it in context
+        if token:
+            _auth_token_context.set(token)
+
+    @property
+    def token(self) -> Optional[str]:
+        """Get the current authentication token"""
+        # Try to get token from: 1) context variable, 2) instance token
+        token = _auth_token_context.get() or self._instance_token
+        token = token.strip()
+        if token:
+            if not token.startswith("Bearer "):
+                token = f"Bearer {token}"
+
+            if token.startswith("bearer "):
+                if token := token[7:].strip():
+                    token = "Bearer " + token
+
+            if token.startswith("Bearer "):
+                return token
 
     def _get_headers(self) -> Dict[str, str]:
         """Get request headers with authentication"""
         headers = {"Content-Type": "application/json"}
-        if self.token:
-            headers["Authorization"] = self.token
+
+        # Try to get token from: 1) context variable, 2) instance token
+        token = _auth_token_context.get() or self._instance_token
+
+        if token := self.token:
+            headers["Authorization"] = token
         return headers
 
     async def close(self):
@@ -61,13 +142,13 @@ class HRMSClient:
 
     async def get_leave_balance(self, year: Optional[int] = None) -> Dict[str, Any]:
         """
-        Get leave balance for the authenticated user
+        Get leave balance for the authenticated user (single leave type)
 
         Args:
             year: Year to get balance for (defaults to current year)
 
         Returns:
-            Leave balance data with types and days available
+            Single leave balance data
 
         Example:
             >>> balance = await client.get_leave_balance()
@@ -89,12 +170,14 @@ class HRMSClient:
                 params=params
             )
             response.raise_for_status()
-            return response.json()
+            res = response.json()
+            return res
         except httpx.HTTPStatusError as e:
             logger.error(f"HTTP error getting leave balance: {e.response.status_code} - {e.response.text}")
             raise
         except Exception as e:
             logger.error(f"Error getting leave balance: {str(e)}")
+            logger.exception(f"Error getting leave balance: {str(e)}")
             raise
 
     async def apply_leave(
@@ -139,10 +222,10 @@ class HRMSClient:
             response.raise_for_status()
             return response.json()
         except httpx.HTTPStatusError as e:
-            logger.error(f"HTTP error applying for leave: {e.response.status_code} - {e.response.text}")
+            logger.error("HTTP error applying for leave: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
-            logger.error(f"Error applying for leave: {str(e)}")
+            logger.error("Error applying for leave: %s", str(e))
             raise
 
     async def get_leave_requests(
@@ -179,10 +262,10 @@ class HRMSClient:
             response.raise_for_status()
             return response.json()
         except httpx.HTTPStatusError as e:
-            logger.error(f"HTTP error getting leave requests: {e.response.status_code} - {e.response.text}")
+            logger.error("HTTP error getting leave requests: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
-            logger.error(f"Error getting leave requests: {str(e)}")
+            logger.error("Error getting leave requests: %s", str(e))
             raise
 
     async def get_leave_request(self, request_id: str) -> Dict[str, Any]:
@@ -203,10 +286,10 @@ class HRMSClient:
             response.raise_for_status()
             return response.json()
         except httpx.HTTPStatusError as e:
-            logger.error(f"HTTP error getting leave request: {e.response.status_code} - {e.response.text}")
+            logger.error("HTTP error getting leave request: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
-            logger.error(f"Error getting leave request: {str(e)}")
+            logger.error("Error getting leave request: %s", str(e))
             raise
 
     async def cancel_leave_request(self, request_id: str) -> Dict[str, Any]:
@@ -227,10 +310,10 @@ class HRMSClient:
             response.raise_for_status()
             return response.json()
         except httpx.HTTPStatusError as e:
-            logger.error(f"HTTP error cancelling leave request: {e.response.status_code} - {e.response.text}")
+            logger.error("HTTP error cancelling leave request: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
-            logger.error(f"Error cancelling leave request: {str(e)}")
+            logger.error("Error cancelling leave request: %s", str(e))
             raise
 
     # ==================== Attendance Management ====================
@@ -269,10 +352,10 @@ class HRMSClient:
             response.raise_for_status()
             return response.json()
         except httpx.HTTPStatusError as e:
-            logger.error(f"HTTP error getting attendance records: {e.response.status_code} - {e.response.text}")
+            logger.error("HTTP error getting attendance records: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
-            logger.error(f"Error getting attendance records: {str(e)}")
+            logger.error("Error getting attendance records: %s", str(e))
             raise
 
     async def get_attendance_summary(
@@ -305,10 +388,10 @@ class HRMSClient:
             response.raise_for_status()
             return response.json()
         except httpx.HTTPStatusError as e:
-            logger.error(f"HTTP error getting attendance summary: {e.response.status_code} - {e.response.text}")
+            logger.error("HTTP error getting attendance summary: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
-            logger.error(f"Error getting attendance summary: {str(e)}")
+            logger.error("Error getting attendance summary: %s", str(e))
             raise
 
     async def check_in(self) -> Dict[str, Any]:
@@ -326,10 +409,10 @@ class HRMSClient:
             response.raise_for_status()
             return response.json()
         except httpx.HTTPStatusError as e:
-            logger.error(f"HTTP error checking in: {e.response.status_code} - {e.response.text}")
+            logger.error("HTTP error checking in: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
-            logger.error(f"Error checking in: {str(e)}")
+            logger.error("Error checking in: %s", str(e))
             raise
 
     async def check_out(self) -> Dict[str, Any]:
@@ -347,10 +430,10 @@ class HRMSClient:
             response.raise_for_status()
             return response.json()
         except httpx.HTTPStatusError as e:
-            logger.error(f"HTTP error checking out: {e.response.status_code} - {e.response.text}")
+            logger.error("HTTP error checking out: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
-            logger.error(f"Error checking out: {str(e)}")
+            logger.error("Error checking out: %s", str(e))
             raise
 
     # ==================== Payroll Management ====================
@@ -370,10 +453,10 @@ class HRMSClient:
             response.raise_for_status()
             return response.json()
         except httpx.HTTPStatusError as e:
-            logger.error(f"HTTP error getting current payslip: {e.response.status_code} - {e.response.text}")
+            logger.error("HTTP error getting current payslip: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
-            logger.error(f"Error getting current payslip: {str(e)}")
+            logger.error("Error getting current payslip: %s", str(e))
             raise
 
     async def get_payslip(
@@ -406,10 +489,10 @@ class HRMSClient:
             response.raise_for_status()
             return response.json()
         except httpx.HTTPStatusError as e:
-            logger.error(f"HTTP error getting payslip: {e.response.status_code} - {e.response.text}")
+            logger.error("HTTP error getting payslip: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
-            logger.error(f"Error getting payslip: {str(e)}")
+            logger.error("Error getting payslip: %s", str(e))
             raise
 
     async def get_ytd_summary(self, year: Optional[int] = None) -> Dict[str, Any]:
@@ -435,10 +518,10 @@ class HRMSClient:
             response.raise_for_status()
             return response.json()
         except httpx.HTTPStatusError as e:
-            logger.error(f"HTTP error getting YTD summary: {e.response.status_code} - {e.response.text}")
+            logger.error("HTTP error getting YTD summary: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
-            logger.error(f"Error getting YTD summary: {str(e)}")
+            logger.error("Error getting YTD summary: %s", str(e))
             raise
 
     async def get_tax_summary(self, year: Optional[int] = None) -> Dict[str, Any]:
@@ -464,10 +547,10 @@ class HRMSClient:
             response.raise_for_status()
             return response.json()
         except httpx.HTTPStatusError as e:
-            logger.error(f"HTTP error getting tax summary: {e.response.status_code} - {e.response.text}")
+            logger.error("HTTP error getting tax summary: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
-            logger.error(f"Error getting tax summary: {str(e)}")
+            logger.error("Error getting tax summary: %s", str(e))
             raise
 
     # ==================== Context Manager Support ====================
@@ -479,3 +562,8 @@ class HRMSClient:
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         """Async context manager exit"""
         await self.close()
+
+
+hrms_client = HRMSClient()
+
+__all__ = ["HRMSClient", "hrms_client", "AuthToken"]

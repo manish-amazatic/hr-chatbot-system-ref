@@ -22,7 +22,8 @@ if db_dir and not os.path.exists(db_dir):
 engine = create_engine(
     settings.database_url,
     connect_args={"check_same_thread": False},
-    echo=settings.debug
+    # echo=settings.debug
+    echo=False
 )
 
 # Create session factory

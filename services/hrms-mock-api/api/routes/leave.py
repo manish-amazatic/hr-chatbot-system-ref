@@ -56,7 +56,7 @@ class LeaveRequestResponse(BaseModel):
     updated_at: str
 
 
-class LeaveBalanceResponse(BaseModel):
+class LeaveBalance(BaseModel):
     """Leave balance response"""
     id: str
     employee_id: str
@@ -65,6 +65,13 @@ class LeaveBalanceResponse(BaseModel):
     used_days: int
     available_days: int
     year: int
+
+
+class LeaveBalanceResponse(BaseModel):
+    """Leave balance response"""
+    employee_id: str
+    year: int
+    balances: List[LeaveBalance]
 
 
 class ApproveRejectRequest(BaseModel):
@@ -140,7 +147,7 @@ async def get_leave_calendar(
     }
 
 
-@router.get("/balance/types", response_model=List[LeaveBalanceResponse])
+@router.get("/balance/types", response_model=List[LeaveBalance])
 async def get_leave_balance_by_type(
     db: AsyncSession = Depends(get_db),
     current_user: dict = Depends(get_current_employee)
@@ -160,7 +167,7 @@ async def get_leave_balance_by_type(
         )
 
 
-@router.get("/balance", response_model=List[LeaveBalanceResponse])
+@router.get("/balance", response_model=LeaveBalanceResponse)
 async def get_leave_balance(
     year: Optional[int] = Query(None, description="Year (defaults to current year)"),
     db: AsyncSession = Depends(get_db),
@@ -169,15 +176,19 @@ async def get_leave_balance(
     """
     Get leave balance for current employee
 
-    Returns all leave types with their balances
+    Returns all leave types with their balances for the specified year
+    or current year if not specified.
     """
     try:
-        balances = await LeaveService.get_leave_balance(
-            db,
-            current_user["user_id"],
-            year
-        )
-        return balances
+        user_id = current_user["user_id"]
+        year = year or date.today().year
+
+        balances = await LeaveService.get_leave_balance(db, user_id, year)
+        return {
+            "employee_id": user_id,
+            "year": year,
+            "balances": balances
+        }
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
