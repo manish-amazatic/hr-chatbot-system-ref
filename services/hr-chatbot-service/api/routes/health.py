@@ -3,7 +3,7 @@ Health Check Endpoints
 """
 from fastapi import APIRouter
 from datetime import datetime
-from utils.config import settings
+from core.config import settings
 
 router = APIRouter()
 

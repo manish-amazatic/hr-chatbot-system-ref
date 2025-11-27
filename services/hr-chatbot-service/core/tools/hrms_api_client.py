@@ -7,7 +7,7 @@ import logging
 from typing import Optional, List, Dict, Any
 from datetime import date
 
-from utils.config import settings
+from core.config import settings
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +47,15 @@ class HRMSClient:
 
     async def close(self):
         """Close the HTTP client"""
-        await self.client.aclose()
+        try:
+            await self.client.aclose()
+        except RuntimeError as e:
+            # Handle "Event loop is closed" error gracefully
+            # This can happen when the client was used in a thread pool
+            if "Event loop is closed" in str(e):
+                logger.debug("Event loop already closed, skipping client cleanup")
+            else:
+                raise
 
     # ==================== Leave Management ====================
 

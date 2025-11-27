@@ -11,7 +11,7 @@ from core.agents.attendance_agent import AttendanceAgent
 from core.agents.payroll_agent import PayrollAgent
 from core.tools.hrms_api_client import HRMSClient
 from core.tools.hr_rag_tool import search_hr_policies
-from core.processors.llm_processor import LLMProcessor, LLMProvider
+from core.processors.llm_processor import LLMProcessor
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +53,7 @@ class Orchestrator:
             hrms_token: JWT token for HRMS API authentication
         """
         self.hrms_token = hrms_token
-        self.llm = LLMProcessor().get_llm(LLMProvider.OPENAI)
+        self.llm = LLMProcessor().get_llm()
 
         # Initialize HRMS client
         self.hrms_client = HRMSClient(token=hrms_token)
@@ -318,7 +318,7 @@ class Orchestrator:
 
         try:
             # Use RAG tool to search HR policies
-            response = search_hr_policies(query)
+            response = search_hr_policies.invoke({"query": query})
 
             # Check if Milvus was unavailable
             if "currently unavailable" in response.lower():

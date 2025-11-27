@@ -7,7 +7,7 @@ from pydantic import BaseModel
 import httpx
 import logging
 
-from utils.config import settings
+from core.config import settings
 
 router = APIRouter()
 logger = logging.getLogger(__name__)

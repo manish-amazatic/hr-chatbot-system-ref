@@ -7,7 +7,7 @@ from typing import Generator
 import logging
 import os
 
-from utils.config import settings
+from core.config import settings
 from models.base import Base
 
 logger = logging.getLogger(__name__)

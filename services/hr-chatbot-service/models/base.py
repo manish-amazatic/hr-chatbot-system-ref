@@ -7,7 +7,7 @@ from sqlalchemy.orm import sessionmaker, Session
 from typing import Generator
 import os
 
-from utils.config import settings
+from core.config import settings
 
 # Create engine
 engine = create_engine(

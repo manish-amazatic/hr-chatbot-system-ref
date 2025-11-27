@@ -5,16 +5,41 @@ Specialized LangChain agent for attendance management tasks
 import logging
 from typing import Dict, Any, Optional
 from datetime import datetime
+import asyncio
 
 from langchain_classic.agents import AgentExecutor, create_react_agent
-from langchain.tools import tool
+from langchain_classic.tools import tool
 from langchain_classic.prompts import PromptTemplate
 
-from core.processors.llm_processor import LLMProcessor, LLMProvider
+from core.processors.llm_processor import LLMProcessor
 from core.tools.hrms_api_client import HRMSClient
 from core.tools.hr_rag_tool import search_hr_policies
 
 logger = logging.getLogger(__name__)
+
+
+def run_async_in_sync(coro):
+    """
+    Helper to run async coroutines from sync context within an async event loop.
+
+    Args:
+        coro: Coroutine to run
+
+    Returns:
+        Result of the coroutine
+    """
+    try:
+        # Try to get the running loop
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        # No running loop, use asyncio.run()
+        return asyncio.run(coro)
+
+    # There's a running loop, we need to run in a thread pool
+    import concurrent.futures
+    with concurrent.futures.ThreadPoolExecutor() as pool:
+        future = pool.submit(asyncio.run, coro)
+        return future.result()
 
 
 class AttendanceAgent:
@@ -38,7 +63,7 @@ class AttendanceAgent:
             hrms_client: HRMS API client instance
         """
         self.hrms_client = hrms_client
-        self.llm = LLMProcessor().get_llm(LLMProvider.OPENAI)
+        self.llm = LLMProcessor().get_llm()
         self.tools = self._create_tools()
         self.agent = self._create_agent()
 
@@ -61,8 +86,7 @@ class AttendanceAgent:
                 List of attendance records with check-in/check-out times
             """
             try:
-                import asyncio
-                records = asyncio.run(self.hrms_client.get_attendance_records(
+                records = run_async_in_sync(self.hrms_client.get_attendance_records(
                     start_date=start_date,
                     end_date=end_date
                 ))
@@ -100,11 +124,10 @@ class AttendanceAgent:
                 Summary of attendance for the month
             """
             try:
-                import asyncio
                 month_int = int(month) if month else None
                 year_int = int(year) if year else None
 
-                summary = asyncio.run(self.hrms_client.get_attendance_summary(
+                summary = run_async_in_sync(self.hrms_client.get_attendance_summary(
                     month=month_int,
                     year=year_int
                 ))
@@ -136,7 +159,7 @@ class AttendanceAgent:
             """
             try:
                 # Use RAG tool to search policies
-                return search_hr_policies(query)
+                return search_hr_policies.invoke({"query": query})
             except Exception as e:
                 logger.error(f"Error searching attendance policy: {str(e)}")
                 return f"Error searching attendance policy: {str(e)}"

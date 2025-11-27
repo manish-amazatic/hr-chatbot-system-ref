@@ -7,7 +7,7 @@ from typing import Optional
 from langchain.tools import tool
 
 from services.milvus_service import MilvusService
-from core.processors.llm_processor import LLMProcessor, LLMProvider
+from core.processors.llm_processor import LLMProcessor
 
 logger = logging.getLogger(__name__)
 
@@ -67,8 +67,8 @@ def search_hr_policies(query: str) -> str:
         # Format context from search results
         context = format_search_results(results)
 
-        # Generate answer using LLM with context
-        llm = LLMProcessor().get_llm(LLMProvider.OPENAI)
+        # Generate answer using LLM with context (uses configured provider)
+        llm = LLMProcessor().get_llm()
 
         prompt = f"""You are a helpful HR assistant. Based on the following company policy documents, answer the user's question.
 

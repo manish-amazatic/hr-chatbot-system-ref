@@ -1,20 +1,30 @@
 """
-Milvus Service
-Handles vector database operations for RAG
+Milvus Service - Multi-Provider Embeddings
+Handles vector database operations for RAG with support for multiple embedding providers
 """
 import logging
 from typing import List, Dict, Any, Optional
 from pymilvus import connections, Collection, FieldSchema, CollectionSchema, DataType, utility
-from langchain_community.embeddings import OpenAIEmbeddings
 
-from utils.config import settings
+from langchain_openai import OpenAIEmbeddings, AzureOpenAIEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_ollama import OllamaEmbeddings
+
+from core.config import settings
 
 logger = logging.getLogger(__name__)
 
 
 class MilvusService:
     """
-    Service for Milvus vector database operations
+    Service for Milvus vector database operations with multi-provider embeddings
+
+    Supports:
+    - OpenAI embeddings (text-embedding-3-small/large, ada-002)
+    - Azure OpenAI embeddings
+    - Anthropic embeddings (Voyage AI)
+    - Google embeddings (text-embedding-004)
+    - Ollama embeddings (nomic-embed-text, mxbai-embed-large)
 
     Provides functionality for:
     - Connecting to Milvus
@@ -24,15 +34,98 @@ class MilvusService:
     """
 
     def __init__(self):
-        """Initialize Milvus service"""
+        """Initialize Milvus service with configured embedding provider"""
         self.collection_name = settings.milvus_collection_name
-        self.embedding_model = OpenAIEmbeddings(
-            model=settings.embedding_model,
-            openai_api_key=settings.openai_api_key
-        )
-        self.dimension = 1536  # OpenAI text-embedding-3-small dimension
+        self.embedding_model = self._create_embedding_model()
+        self.dimension = settings.embedding_dimensions or 1536
         self.collection = None
         self._connected = False
+
+        logger.info(
+            f"MilvusService initialized with {settings.embedding_provider} "
+            f"embeddings (model: {settings.embedding_model}, dim: {self.dimension})"
+        )
+
+    def _create_embedding_model(self):
+        """
+        Create embedding model based on configured provider
+
+        Returns:
+            Embedding model instance
+        """
+        provider = settings.embedding_provider
+        model = settings.embedding_model
+
+        logger.info(f"Creating embedding model: {provider} - {model}")
+
+        if provider == "openai":
+            return self._create_openai_embeddings(model)
+        elif provider == "azure":
+            return self._create_azure_embeddings(model)
+        elif provider == "anthropic":
+            return self._create_anthropic_embeddings(model)
+        elif provider == "google":
+            return self._create_google_embeddings(model)
+        elif provider == "ollama":
+            return self._create_ollama_embeddings(model)
+        else:
+            raise ValueError(f"Unsupported embedding provider: {provider}")
+
+    def _create_openai_embeddings(self, model: str) -> OpenAIEmbeddings:
+        """Create OpenAI embeddings instance"""
+        params = {
+            "model": model,
+            "openai_api_key": settings.openai_api_key,
+        }
+
+        if settings.openai_base_url:
+            params["openai_api_base"] = settings.openai_base_url
+        if settings.openai_organization:
+            params["openai_organization"] = settings.openai_organization
+
+        return OpenAIEmbeddings(**params)
+
+    def _create_azure_embeddings(self, model: str) -> AzureOpenAIEmbeddings:
+        """Create Azure OpenAI embeddings instance"""
+        return AzureOpenAIEmbeddings(
+            azure_deployment=settings.azure_openai_embedding_deployment_name or model,
+            azure_endpoint=settings.azure_openai_endpoint,
+            api_key=settings.azure_openai_api_key,
+            api_version=settings.azure_openai_api_version,
+        )
+
+    def _create_anthropic_embeddings(self, model: str):
+        """
+        Anthropic embeddings not directly supported
+
+        Note: Anthropic partners with Voyage AI for embeddings.
+        Use OpenAI embeddings with Anthropic LLM for best compatibility.
+        """
+        raise NotImplementedError(
+            "Anthropic doesn't provide embeddings directly. "
+            "They partner with Voyage AI for embeddings. "
+            "Please use 'openai' as embedding_provider with Anthropic LLM, "
+            "or install and configure Voyage AI embeddings separately."
+        )
+
+    def _create_google_embeddings(self, model: str) -> GoogleGenerativeAIEmbeddings:
+        """Create Google embeddings instance"""
+        params = {
+            "model": model,
+            "google_api_key": settings.google_api_key,
+        }
+
+        if settings.google_project_id:
+            params["project"] = settings.google_project_id
+
+        return GoogleGenerativeAIEmbeddings(**params)
+
+    def _create_ollama_embeddings(self, model: str) -> OllamaEmbeddings:
+        """Create Ollama (local) embeddings instance"""
+        return OllamaEmbeddings(
+            model=model,
+            base_url=settings.ollama_base_url,
+        )
 
     def connect(self) -> bool:
         """
@@ -264,3 +357,15 @@ class MilvusService:
         if not self._connected:
             return self.connect()
         return self._connected
+
+    def get_embedding_provider(self) -> str:
+        """Get the current embedding provider"""
+        return settings.embedding_provider
+
+    def get_embedding_model(self) -> str:
+        """Get the current embedding model"""
+        return settings.embedding_model
+
+    def get_embedding_dimensions(self) -> int:
+        """Get the embedding dimensions"""
+        return self.dimension

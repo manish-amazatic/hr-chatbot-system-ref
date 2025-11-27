@@ -17,7 +17,7 @@ from pypdf import PdfReader
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from services.milvus_service import MilvusService
-from langchain_classic.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 # Configure logging
 logging.basicConfig(

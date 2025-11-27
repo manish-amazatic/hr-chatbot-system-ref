@@ -5,16 +5,41 @@ Specialized LangChain agent for payroll and compensation queries
 import logging
 from typing import Dict, Any, Optional
 from datetime import datetime
+import asyncio
 
 from langchain_classic.agents import AgentExecutor, create_react_agent
-from langchain.tools import tool
+from langchain_classic.tools import tool
 from langchain_classic.prompts import PromptTemplate
 
-from core.processors.llm_processor import LLMProcessor, LLMProvider
+from core.processors.llm_processor import LLMProcessor
 from core.tools.hrms_api_client import HRMSClient
 from core.tools.hr_rag_tool import search_hr_policies
 
 logger = logging.getLogger(__name__)
+
+
+def run_async_in_sync(coro):
+    """
+    Helper to run async coroutines from sync context within an async event loop.
+
+    Args:
+        coro: Coroutine to run
+
+    Returns:
+        Result of the coroutine
+    """
+    try:
+        # Try to get the running loop
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        # No running loop, use asyncio.run()
+        return asyncio.run(coro)
+
+    # There's a running loop, we need to run in a thread pool
+    import concurrent.futures
+    with concurrent.futures.ThreadPoolExecutor() as pool:
+        future = pool.submit(asyncio.run, coro)
+        return future.result()
 
 
 class PayrollAgent:
@@ -39,7 +64,7 @@ class PayrollAgent:
             hrms_client: HRMS API client instance
         """
         self.hrms_client = hrms_client
-        self.llm = LLMProcessor().get_llm(LLMProvider.OPENAI)
+        self.llm = LLMProcessor().get_llm()
         self.tools = self._create_tools()
         self.agent = self._create_agent()
 
@@ -55,8 +80,7 @@ class PayrollAgent:
                 Details of the most recent payslip
             """
             try:
-                import asyncio
-                payslip = asyncio.run(self.hrms_client.get_current_payslip())
+                payslip = run_async_in_sync(self.hrms_client.get_current_payslip())
 
                 result = f"Current Month Payslip:\n\n"
                 result += f"• Month/Year: {payslip.get('month')}/{payslip.get('year')}\n"
@@ -98,10 +122,9 @@ class PayrollAgent:
                 YTD earnings, deductions, and net pay summary
             """
             try:
-                import asyncio
                 year_int = int(year) if year else None
 
-                ytd = asyncio.run(self.hrms_client.get_ytd_summary(year=year_int))
+                ytd = run_async_in_sync(self.hrms_client.get_ytd_summary(year=year_int))
 
                 result = f"Year-to-Date Summary ({ytd.get('year')}):\n\n"
                 result += f"• YTD Gross Salary: ${ytd.get('ytd_gross_salary', 0):,.2f}\n"
@@ -138,7 +161,7 @@ class PayrollAgent:
             """
             try:
                 # Use RAG tool to search policies
-                return search_hr_policies(query)
+                return search_hr_policies.invoke({"query": query})
             except Exception as e:
                 logger.error(f"Error searching payroll policy: {str(e)}")
                 return f"Error searching payroll policy: {str(e)}"
@@ -176,7 +199,7 @@ class PayrollAgent:
                         return f"{explanation}\n\nFor more specific details about your payslip, please check the HRMS portal or contact payroll@company.com."
 
                 # If not found, search policies
-                return search_hr_policies(f"What is {component} in payslip?")
+                return search_hr_policies.invoke({"query": f"What is {component} in payslip?"})
 
             except Exception as e:
                 logger.error(f"Error explaining payslip component: {str(e)}")

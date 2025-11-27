@@ -6,15 +6,40 @@ import logging
 from typing import Dict, Any, Optional
 from datetime import datetime
 import json
+import asyncio
 
 from langchain_classic.agents import AgentExecutor, create_react_agent
-from langchain.tools import tool
+from langchain_classic.tools import tool
 from langchain_classic.prompts import PromptTemplate
 
-from core.processors.llm_processor import LLMProcessor, LLMProvider
+from core.processors.llm_processor import LLMProcessor
 from core.tools.hrms_api_client import HRMSClient
 
 logger = logging.getLogger(__name__)
+
+
+def run_async_in_sync(coro):
+    """
+    Helper to run async coroutines from sync context within an async event loop.
+
+    Args:
+        coro: Coroutine to run
+
+    Returns:
+        Result of the coroutine
+    """
+    try:
+        # Try to get the running loop
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        # No running loop, use asyncio.run()
+        return asyncio.run(coro)
+
+    # There's a running loop, we need to run in a thread pool
+    import concurrent.futures
+    with concurrent.futures.ThreadPoolExecutor() as pool:
+        future = pool.submit(asyncio.run, coro)
+        return future.result()
 
 
 class LeaveAgent:
@@ -38,7 +63,7 @@ class LeaveAgent:
             hrms_client: HRMS API client instance
         """
         self.hrms_client = hrms_client
-        self.llm = LLMProcessor().get_llm(LLMProvider.OPENAI)
+        self.llm = LLMProcessor().get_llm()
         self.tools = self._create_tools()
         self.agent = self._create_agent()
 
@@ -58,8 +83,7 @@ class LeaveAgent:
             """
             try:
                 year_int = int(year) if year else None
-                import asyncio
-                balance_data = asyncio.run(self.hrms_client.get_leave_balance(year=year_int))
+                balance_data = run_async_in_sync(self.hrms_client.get_leave_balance(year=year_int))
 
                 # Format the response
                 balances = balance_data.get("balances", [])
@@ -96,8 +120,7 @@ class LeaveAgent:
                 Confirmation message with request details
             """
             try:
-                import asyncio
-                result = asyncio.run(self.hrms_client.apply_leave(
+                result = run_async_in_sync(self.hrms_client.apply_leave(
                     leave_type=leave_type,
                     start_date=start_date,
                     end_date=end_date,
@@ -133,8 +156,7 @@ class LeaveAgent:
                 List of leave requests with details
             """
             try:
-                import asyncio
-                requests = asyncio.run(self.hrms_client.get_leave_requests(status=status))
+                requests = run_async_in_sync(self.hrms_client.get_leave_requests(status=status))
 
                 if not requests:
                     status_msg = f" with status '{status}'" if status else ""
@@ -167,8 +189,7 @@ class LeaveAgent:
                 Confirmation message
             """
             try:
-                import asyncio
-                result = asyncio.run(self.hrms_client.cancel_leave_request(request_id))
+                result = run_async_in_sync(self.hrms_client.cancel_leave_request(request_id))
 
                 return (
                     f"Leave request cancelled successfully!\n\n"

@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import logging
 
-from utils.config import settings
+from core.config import settings
 from utils.database import init_db, close_db
 from api.routes import health, auth, chat
 
