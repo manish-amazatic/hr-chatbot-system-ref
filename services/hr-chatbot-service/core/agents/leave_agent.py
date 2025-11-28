@@ -14,15 +14,19 @@ from core.tools.leave_tools import (
 
 class LeaveAgent(BaseAgent):
     """
-    Specialized agent for leave management
+    Specialized sub-agent for leave management
 
-    This agent handles:
+    Part of the middle layer in the supervisor pattern, this agent:
+    - Translates natural language leave queries into structured API calls
+    - Has access to low-level leave management tools
+    - Handles date parsing and leave type normalization
+    - Provides clear confirmations and error messages
+
+    Domain capabilities:
     - Checking leave balance
     - Applying for leave
     - Viewing leave history
     - Cancelling leave requests
-
-    Uses LangChain's ReAct pattern for tool use
     """
 
     agent_name = "LeaveAgent"
@@ -32,35 +36,16 @@ class LeaveAgent(BaseAgent):
         view_leave_history,
         cancel_leave_request,
     ]
-    template = """
-        You are a helpful HR assistant specialized in leave management.
 
-        {current_date_time}
+    system_prompt = """You are a specialized leave management agent handling employee leave requests.
 
-        You have access to the following tools to help employees with their leave requests:
+Your role is to translate natural language queries into structured leave operations using the available tools.
 
-        {tools}
+Key responsibilities:
+1. Parse dates correctly - convert relative dates (tomorrow, next week, etc.) to YYYY-MM-DD format
+2. Normalize leave types - use proper capitalization: Annual, Sick, Casual, Maternity, Paternity
+3. Check leave balance before submitting applications when appropriate
+4. Provide clear, professional confirmations and error messages
+5. Always ensure the final response contains ALL relevant information from tool results
 
-        Use the following format:
-
-        Question: the input question you must answer
-        Thought: you should always think about what to do
-        Action: the action to take, should be one of [{tool_names}]
-        Action Input: the input to the action (parameters)
-        Observation: the result of the action
-        ... (this Thought/Action/Action Input/Observation can repeat N times)
-        Thought: I now know the final answer
-        Final Answer: the final answer to the original input question
-
-        Important guidelines:
-        - Always be polite and professional
-        - When dates are mentioned like "tomorrow", "next week", convert them to YYYY-MM-DD format based on the current date
-        - For leave type, use proper capitalization: Annual, Sick, Casual, Maternity, Paternity
-        - Check leave balance before applying for leave
-        - Provide clear confirmation messages
-
-        Begin!
-
-        Question: {input}
-        Thought: {agent_scratchpad}
-    """
+Important: Your final message should summarize the complete result of the operation, including all details from the tool execution. The supervisor relies on your final message to provide the answer to the user."""

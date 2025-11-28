@@ -7,7 +7,7 @@ from contextlib import AbstractContextManager, AbstractAsyncContextManager
 from contextvars import ContextVar
 from typing import Optional, List, Dict, Any
 
-import httpx
+from httpx import AsyncClient, HTTPStatusError
 
 from core.config import settings
 
@@ -91,7 +91,7 @@ class HRMSClient:
             token: Optional authentication token (can also be set via set_token method)
         """
         self.base_url = base_url or settings.hrms_api_url
-        self.client = httpx.AsyncClient(timeout=30.0)
+        self.client = AsyncClient(timeout=30.0)
         self._instance_token = token
 
         # If token provided, set it in context
@@ -172,7 +172,7 @@ class HRMSClient:
             response.raise_for_status()
             res = response.json()
             return res
-        except httpx.HTTPStatusError as e:
+        except HTTPStatusError as e:
             logger.error(f"HTTP error getting leave balance: {e.response.status_code} - {e.response.text}")
             raise
         except Exception as e:
@@ -221,7 +221,7 @@ class HRMSClient:
             )
             response.raise_for_status()
             return response.json()
-        except httpx.HTTPStatusError as e:
+        except HTTPStatusError as e:
             logger.error("HTTP error applying for leave: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
@@ -261,7 +261,7 @@ class HRMSClient:
             )
             response.raise_for_status()
             return response.json()
-        except httpx.HTTPStatusError as e:
+        except HTTPStatusError as e:
             logger.error("HTTP error getting leave requests: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
@@ -285,7 +285,7 @@ class HRMSClient:
             )
             response.raise_for_status()
             return response.json()
-        except httpx.HTTPStatusError as e:
+        except HTTPStatusError as e:
             logger.error("HTTP error getting leave request: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
@@ -309,7 +309,7 @@ class HRMSClient:
             )
             response.raise_for_status()
             return response.json()
-        except httpx.HTTPStatusError as e:
+        except HTTPStatusError as e:
             logger.error("HTTP error cancelling leave request: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
@@ -351,7 +351,7 @@ class HRMSClient:
             )
             response.raise_for_status()
             return response.json()
-        except httpx.HTTPStatusError as e:
+        except HTTPStatusError as e:
             logger.error("HTTP error getting attendance records: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
@@ -387,7 +387,7 @@ class HRMSClient:
             )
             response.raise_for_status()
             return response.json()
-        except httpx.HTTPStatusError as e:
+        except HTTPStatusError as e:
             logger.error("HTTP error getting attendance summary: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
@@ -408,7 +408,7 @@ class HRMSClient:
             )
             response.raise_for_status()
             return response.json()
-        except httpx.HTTPStatusError as e:
+        except HTTPStatusError as e:
             logger.error("HTTP error checking in: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
@@ -429,7 +429,7 @@ class HRMSClient:
             )
             response.raise_for_status()
             return response.json()
-        except httpx.HTTPStatusError as e:
+        except HTTPStatusError as e:
             logger.error("HTTP error checking out: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
@@ -452,7 +452,7 @@ class HRMSClient:
             )
             response.raise_for_status()
             return response.json()
-        except httpx.HTTPStatusError as e:
+        except HTTPStatusError as e:
             logger.error("HTTP error getting current payslip: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
@@ -488,7 +488,7 @@ class HRMSClient:
             )
             response.raise_for_status()
             return response.json()
-        except httpx.HTTPStatusError as e:
+        except HTTPStatusError as e:
             logger.error("HTTP error getting payslip: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
@@ -517,7 +517,7 @@ class HRMSClient:
             )
             response.raise_for_status()
             return response.json()
-        except httpx.HTTPStatusError as e:
+        except HTTPStatusError as e:
             logger.error("HTTP error getting YTD summary: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
@@ -546,12 +546,41 @@ class HRMSClient:
             )
             response.raise_for_status()
             return response.json()
-        except httpx.HTTPStatusError as e:
+        except HTTPStatusError as e:
             logger.error("HTTP error getting tax summary: %s - %s", e.response.status_code, e.response.text)
             raise
         except Exception as e:
             logger.error("Error getting tax summary: %s", str(e))
             raise
+
+    @staticmethod
+    def format_http_error(e: HTTPStatusError) -> str:
+        """
+        Turn HTTPStatusError into concise user-friendly messages.
+        """
+        status = e.response.status_code if e.response else None
+        detail = None
+        try:
+            data = e.response.json()
+            detail = data.get("detail") or data.get("message") or data.get("error") or data
+        except Exception:
+            detail = e.response.text if e.response else str(e)
+
+        if status == 400:
+            return f"Invalid request. {detail}"
+        if status == 401:
+            return "Authentication failed. Please sign in again."
+        if status == 403:
+            return "You don’t have permission to perform this action."
+        if status == 404:
+            return "Resource not found."
+        if status == 409:
+            return "Request conflicts with existing records."
+        if status == 422:
+            return f"Validation error. {detail}"
+        if status and status >= 500:
+            return "Service is currently unavailable. Please try again later."
+        return f"Request failed. {detail}"
 
     # ==================== Context Manager Support ====================
 
@@ -566,4 +595,4 @@ class HRMSClient:
 
 hrms_client = HRMSClient()
 
-__all__ = ["HRMSClient", "hrms_client", "AuthToken"]
+__all__ = ["HRMSClient", "hrms_client", "AuthToken", "HTTPStatusError"]

@@ -13,7 +13,7 @@ from langchain.tools import tool
 # from langchain_classic.tools import tool
 # from langchain_core.tools import tool
 
-from core.services.hrms_api import hrms_client
+from core.services.hrms_api import hrms_client, HTTPStatusError
 
 
 logger = logging.getLogger(__name__)
@@ -25,12 +25,12 @@ class CheckLeaveBalanceInput(BaseModel):
 
 
 @tool
-async def check_leave_balance(year: Optional[int] = None) -> str:
+async def check_leave_balance(year: Optional[str] = None) -> str:
     """
     Check the employee's leave balance.
 
-    Args:
-        year: Optional year to check balance for (defaults to current year)
+    Parameters:
+    - year: Optional year to check balance for (defaults to current year)
 
     Returns:
         A formatted string showing leave balance by type
@@ -52,6 +52,10 @@ async def check_leave_balance(year: Optional[int] = None) -> str:
             result += f"(Used: {balance['used_days']}, Total: {balance['total_days']})\n"
 
         return result
+    except HTTPStatusError as e:
+        error_message = hrms_client.format_http_error(e)
+        logger.error("HTTP error checking leave balance: %s", error_message, exc_info=True)
+        return f"HTTP error checking leave balance: {error_message}"
     except Exception as e:
         logger.error("Error checking leave balance: %s", str(e), exc_info=True)
         return f"Error checking leave balance: {str(e)}"
@@ -93,6 +97,10 @@ async def apply_for_leave(
             f"Status: {result['status']}\n"
             f"\nYour request is pending approval."
         )
+    except HTTPStatusError as e:
+        error_message = hrms_client.format_http_error(e)
+        logger.error("HTTP error applying for leave: %s", error_message, exc_info=True)
+        return f"HTTP error applying for leave: {error_message}"
     except Exception as e:
         logger.error("Error applying for leave: %s", str(e), exc_info=True)
         error_msg = str(e)

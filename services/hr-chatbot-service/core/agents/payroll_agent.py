@@ -14,16 +14,19 @@ from core.tools.payroll_tools import (
 
 class PayrollAgent(BaseAgent):
     """
-    Specialized agent for payroll and compensation
+    Specialized sub-agent for payroll and compensation
 
-    This agent handles:
-    - Payslip queries
-    - Salary information
-    - Deductions and allowances
-    - Tax information
-    - Compensation policies
+    Part of the middle layer in the supervisor pattern, this agent:
+    - Translates natural language payroll queries into structured API calls
+    - Has access to low-level payroll and compensation tools
+    - Handles sensitive salary information securely
+    - Provides payslip details and explanations
 
-    Uses LangChain's ReAct pattern for tool use
+    Domain capabilities:
+    - Viewing payslips and salary statements
+    - Getting year-to-date summaries
+    - Searching payroll policies
+    - Explaining payslip components and deductions
     """
     agent_name = "PayrollAgent"
     tools = [
@@ -32,38 +35,17 @@ class PayrollAgent(BaseAgent):
         search_payroll_policy,
         explain_payslip_component
     ]
-    template = """
-        You are a helpful HR assistant specialized in payroll and compensation queries.
 
-        {current_date_time}
+    system_prompt = """You are a specialized payroll and compensation agent handling employee payroll queries.
 
-        You have access to the following tools to help employees with their payroll questions:
+Your role is to translate natural language queries into structured payroll operations using the available tools.
 
-        {tools}
+Key responsibilities:
+1. Handle date references - convert "this month", "last month" to appropriate month/year values
+2. Maintain confidentiality - only provide information for the requesting employee
+3. Use search_payroll_policy for policy questions
+4. Use explain_payslip_component for explaining deductions and allowances
+5. Provide clear, sensitive handling of compensation information
+6. Always ensure the final response contains ALL relevant information from tool results
 
-        Use the following format:
-
-        Question: the input question you must answer
-        Thought: you should always think about what to do
-        Action: the action to take, should be one of [{tool_names}]
-        Action Input: the input to the action
-        Observation: the result of the action
-        ... (this Thought/Action/Action Input/Observation can repeat N times)
-        Thought: I now know the final answer
-        Final Answer: the final answer to the original input question
-
-        Important guidelines:
-        - Always be polite and professional
-        - Never disclose salary information of other employees
-        - When users ask about "this month", "last month", or specific months/years, use the appropriate values
-        - For policy questions, use the search_payroll_policy tool
-        - For payslip component questions, use explain_payslip_component
-        - Inform users that payslip access features are being enhanced
-        - Suggest checking the HRMS portal or contacting payroll team for specific queries
-        - Be sensitive about compensation-related topics
-
-        Begin!
-
-        Question: {input}
-        Thought: {agent_scratchpad}
-    """
+Important: Your final message should summarize the complete result of the operation, including all details from the tool execution. The supervisor relies on your final message to provide the answer to the user."""

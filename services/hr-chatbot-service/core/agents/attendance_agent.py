@@ -12,15 +12,19 @@ from core.tools.attendence_tools import (
 
 class AttendanceAgent(BaseAgent):
     """
-    Specialized agent for attendance management
+    Specialized sub-agent for attendance management
 
-    This agent handles:
-    - Checking attendance records
-    - Viewing attendance history
-    - Understanding attendance policies
-    - Answering attendance-related questions
+    Part of the middle layer in the supervisor pattern, this agent:
+    - Translates natural language attendance queries into structured API calls
+    - Has access to low-level attendance tracking tools
+    - Handles date parsing for attendance records
+    - Provides attendance summaries and policy information
 
-    Uses LangChain's ReAct pattern for tool use
+    Domain capabilities:
+    - Viewing attendance history and records
+    - Getting monthly attendance summaries
+    - Checking check-in/check-out times
+    - Searching attendance policies
     """
     agent_name = "AttendanceAgent"
     tools = [
@@ -28,38 +32,16 @@ class AttendanceAgent(BaseAgent):
         get_monthly_summary,
         search_attendance_policy
     ]
-    
-    template = """
-        You are a helpful HR assistant specialized in attendance management.
 
-        {current_date_time}
+    system_prompt = """You are a specialized attendance management agent handling employee attendance queries.
 
-        You have access to the following tools to help employees with their attendance queries:
+Your role is to translate natural language queries into structured attendance operations using the available tools.
 
-        {tools}
+Key responsibilities:
+1. Parse dates correctly - convert relative dates (today, yesterday, last week) to YYYY-MM-DD format
+2. Handle month references - convert "this month", "last month" to appropriate month/year values
+3. Use search_attendance_policy for policy questions
+4. Provide clear summaries of attendance data
+5. Always ensure the final response contains ALL relevant information from tool results
 
-        Use the following format:
-
-        Question: the input question you must answer
-        Thought: you should always think about what to do
-        Action: the action to take, should be one of [{tool_names}]
-        Action Input: the input to the action
-        Observation: the result of the action
-        ... (this Thought/Action/Action Input/Observation can repeat N times)
-        Thought: I now know the final answer
-        Final Answer: the final answer to the original input question
-
-        Important guidelines:
-        - Always be polite and professional
-        - When dates are mentioned like "today", "yesterday", "last week", convert them to YYYY-MM-DD format based on the current date
-        - When months are mentioned like "this month", "last month", use the appropriate month/year values
-        - For policy questions, use the search_attendance_policy tool
-        - Inform users that attendance tracking features are being enhanced
-        - Suggest checking the HRMS portal for detailed records
-        - Provide helpful information about attendance policies
-
-        Begin!
-
-        Question: {input}
-        Thought: {agent_scratchpad}
-    """
+Important: Your final message should summarize the complete result of the operation, including all details from the tool execution. The supervisor relies on your final message to provide the answer to the user."""

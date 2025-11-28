@@ -1,13 +1,14 @@
 """
 Base Agent
-Specialized LangChain agent for leave management tasks
+Specialized LangChain agent following the supervisor sub-agent pattern
 """
 import logging
 from typing import Dict, Any, Optional
 from datetime import datetime
 
-from langchain_classic.agents import AgentExecutor, create_react_agent
-from langchain_classic.prompts import PromptTemplate
+from langchain.agents import create_agent
+from langchain_core.messages import ToolMessage
+from langchain.agents.middleware import wrap_tool_call
 from langchain_core.tools.base import BaseTool
 
 from core.llm_processor import LLMProcessor
@@ -17,9 +18,10 @@ logger = logging.getLogger(__name__)
 
 
 class BaseTimeAgent():
+    """Base class providing current date/time functionality"""
 
     def get_current_date_time(self) -> str:
-        """Get current date and time string"""
+        """Get current date and time string for agent context"""
         now = datetime.now()
         current_date = now.strftime("%Y-%m-%d")
         current_day = now.strftime("%A")
@@ -33,84 +35,105 @@ class BaseTimeAgent():
 
 
 class BaseAgent(BaseTimeAgent):
+    """
+    Base Agent following LangChain supervisor sub-agent pattern
 
-    # Define the prompt template for the agent
-    # Note: current_date_time will be injected at execution time
+    This serves as the middle layer in the supervisor architecture:
+    - Bottom layer: Low-level API tools (HRMS API calls)
+    - Middle layer: Sub-agents that translate natural language to API calls (THIS LAYER)
+    - Top layer: Supervisor that routes to appropriate sub-agents
+
+    Each sub-agent specializes in a domain (leave, attendance, payroll) and has:
+    - Domain-specific tools
+    - Specialized system prompt
+    - Error handling middleware
+    """
+
     agent_name = "BaseAgent"
     tools: list[BaseTool] = []
-    template = """
-        Begin!
-
-        Question: {input}
-        Thought: {agent_scratchpad}
-    """
+    system_prompt = "You are a helpful HR assistant."
 
     def __init__(self):
         """
-        Initialize Leave Agent
-
-        Args:
-            hrms_client: HRMS API client instance
+        Initialize sub-agent with domain-specific tools and prompts
         """
         self.llm = LLMProcessor().get_llm()
         self.agent = self._create_agent()
 
-        # Bind tools to LLM
-        self.llm_with_tools = self.llm.bind_tools(self.tools)
+    def _create_agent(self):
+        """
+        Create the LangChain agent with tools and middleware
 
-    def _create_agent(self) -> AgentExecutor:
-        """Create the LangChain agent with tools"""
-        prompt = PromptTemplate.from_template(self.template)
+        Following the supervisor pattern, this creates a sub-agent that:
+        1. Has access to domain-specific low-level tools
+        2. Uses a specialized prompt for its domain
+        3. Handles errors gracefully
+        """
 
-        # Create the ReAct agent
-        agent = create_react_agent(
-            llm=self.llm,
+        @wrap_tool_call
+        async def handle_tool_errors(request, handler):
+            """Handle tool execution errors with custom messages."""
+            try:
+                logger.debug("Tool request: %s", request)
+                return await handler(request)
+            except Exception as e:
+                logger.error(f"Tool error in {self.agent_name}: {str(e)}", exc_info=True)
+                # Return a custom error message to the model
+                return ToolMessage(
+                    content=f"Tool error: {str(e)}. Please verify the input and try again.",
+                    tool_call_id=request.tool_call["id"]
+                )
+
+        # Create agent with domain-specific configuration
+        agent = create_agent(
+            model=self.llm,
             tools=self.tools,
-            prompt=prompt
+            system_prompt=self.system_prompt,
+            middleware=[handle_tool_errors],
+            debug=settings.debug,
         )
 
-        # Create agent executor
-        agent_executor = AgentExecutor(
-            agent=agent,
-            tools=self.tools,
-            verbose=True,
-            max_iterations=5,
-            handle_parsing_errors=True,
-            return_intermediate_steps=False
-        )
-
-        return agent_executor
+        return agent
 
     async def process(self, query: str, context: Optional[Dict[str, Any]] = None) -> str:
         """
-        Process a leave-related query
+        Process a domain-specific query with current date/time context
+
+        This is called by the supervisor when routing to this sub-agent.
+        The sub-agent translates natural language to structured API calls.
 
         Args:
-            query: User query about leave
-            context: Optional context (user_id, history, etc.)
+            query: User query in natural language
+            context: Optional context (user_id, session_id, etc.)
 
         Returns:
-            Agent's response
+            Agent's response containing results from tool execution
         """
         try:
-            logger.info("context***********************************: %s", context)
             logger.info("%s processing query: %s...", self.agent_name, query[:100])
 
-            # Invoke the agent with current date/time context
+            # Inject current date/time context into the query for datetime awareness
+            datetime_aware_query = f"{self.get_current_date_time()}\n\nUser query: {query}"
+
+            # Invoke the agent with the datetime-aware query
             result = await self.agent.ainvoke(
-                {
-                    "input": query,
-                    "current_date_time": self.get_current_date_time()
-                },
-                include_run_info=settings.debug
+                {"messages": [{"role": "user", "content": datetime_aware_query}]},
+                context=context
             )
 
-            # Extract the output
-            output = result.get("output", "I apologize, but I couldn't process your request.")
+            logger.debug("%s raw response: %s", self.agent_name, result)
 
-            logger.info("%s response generated successfully")
+            # Extract the final message content
+            if "messages" in result and len(result["messages"]) > 0:
+                # Get the last message which contains the final response
+                final_message = result["messages"][-1]
+                output = final_message.content if hasattr(final_message, 'content') else str(final_message)
+            else:
+                output = result.get("output", "I apologize, but I couldn't process your request.")
+
+            logger.info("%s response generated successfully", self.agent_name)
             return output
 
         except Exception as e:
-            logger.error(f"Error i %s  {str(e)}", exc_info=True)
+            logger.error(f"Error in {self.agent_name}: {str(e)}", exc_info=True)
             return f"I apologize, but I encountered an error while processing your request: {str(e)}"
