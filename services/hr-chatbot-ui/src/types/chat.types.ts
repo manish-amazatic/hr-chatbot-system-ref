@@ -16,10 +16,10 @@ export interface Source {
 
 export interface Session {
   id: string;
-  userId: string;
+  user_id: string;
   title: string;
-  createdAt: string;
-  updatedAt: string;
+  created_at: string;
+  updated_at: string;
   metadata?: Record<string, any>;
 }
 
@@ -41,7 +41,7 @@ export interface ChatContextType {
   currentSession: Session | null;
   messages: Message[];
   isLoading: boolean;
-  createSession: () => Promise<void>;
+  createSession: (title: string) => Promise<void>;
   selectSession: (sessionId: string) => Promise<void>;
   deleteSession: (sessionId: string) => Promise<void>;
   sendMessage: (message: string, useStreaming?: boolean) => Promise<void>;

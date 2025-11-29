@@ -27,11 +27,11 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const createSession = async () => {
+  const createSession = async (title: string = 'New Chat') => {
     try {
       const newSession = await chatService.createSession({
         user_id: user?.id,
-        title: 'New Chat'
+        title: title
       });
       setSessions([newSession, ...sessions]);
       setCurrentSession(newSession);
@@ -84,7 +84,7 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const sendMessage = async (message: string, useStreaming: boolean = true) => {
     if (!currentSession) {
       // Create a new session if none exists
-      await createSession();
+      await createSession(message);
     }
 
     const userMessage: Message = {

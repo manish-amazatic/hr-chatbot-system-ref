@@ -37,7 +37,7 @@ const ExamplesPanel: React.FC = () => {
   const [isSending, setIsSending] = useState(false);
 
   const handleExampleClick = async (text: string) => {
-    await createSession();
+    await createSession(text);
     await sendMessage(text);
   };
 
@@ -47,8 +47,9 @@ const ExamplesPanel: React.FC = () => {
 
     setIsSending(true);
     try {
-      await createSession();
-      await sendMessage(inputMessage.trim());
+      const trimmedMessage = inputMessage.trim();
+      await createSession(trimmedMessage);
+      await sendMessage(trimmedMessage);
       setInputMessage('');
     } catch (error) {
       console.error('Failed to send message:', error);

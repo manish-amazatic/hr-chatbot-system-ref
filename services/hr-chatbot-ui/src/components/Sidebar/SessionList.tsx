@@ -15,6 +15,7 @@ const SessionList: React.FC = () => {
       }
     }
   };
+  const createdAt = new Date(currentSession?.created_at || '');
 
   return (
     <div className="d-flex flex-column flex-shrink-1 h-100 overflow-auto">
@@ -44,7 +45,7 @@ const SessionList: React.FC = () => {
                       {session.title || 'New Chat'}
                     </h6>
                     <small className="text-muted">
-                      {new Date(session.createdAt).toLocaleDateString()}
+                      {createdAt?.toLocaleDateString()} {createdAt?.toLocaleTimeString()}
                     </small>
                   </div>
                   <button

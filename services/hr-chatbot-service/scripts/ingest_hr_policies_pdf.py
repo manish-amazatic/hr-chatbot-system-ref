@@ -106,7 +106,7 @@ def load_policy_pdfs(data_dir: str = "docs/hr_policies_pdf") -> list:
     return documents
 
 
-def chunk_documents(documents: list, chunk_size: int = 1500, chunk_overlap: int = 300) -> list:
+def chunk_documents(documents: list, chunk_size: int = 500, chunk_overlap: int = 150) -> list:
     """
     Split documents into smaller chunks for better retrieval
 
