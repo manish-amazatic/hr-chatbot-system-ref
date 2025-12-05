@@ -27,61 +27,6 @@ class HTTPStatusError(Exception):
         super().__init__(message)
 
 
-# Context variable for token (supports both sync and async contexts)
-_auth_token_context: ContextVar[str] = ContextVar('auth_token', default='')
-
-
-class AuthToken(AbstractContextManager, AbstractAsyncContextManager):
-    """
-    Context manager for token management (supports both sync and async)
-
-    Usage:
-        # Synchronous context
-        with AuthToken("your_token"):
-            client = HRMSClient()
-            # token is available
-        # token is automatically cleared
-
-        # Asynchronous context
-        async with AuthToken("your_token"):
-            client = HRMSClient()
-            # token is available
-        # token is automatically cleared
-    """
-    
-    def __init__(self, token: str):
-        """
-        Initialize token context manager
-
-        Args:
-            token: Authentication token to set
-        """
-        self.token = token
-        self.previous_token = ''
-
-    def __enter__(self):
-        """Sync context manager entry"""
-        self.previous_token = _auth_token_context.get()
-        _auth_token_context.set(self.token)
-        return self
-
-    def __exit__(self, *_):
-        """Sync context manager exit - restore previous token"""
-        _auth_token_context.set(self.previous_token)
-        return False
-
-    async def __aenter__(self):
-        """Async context manager entry"""
-        self.previous_token = _auth_token_context.get()
-        _auth_token_context.set(self.token)
-        return self
-
-    async def __aexit__(self, *_):
-        """Async context manager exit - restore previous token"""
-        _auth_token_context.set(self.previous_token)
-        return False
-
-
 class HRMSClient:
     """
     Mock HRMS Client with local data storage (no actual API calls)
@@ -115,21 +60,12 @@ class HRMSClient:
         ]
     }
 
-    def __init__(self, base_url: Optional[str] = None, token: Optional[str] = None):
+    def __init__(self):
         """
         Initialize HRMS mock client
 
-        Args:
-            base_url: HRMS API base URL (ignored in mock)
-            token: Optional authentication token
         """
-        self.base_url = base_url or settings.hrms_api_url
-        self._instance_token = token
 
-        # If token provided, set it in context
-        if token:
-            _auth_token_context.set(token)
-        
         # Initialize mock data on first instantiation
         if not HRMSClient._leave_requests:
             self._initialize_mock_data()

@@ -8,7 +8,6 @@ from contextlib import asynccontextmanager
 import logging
 
 from core.config import settings
-from utils.database import init_db, close_db
 from api.routes import chat
 
 
@@ -31,13 +30,6 @@ async def lifespan(app: FastAPI):
     logger.info("Embedding Provider: %s", settings.embedding_provider)
     logger.info("Embedding Model: %s", settings.embedding_model)
 
-    # Initialize database
-    try:
-        init_db()
-        logger.info("Database initialized successfully")
-    except Exception as e:
-        logger.error("Failed to initialize database: %s", e)
-
     # TODO: Connect to Milvus
     # TODO: Load agents
 
@@ -45,7 +37,6 @@ async def lifespan(app: FastAPI):
 
     # Shutdown
     logger.info("Shutting down HR Chatbot Service")
-    close_db()
 
 
 # Create FastAPI application

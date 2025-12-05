@@ -89,24 +89,6 @@ class Settings(BaseSettings):
     milvus_collection_name: str = Field(default="hr_policies", env="MILVUS_COLLECTION_NAME")
     milvus_token: Optional[str] = Field(default=None, env="MILVUS_TOKEN")
 
-    # HRMS API Configuration
-    hrms_api_url: str = Field(
-        default="http://localhost:8001", env="HRMS_API_URL"
-    )
-    hrms_api_timeout: int = Field(default=30, ge=1, le=300, env="HRMS_API_TIMEOUT")
-
-    # JWT Configuration
-    jwt_secret_key: str = Field(..., env="JWT_SECRET_KEY")
-    jwt_algorithm: Literal["HS256", "HS384", "HS512", "RS256"] = Field(
-        default="HS256", env="JWT_ALGORITHM"
-    )
-    access_token_expire_minutes: int = Field(
-        default=1440, ge=1, env="ACCESS_TOKEN_EXPIRE_MINUTES"
-    )
-
-    # Database Configuration
-    database_url: str = Field(default="sqlite:///./data/chatbot.db", env="DATABASE_URL")
-
     # Application Configuration
     app_name: str = Field(default="HR Chatbot Service", env="APP_NAME")
     app_version: str = Field(default="1.0.0", env="APP_VERSION")
@@ -120,7 +102,7 @@ class Settings(BaseSettings):
     port: int = Field(default=8000, ge=1, le=65535, env="PORT")
     reload: bool = Field(default=True, env="RELOAD")
     
-    @field_validator("milvus_uri", "hrms_api_url", "database_url")
+    @field_validator("milvus_uri")
     @classmethod
     def validate_urls(cls, v: str) -> str:
         """Validate that URLs are properly formatted"""

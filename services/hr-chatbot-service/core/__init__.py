@@ -1,7 +1,4 @@
 """Core business logic modules"""
 
-
-from core.orchestrator import orchestrator
-
-
-    
+# Note: Avoid importing orchestrator here to prevent circular imports
+# Import orchestrator directly where needed: from core.orchestrator import orchestrator
