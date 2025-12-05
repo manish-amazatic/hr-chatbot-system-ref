@@ -142,6 +142,9 @@ async def send_message_stream(request: ChatMessage):
             agent_used = result.get("agent_used", "unknown")
             sources = result.get("metadata", {}).get("sources", [])
             
+            
+            print("Streaming response_text *********************************************** :", response_text)
+
             # Ensure sources is a list of dicts
             if not isinstance(sources, list):
                 sources = []

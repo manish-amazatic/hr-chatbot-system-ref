@@ -10,6 +10,7 @@ from pydantic import BaseModel, Field
 from core.agents.base_agent import BaseTimeAgent
 from core.llm_processor import LLMProcessor
 from core.config import settings
+from core.services.memory_manager import ConversationMemoryWrapper, MemoryType
 from .agent_tools import (
     handle_leave_query,
     handle_attendance_query,
@@ -104,12 +105,13 @@ class Orchestrator(BaseTimeAgent):
         - Complex query requiring multiple tools → call first tool → analyze → call second tool if needed → continue until complete
     """
 
-    def __init__(self, hrms_token: Optional[str] = None):
+    def __init__(self, memory_window_size: int = 5):
         """
         Initialize Supervisor with specialized sub-agents
 
         Args:
             hrms_token: JWT token for HRMS API authentication
+            memory_window_size: Number of recent message pairs to keep in memory (default: 5)
         """
         self.llm = LLMProcessor().get_llm()
 
@@ -120,6 +122,10 @@ class Orchestrator(BaseTimeAgent):
             search_hr_policy
         )
 
+        # Create conversation memory (keeps last N message pairs)
+        self.memory = ConversationMemoryWrapper(memory_type=MemoryType.WINDOW, k=memory_window_size)
+        logger.info("Initialized orchestrator with memory window size: %d", memory_window_size)
+
         # Create the supervisor agent
         self.supervisor_agent = create_agent(
             model=self.llm,
@@ -127,6 +133,16 @@ class Orchestrator(BaseTimeAgent):
             system_prompt=self.system_prompt,
             debug=settings.debug,
         )
+
+    def get_history_context(self) -> str:
+        history_contexts = ""
+        if history_messages := self.memory.get_conversation_history():
+            history = []
+            for msg in history_messages:
+                history.append(f"{msg['role']}: {repr(msg['content'])}")
+            history_contexts = "\n\nConversation History:\n" + "\n.   ".join(history) + "\n"
+
+        return history_contexts
 
     async def process(
         self,
@@ -156,23 +172,31 @@ class Orchestrator(BaseTimeAgent):
         try:
             logger.info("Supervisor processing query: %s...", query[:50])
 
-            # Inject current date/time context for datetime awareness
             datetime_context = self.get_current_date_time()
-            datetime_aware_query = f"{datetime_context}\n\nUser query: {query}"
+            conversation_history = self.get_history_context()
+            
+            final_query = f"{datetime_context}{conversation_history}\n\nUser query: {query}"
+            print("Final query **********************************************************:", final_query)
 
             # Invoke the supervisor agent with datetime-aware query
             result = await self.supervisor_agent.ainvoke(
-                {"messages": [{"role": "user", "content": datetime_aware_query}]},
+                {"messages": [{"role": "user", "content": final_query}]},
                 context=context
             )
+            
+            # Store user message and assistant response in memory
+            self.memory.add_user_message(query)
 
-            logger.debug("Supervisor result: %s", result)
+            logger.debug("Supervisor result+++++++++++++++++++++++++++++++++++++: %s", result)
 
             # Extract the final response
             if "messages" in result and len(result["messages"]) > 0:
                 # Get the last message which contains the final response
                 final_message = result["messages"][-1]
                 response_text = final_message.content if hasattr(final_message, 'content') else str(final_message)
+                
+                # Store assistant response in memory
+                self.memory.add_ai_message(response_text)
 
                 # Determine which agent was used by checking tool calls in the message history
                 agent_used = "direct_supervisor"
@@ -212,3 +236,13 @@ class Orchestrator(BaseTimeAgent):
                 "agent_used": "error",
                 "metadata": {"error": str(e)}
             }
+    
+    async def close(self):
+        """Clean up resources and clear memory if needed"""
+        pass
+    
+    def clear_memory(self):
+        """Clear conversation memory"""
+        if self.memory:
+            self.memory.clear()
+            logger.info("Cleared orchestrator conversation memory")
