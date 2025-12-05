@@ -58,9 +58,7 @@ class LLMProcessor:
 
         self._cache = {}  # Cache for LLM instances
         self._initialized = True
-        logger.info(
-            f"LLMProcessor initialized with provider: {settings.llm_provider}"
-        )
+        logger.info("LLMProcessor initialized with provider: %s", settings.llm_provider)
 
     def get_llm(
         self,
@@ -97,11 +95,11 @@ class LLMProcessor:
 
         # Return cached instance if exists
         if cache_key in self._cache:
-            logger.debug(f"Returning cached LLM: {cache_key}")
+            logger.debug("Returning cached LLM: %s", cache_key)
             return self._cache[cache_key]
 
         # Create new instance based on provider
-        logger.info(f"Creating new LLM instance: {provider} - {model}")
+        logger.info("Creating new LLM instance: %s - %s", provider, model)
 
         if provider == "openai":
             llm = self._create_openai_llm(model, temperature, **kwargs)

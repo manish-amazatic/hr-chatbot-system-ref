@@ -1,4 +1,4 @@
-import { Paper, Text, Badge, Stack, TypographyStylesProvider, useMantineColorScheme } from '@mantine/core';
+import { Paper, Text, Badge, Stack, Group, TypographyStylesProvider, useMantineColorScheme } from '@mantine/core';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { ChatMessage } from '../types/chat';
@@ -21,9 +21,21 @@ export const MessageBubble = ({ message }: MessageBubbleProps) => {
       role="article"
       aria-label={`${isUser ? 'User' : 'Assistant'} message: ${message.content.substring(0, 50)}`}
     >
-      <Text size="xs" fw={600} c={isUser ? 'blue.6' : 'dimmed'}>
-        {isUser ? 'Employee' : 'HR Assistant'}
-      </Text>
+      <Group gap="xs" align="center">
+        <Text size="xs" fw={600} c={isUser ? 'blue.6' : 'dimmed'}>
+          {isUser ? 'Employee' : 'HR Assistant'}
+        </Text>
+        {!isUser && message.agentUsed && (
+          <Badge
+            size="sm"
+            variant="light"
+            color={getAgentColor(message.agentUsed)}
+            aria-label={`Handled by ${getAgentDisplayName(message.agentUsed)}`}
+          >
+            {getAgentDisplayName(message.agentUsed)}
+          </Badge>
+        )}
+      </Group>
       <Paper
         p="md"
         bg={isUser ? 'blue.6' : isDark ? 'dark.6' : 'gray.0'}
@@ -43,16 +55,6 @@ export const MessageBubble = ({ message }: MessageBubbleProps) => {
         )}
       </Paper>
       
-      {!isUser && message.agentUsed && (
-        <Badge
-          size="sm"
-          variant="light"
-          color={getAgentColor(message.agentUsed)}
-          aria-label={`Handled by ${getAgentDisplayName(message.agentUsed)}`}
-        >
-          {getAgentDisplayName(message.agentUsed)}
-        </Badge>
-      )}
       
       <Text size="xs" c="dimmed">
         {message.timestamp.toLocaleTimeString([], { 
