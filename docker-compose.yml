@@ -93,7 +93,8 @@ services:
       target: development
     container_name: hr-chatbot-ui
     environment:
-      - VITE_API_URL=http://localhost:8000
+      - VITE_API_BASE_URL=http://localhost:8000
+      - VITE_USER_ID=${USER_ID:-EMP001}
     ports:
       - "3000:3000"
     depends_on:
@@ -101,7 +102,6 @@ services:
     volumes:
       - ./services/hr-chatbot-ui:/app
       - /app/node_modules
-    command: npm run dev -- --host 0.0.0.0
     networks:
       - hr-network
 

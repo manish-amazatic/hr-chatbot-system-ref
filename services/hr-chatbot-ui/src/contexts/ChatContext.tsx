@@ -1,221 +1,131 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Session, Message, ChatContextType } from '../types/chat.types';
-import { chatService } from '../services/chatService';
-import { useAuth } from './AuthContext';
+import { createContext, useContext, useState, ReactNode, useCallback, useEffect } from 'react';
+import { ChatMessage, ConnectionStatus } from '../types/chat';
+import { streamChatMessage, checkHealth } from '../services/chatApi';
+
+interface ChatContextType {
+  messages: ChatMessage[];
+  connectionStatus: ConnectionStatus;
+  isStreaming: boolean;
+  sendMessage: (content: string) => void;
+  clearMessages: () => void;
+  reconnect: () => void;
+}
 
 const ChatContext = createContext<ChatContextType | undefined>(undefined);
 
-export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isAuthenticated, user } = useAuth();
-  const [sessions, setSessions] = useState<Session[]>([]);
-  const [currentSession, setCurrentSession] = useState<Session | null>(null);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+export const useChatContext = () => {
+  const context = useContext(ChatContext);
+  if (!context) {
+    throw new Error('useChatContext must be used within ChatProvider');
+  }
+  return context;
+};
+
+interface ChatProviderProps {
+  children: ReactNode;
+}
+
+export const ChatProvider = ({ children }: ChatProviderProps) => {
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>('connecting');
+  const [isStreaming, setIsStreaming] = useState(false);
+  const userId = import.meta.env.VITE_USER_ID || 'EMP001';
+
+  const checkConnection = useCallback(async () => {
+    const isHealthy = await checkHealth();
+    setConnectionStatus(isHealthy ? 'connected' : 'disconnected');
+  }, []);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      loadSessions();
-    }
-  }, [isAuthenticated]);
+    checkConnection();
+    const interval = setInterval(checkConnection, 30000); // Check every 30 seconds
+    return () => clearInterval(interval);
+  }, [checkConnection]);
 
-  const loadSessions = async () => {
-    try {
-      const fetchedSessions = await chatService.getSessions();
-      setSessions(fetchedSessions);
-    } catch (error) {
-      console.error('Failed to load sessions:', error);
-    }
-  };
+  const sendMessage = useCallback((content: string) => {
+    if (isStreaming || connectionStatus !== 'connected') return;
 
-  const createSession = async (title: string = 'New Chat') => {
-    try {
-      const newSession = await chatService.createSession({
-        user_id: user?.id,
-        title: title
-      });
-      setSessions([newSession, ...sessions]);
-      setCurrentSession(newSession);
-      setMessages([]);
-    } catch (error) {
-      console.error('Failed to create session:', error);
-      throw error;
-    }
-  };
-
-  const selectSession = async (sessionId: string) => {
-    try {
-      setIsLoading(true);
-      const session = await chatService.getSession(sessionId);
-      const sessionMessages = await chatService.getMessages(sessionId);
-
-      // Map backend message format to UI format
-      const mappedMessages: Message[] = sessionMessages.map((msg: any, index: number) => ({
-        id: msg.id || `msg-${index}-${Date.now()}`,
-        role: msg.type === 'human' ? 'user' : msg.type === 'ai' ? 'assistant' : (msg.role || 'assistant'),
-        content: msg.content,
-        timestamp: msg.timestamp || new Date().toISOString(),
-        sources: msg.sources,
-        agentUsed: msg.agent_used || msg.agentUsed,
-      }));
-
-      setCurrentSession(session);
-      setMessages(mappedMessages);
-    } catch (error) {
-      console.error('Failed to select session:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const deleteSession = async (sessionId: string) => {
-    try {
-      await chatService.deleteSession(sessionId);
-      setSessions(sessions.filter((s) => s.id !== sessionId));
-      if (currentSession?.id === sessionId) {
-        setCurrentSession(null);
-        setMessages([]);
-      }
-    } catch (error) {
-      console.error('Failed to delete session:', error);
-      throw error;
-    }
-  };
-
-  const sendMessage = async (message: string, useStreaming: boolean = true) => {
-    if (!currentSession) {
-      // Create a new session if none exists
-      await createSession(message);
-    }
-
-    const userMessage: Message = {
+    // Add user message
+    const userMessage: ChatMessage = {
       id: `user-${Date.now()}`,
       role: 'user',
-      content: message,
-      timestamp: new Date().toISOString(),
+      content,
+      timestamp: new Date(),
     };
-
     setMessages((prev) => [...prev, userMessage]);
-    setIsLoading(true);
 
-    try {
-      if (useStreaming) {
-        // Streaming mode
-        const assistantMessageId = `assistant-${Date.now()}`;
-        let streamedContent = '';
-        let receivedSessionId: string | null = null;
-        let agentUsed: string | null = null;
+    // Add assistant message placeholder
+    const assistantMessageId = `assistant-${Date.now()}`;
+    const assistantMessage: ChatMessage = {
+      id: assistantMessageId,
+      role: 'assistant',
+      content: '',
+      timestamp: new Date(),
+      isStreaming: true,
+    };
+    setMessages((prev) => [...prev, assistantMessage]);
 
-        // Add placeholder message for streaming
-        const placeholderMessage: Message = {
-          id: assistantMessageId,
-          role: 'assistant',
-          content: '',
-          timestamp: new Date().toISOString(),
-        };
-        setMessages((prev) => [...prev, placeholderMessage]);
+    setIsStreaming(true);
 
-        await chatService.sendMessageStream(
-          {
-            message,
-            sessionId: currentSession?.id,
-          },
-          // onChunk
-          (chunk: string) => {
-            streamedContent += chunk;
-            setMessages((prev) =>
-              prev.map((msg) =>
-                msg.id === assistantMessageId
-                  ? { ...msg, content: streamedContent }
-                  : msg
-              )
-            );
-          },
-          // onSessionId
-          (sessionId: string) => {
-            receivedSessionId = sessionId;
-          },
-          // onComplete
-          (agent: string) => {
-            agentUsed = agent;
-          }
-        );
-
-        // Update final message with agent info
+    // Start streaming
+    let accumulatedContent = '';
+    
+    streamChatMessage(content, userId, {
+      onToken: (token) => {
+        accumulatedContent += token;
         setMessages((prev) =>
           prev.map((msg) =>
             msg.id === assistantMessageId
-              ? { ...msg, agentUsed: agentUsed || undefined, timestamp: new Date().toISOString() }
+              ? { ...msg, content: accumulatedContent }
               : msg
           )
         );
-
-        // Update session if needed
-        if (receivedSessionId && (!currentSession || currentSession.id !== receivedSessionId)) {
-          const newSession = await chatService.getSession(receivedSessionId);
-          setCurrentSession(newSession);
-        }
-      } else {
-        // Non-streaming mode
-        const response = await chatService.sendMessage({
-          message,
-          sessionId: currentSession?.id,
-        });
-
-        // Update session ID if it was created by the backend
-        if (response.session_id && (!currentSession || currentSession.id !== response.session_id)) {
-          const newSession = await chatService.getSession(response.session_id);
-          setCurrentSession(newSession);
-        }
-
-        const assistantMessage: Message = {
-          id: `assistant-${Date.now()}`,
-          role: 'assistant',
-          content: response.response,
-          timestamp: response.timestamp,
-          sources: response.sources,
-          agentUsed: response.agent_used,
-        };
-
-        setMessages((prev) => [...prev, assistantMessage]);
-      }
-
-      // Update session title if it's the first message
-      if (messages.length === 0 && currentSession) {
-        const updatedSession = { ...currentSession, title: message.slice(0, 50) };
-        setCurrentSession(updatedSession);
-        setSessions((prev) =>
-          prev.map((s) => (s.id === currentSession.id ? updatedSession : s))
+      },
+      onDone: (_sessionId, agentUsed) => {
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === assistantMessageId
+              ? { ...msg, isStreaming: false, agentUsed }
+              : msg
+          )
         );
-      }
-    } catch (error) {
-      console.error('Failed to send message:', error);
-      throw error;
-    } finally {
-      setIsLoading(false);
-    }
-  };
+        setIsStreaming(false);
+      },
+      onError: (error) => {
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === assistantMessageId
+              ? {
+                  ...msg,
+                  content: `Error: ${error}`,
+                  isStreaming: false,
+                }
+              : msg
+          )
+        );
+        setIsStreaming(false);
+        setConnectionStatus('error');
+      },
+    });
+  }, [isStreaming, connectionStatus, userId]);
+
+  const clearMessages = useCallback(() => {
+    setMessages([]);
+  }, []);
+
+  const reconnect = useCallback(() => {
+    setConnectionStatus('connecting');
+    checkConnection();
+  }, [checkConnection]);
 
   const value: ChatContextType = {
-    sessions,
-    currentSession,
     messages,
-    isLoading,
-    createSession,
-    selectSession,
-    deleteSession,
+    connectionStatus,
+    isStreaming,
     sendMessage,
-    loadSessions,
-    setCurrentSession,
-    setMessages,
+    clearMessages,
+    reconnect,
   };
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
-};
-
-export const useChat = () => {
-  const context = useContext(ChatContext);
-  if (context === undefined) {
-    throw new Error('useChat must be used within a ChatProvider');
-  }
-  return context;
 };

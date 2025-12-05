@@ -8,7 +8,7 @@ from contextlib import asynccontextmanager
 import logging
 
 from core.config import settings
-from api.routes import chat
+from api.routes import chat, health
 
 
 # Configure logging
@@ -57,7 +57,8 @@ app.add_middleware(
 )
 
 # Include routers
-app.include_router(chat.router, prefix="/api/v1/chat", tags=["Chat"])
+app.include_router(health.router, prefix="/api", tags=["Health"])
+app.include_router(chat.router, prefix="/api/chat", tags=["Chat"])
 
 
 @app.get("/")

@@ -1,0 +1,156 @@
+[
+  {
+    "name": "Leave Management",
+    "icon": "IconCalendar",
+    "prompts": [
+      {
+        "id": "leave-balance",
+        "label": "Check Leave Balance",
+        "prompt": "What's my current leave balance?"
+      },
+      {
+        "id": "leave-apply",
+        "label": "Apply for Leave",
+        "prompt": "I want to apply for 3 days of annual leave from December 20th to December 22nd"
+      },
+      {
+        "id": "leave-history",
+        "label": "View Leave History",
+        "prompt": "Show me my leave history for this year"
+      },
+      {
+        "id": "leave-cancel",
+        "label": "Cancel Leave Request",
+        "prompt": "Cancel my pending leave request"
+      },
+      {
+        "id": "leave-sick",
+        "label": "Check Sick Leave",
+        "prompt": "How many sick leave days do I have available?"
+      },
+      {
+        "id": "leave-policy",
+        "label": "Leave Policy",
+        "prompt": "What is the company annual leave policy?"
+      }
+    ]
+  },
+  {
+    "name": "Attendance Tracking",
+    "icon": "IconClock",
+    "prompts": [
+      {
+        "id": "attendance-today",
+        "label": "Today's Attendance",
+        "prompt": "What time did I check in today?"
+      },
+      {
+        "id": "attendance-month",
+        "label": "Monthly Summary",
+        "prompt": "Give me my attendance summary for this month"
+      },
+      {
+        "id": "attendance-records",
+        "label": "View Attendance Records",
+        "prompt": "Show my attendance records for November"
+      },
+      {
+        "id": "attendance-percentage",
+        "label": "Attendance Percentage",
+        "prompt": "What's my attendance percentage this month?"
+      },
+      {
+        "id": "attendance-hours",
+        "label": "Total Work Hours",
+        "prompt": "What are my total work hours this month?"
+      },
+      {
+        "id": "attendance-policy",
+        "label": "Attendance Policy",
+        "prompt": "What is the check-in time policy?"
+      }
+    ]
+  },
+  {
+    "name": "Payroll & Compensation",
+    "icon": "IconCurrencyDollar",
+    "prompts": [
+      {
+        "id": "payroll-latest",
+        "label": "Latest Payslip",
+        "prompt": "Show me my latest payslip"
+      },
+      {
+        "id": "payroll-ytd",
+        "label": "Year-to-Date Earnings",
+        "prompt": "What's my year-to-date salary?"
+      },
+      {
+        "id": "payroll-breakdown",
+        "label": "Salary Breakdown",
+        "prompt": "Show me my salary breakdown for this month"
+      },
+      {
+        "id": "payroll-hra",
+        "label": "Explain HRA",
+        "prompt": "What is HRA in my payslip?"
+      },
+      {
+        "id": "payroll-deductions",
+        "label": "View Deductions",
+        "prompt": "What deductions are applied to my salary?"
+      },
+      {
+        "id": "payroll-pf",
+        "label": "Provident Fund Info",
+        "prompt": "Explain my PF deduction"
+      },
+      {
+        "id": "payroll-bonus",
+        "label": "Bonus Information",
+        "prompt": "How is my bonus calculated?"
+      }
+    ]
+  },
+  {
+    "name": "HR Policies & Benefits",
+    "icon": "IconBook",
+    "prompts": [
+      {
+        "id": "policy-remote",
+        "label": "Remote Work Policy",
+        "prompt": "Tell me about the remote work policy"
+      },
+      {
+        "id": "policy-holidays",
+        "label": "Public Holidays",
+        "prompt": "What are the public holidays in 2025?"
+      },
+      {
+        "id": "policy-health",
+        "label": "Health Benefits",
+        "prompt": "What health benefits do employees get?"
+      },
+      {
+        "id": "policy-maternity",
+        "label": "Maternity Leave",
+        "prompt": "Tell me about maternity leave policy"
+      },
+      {
+        "id": "policy-grievance",
+        "label": "Report Grievance",
+        "prompt": "How do I report a grievance?"
+      },
+      {
+        "id": "policy-training",
+        "label": "Training Programs",
+        "prompt": "How can I apply for training programs?"
+      },
+      {
+        "id": "policy-notice",
+        "label": "Notice Period",
+        "prompt": "What's the resignation notice period?"
+      }
+    ]
+  }
+]
