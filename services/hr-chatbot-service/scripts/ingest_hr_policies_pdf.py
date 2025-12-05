@@ -48,12 +48,12 @@ def extract_text_from_pdf(pdf_path: Path) -> str:
                 text_content.append(page_text)
 
         full_text = "\n\n".join(text_content)
-        logger.info(f"  Extracted {len(reader.pages)} pages, {len(full_text)} chars")
+        logger.info("  Extracted %s pages, %s chars", len(reader.pages), len(full_text))
 
         return full_text
 
     except Exception as e:
-        logger.error(f"  Error extracting text from PDF: {e}")
+        logger.error("  Error extracting text from PDF: %s", e)
         return ""
 
 
@@ -70,7 +70,7 @@ def load_policy_pdfs(data_dir: str = "docs/hr_policies_pdf") -> list:
     data_path = Path(__file__).parent.parent / data_dir
 
     if not data_path.exists():
-        logger.error(f"Directory not found: {data_path.absolute()}")
+        logger.error("Directory not found: %s", data_path.absolute())
         return []
 
     documents = []
@@ -79,14 +79,14 @@ def load_policy_pdfs(data_dir: str = "docs/hr_policies_pdf") -> list:
     pdf_files = list(data_path.glob("*.pdf"))
 
     if not pdf_files:
-        logger.error(f"No PDF files found in {data_path.absolute()}")
+        logger.error("No PDF files found in %s", data_path.absolute())
         return []
 
-    logger.info(f"Found {len(pdf_files)} PDF files")
+    logger.info("Found %s PDF files", len(pdf_files))
 
     for file_path in sorted(pdf_files):
         try:
-            logger.info(f"Processing: {file_path.name}")
+            logger.info("Processing: %s", file_path.name)
 
             # Extract text from PDF
             content = extract_text_from_pdf(file_path)
@@ -98,10 +98,10 @@ def load_policy_pdfs(data_dir: str = "docs/hr_policies_pdf") -> list:
                     "path": str(file_path)
                 })
             else:
-                logger.warning(f"  No content extracted from {file_path.name}")
+                logger.warning("  No content extracted from %s", file_path.name)
 
         except Exception as e:
-            logger.error(f"Error loading {file_path.name}: {e}")
+            logger.error("Error loading %s: %s", file_path.name, e)
 
     return documents
 
@@ -178,7 +178,7 @@ def ingest_to_milvus(chunked_docs: list, drop_existing: bool = False):
         batch_size = 10
         total_batches = (len(chunked_docs) + batch_size - 1) // batch_size
 
-        logger.info(f"\nStep 5: Ingesting {len(chunked_docs)} chunks in {total_batches} batches...")
+        logger.info("\nStep 5: Ingesting %s chunks in %s batches...", len(chunked_docs), total_batches)
 
         for i in range(0, len(chunked_docs), batch_size):
             batch_num = i // batch_size + 1
@@ -186,23 +186,22 @@ def ingest_to_milvus(chunked_docs: list, drop_existing: bool = False):
 
             try:
                 if not milvus_service.insert_documents(batch):
-                    logger.error(f"  Processing batch {batch_num}/{total_batches}... [FAILED]")
-                    logger.error(f"  Failed to insert batch")
+                    logger.error("  Processing batch %s/%s... [FAILED]", batch_num, total_batches)
+                    logger.error("  Failed to insert batch")
                 else:
-                    logger.info(f"  Processing batch {batch_num}/{total_batches}... [SUCCESS]")
+                    logger.info("  Processing batch %s/%s... [SUCCESS]", batch_num, total_batches)
             except Exception as e:
-                logger.error(f"  Processing batch {batch_num}/{total_batches}... [FAILED]")
-                logger.error(f"  Error: {e}")
+                logger.error("  Processing batch %s/%s... [FAILED]", batch_num, total_batches)
+                logger.error("  Error: %s", e)
 
         # Verify ingestion
         total_entities = milvus_service.collection.num_entities
-        logger.info(f"\n✓ Ingestion Complete!")
-        logger.info(f"  Total entities in collection: {total_entities}")
-
+        logger.info("\n✓ Ingestion Complete!")
+        logger.info("  Total entities in collection: %s", total_entities)
         return True
 
     except Exception as e:
-        logger.error(f"Error during Milvus ingestion: {e}")
+        logger.error("Error during Milvus ingestion: %s", e)
         return False
 
 
@@ -226,16 +225,16 @@ def main(drop_existing: bool = False):
         return
 
     total_size = sum(len(doc["content"]) for doc in documents)
-    logger.info(f"\n✓ Loaded {len(documents)} PDF documents")
-    logger.info(f"  Total size: {total_size / 1024:.1f} KB")
+    logger.info("\n✓ Loaded %s PDF documents", len(documents))
+    logger.info("  Total size: %.1f KB", total_size / 1024)
 
     # Step 2: Chunk documents
     print("\nStep 2: Chunking documents...")
-    chunked_docs = chunk_documents(documents, chunk_size=1500, chunk_overlap=300)
+    chunked_docs = chunk_documents(documents, chunk_size=500, chunk_overlap=150)
 
     avg_chunk_size = sum(len(doc["content"]) for doc in chunked_docs) / len(chunked_docs)
-    logger.info(f"\n✓ Created {len(chunked_docs)} chunks")
-    logger.info(f"  Avg chunk size: {int(avg_chunk_size)} chars")
+    logger.info("\nCreated %s chunks", len(chunked_docs))
+    logger.info("  Avg chunk size: %d chars", int(avg_chunk_size))
 
     # Step 3: Ingest to Milvus
     print("\nStep 3: Ingesting to Milvus...")
@@ -244,11 +243,11 @@ def main(drop_existing: bool = False):
     print("\n" + "=" * 70)
     print("✓ Comprehensive PDF Ingestion Complete!")
     print("=" * 70)
-    print(f"\nSummary:")
-    print(f"  Documents processed: {len(documents)} PDFs")
-    print(f"  Chunks created: {len(chunked_docs)}")
-    print(f"  Collection: hr_policies")
-    print(f"\nNext steps:")
+    print("\nSummary:")
+    print("  Documents processed: %s PDFs", len(documents))
+    print("  Chunks created: %s", len(chunked_docs))
+    print("  Collection: hr_policies")
+    print("\nNext steps:")
     print("  1. Test RAG queries: ./test_rag_flow.sh")
     print("  2. The chatbot will now have access to comprehensive HR policies!")
     print()
@@ -256,11 +255,11 @@ def main(drop_existing: bool = False):
 
 if __name__ == "__main__":
     # Check for command line arguments
-    drop_existing = "--drop-existing" in sys.argv
+    drop_existing = "--drop-existing" in sys.argv or "-d" in sys.argv
 
     if drop_existing:
         logger.info("Drop existing collection: YES")
     else:
-        logger.info("Drop existing collection: NO (use --drop-existing to drop)")
+        logger.info("Drop existing collection: NO (use --drop-existing or -d to drop)")
 
     main(drop_existing=drop_existing)

@@ -9,7 +9,7 @@ import logging
 
 from core.config import settings
 from utils.database import init_db, close_db
-from api.routes import health, auth, chat
+from api.routes import chat
 
 
 # Configure logging
@@ -24,17 +24,19 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     """Lifespan events for startup and shutdown"""
     # Startup
-    logger.info(f"Starting {settings.app_name} v{settings.app_version}")
-    logger.info(f"OpenAI Model: {settings.llm_model}")
-    logger.info(f"Milvus URI: {settings.milvus_uri}")
-    logger.info(f"HRMS API: {settings.hrms_api_url}")
+    logger.info("Starting %s %s v%s", settings.app_name, settings.app_name, settings.app_version)
+    logger.info("LLM Provider: %s", settings.llm_provider)
+    logger.info("LLM Model: %s", settings.llm_model)
+    logger.info("Milvus URI: %s", settings.milvus_uri)
+    logger.info("Embedding Provider: %s", settings.embedding_provider)
+    logger.info("Embedding Model: %s", settings.embedding_model)
 
     # Initialize database
     try:
         init_db()
         logger.info("Database initialized successfully")
     except Exception as e:
-        logger.error(f"Failed to initialize database: {e}")
+        logger.error("Failed to initialize database: %s", e)
 
     # TODO: Connect to Milvus
     # TODO: Load agents
@@ -64,8 +66,6 @@ app.add_middleware(
 )
 
 # Include routers
-app.include_router(health.router, prefix="/api/v1", tags=["Health"])
-app.include_router(auth.router, prefix="/api/v1/auth", tags=["Authentication"])
 app.include_router(chat.router, prefix="/api/v1/chat", tags=["Chat"])
 
 

@@ -120,7 +120,6 @@ class Settings(BaseSettings):
     port: int = Field(default=8000, ge=1, le=65535, env="PORT")
     reload: bool = Field(default=True, env="RELOAD")
     
-
     @field_validator("milvus_uri", "hrms_api_url", "database_url")
     @classmethod
     def validate_urls(cls, v: str) -> str:
@@ -293,6 +292,7 @@ class Settings(BaseSettings):
         env_file = ".env"
         env_file_encoding = "utf-8"
         case_sensitive = False
+        extra = "allow"
 
 
 # Singleton instance
