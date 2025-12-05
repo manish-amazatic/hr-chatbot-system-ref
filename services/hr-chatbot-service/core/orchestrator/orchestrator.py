@@ -140,7 +140,7 @@ class Orchestrator(BaseTimeAgent):
             history = []
             for msg in history_messages:
                 history.append(f"{msg['role']}: {repr(msg['content'])}")
-            history_contexts = "\n\nConversation History:\n" + "\n.   ".join(history) + "\n"
+            history_contexts = "\n\nConversation History:\n" + "\n    ".join(history) + "\n"
 
         return history_contexts
 

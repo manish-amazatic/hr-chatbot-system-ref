@@ -93,7 +93,7 @@ async def apply_for_leave(
             f"Request ID: {result['id']}\n"
             f"Type: {result['leave_type']}\n"
             f"Duration: {result['start_date']} to {result['end_date']}\n"
-            f"Days: {result['days_count']}\n"
+            f"Days: {result.get('days_count', result.get('days', 0))}\n"
             f"Status: {result['status']}\n"
             f"\nYour request is pending approval."
         )
@@ -130,9 +130,10 @@ async def view_leave_history(status: Optional[str] = None) -> str:
 
         result = f"Leave Request History{' - ' + status if status else ''}:\n\n"
         for req in requests:
+            days = req.get('days_count', req.get('days', 0))
             result += f"• ID: {req['id']}\n"
             result += f"  Type: {req['leave_type']}\n"
-            result += f"  Duration: {req['start_date']} to {req['end_date']} ({req['days_count']} days)\n"
+            result += f"  Duration: {req['start_date']} to {req['end_date']} ({days} days)\n"
             result += f"  Status: {req['status']}\n"
             if req.get('reason'):
                 result += f"  Reason: {req['reason']}\n"
