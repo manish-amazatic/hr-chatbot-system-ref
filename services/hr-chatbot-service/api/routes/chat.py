@@ -148,11 +148,20 @@ async def send_message_stream(request: ChatMessage):
             else:
                 sources = [s for s in sources if isinstance(s, dict)]
 
-            # Stream the response word by word to simulate streaming
-            words = response_text.split()
-            for i, word in enumerate(words):
-                content = word if i == 0 else f" {word}"
-                yield f"data: {json.dumps({'type': 'token', 'content': content})}\n\n"
+            # Stream the response word by word while preserving all whitespace
+            import asyncio
+            import re
+            
+            # Split by whitespace but capture the whitespace as separate tokens
+            # This regex splits on whitespace while keeping the whitespace characters
+            tokens = re.split(r'(\s+)', response_text)
+            
+            for token in tokens:
+                if token:  # Skip empty tokens
+                    yield f"data: {json.dumps({'type': 'token', 'content': token})}\n\n"
+                    # Add small delay only for words, not for whitespace
+                    if not token.isspace():
+                        await asyncio.sleep(0.03)
 
             # Send completion event
             yield f"data: {json.dumps({'type': 'done', 'session_id': session_id, 'agent_used': agent_used})}\n\n"
