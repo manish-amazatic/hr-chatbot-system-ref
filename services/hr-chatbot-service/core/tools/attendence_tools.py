@@ -8,9 +8,10 @@ from typing import Optional
 from langchain_classic.tools import tool
 
 from core.tools.hr_rag_tool import search_hr_policies
+from core.services.hrms_api import hrms_client, HTTPStatusError
+
 
 logger = logging.getLogger(__name__)
-
 
 
 @tool
@@ -29,7 +30,7 @@ async def view_attendance_history(
         List of attendance records with check-in/check-out times
     """
     try:
-        records = await self.hrms_client.get_attendance_records(
+        records = await hrms_client.get_attendance_records(
             start_date=start_date,
             end_date=end_date
         )
@@ -71,7 +72,7 @@ async def get_monthly_summary(month: Optional[str] = None, year: Optional[str] =
         month_int = int(month) if month else None
         year_int = int(year) if year else None
 
-        summary = await self.hrms_client.get_attendance_summary(
+        summary = await hrms_client.get_attendance_summary(
             month=month_int,
             year=year_int
         )

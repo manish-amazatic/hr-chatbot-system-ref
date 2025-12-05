@@ -115,13 +115,13 @@ def search_hr_policy(query: str) -> str:
         # Check if Milvus was unavailable
         if "currently unavailable" in response.lower():
             return ("The policy search system is temporarily unavailable. "
-                    "Please contact HR at hr@company.com for policy questions.")
+                    "Please contact HR at hr@amazatic.com for policy questions.")
 
         return response
     except Exception as e:
         logger.error("Error in policy search: %s", str(e), exc_info=True)
         return (f"I encountered an error searching HR policies: {str(e)}. "
-                "Please contact HR at hr@company.com for assistance.")
+                "Please contact HR at hr@amazatic.com for assistance.")
 
 
 __all__ = [

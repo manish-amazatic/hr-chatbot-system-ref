@@ -25,7 +25,7 @@ def get_milvus_service() -> MilvusService:
 
 
 @tool
-def search_hr_policies(query: str) -> str:
+def search_hr_policies(query: str, k=4, similarity_threshold=0.5) -> str:
     """
     Search HR policies and company guidelines using RAG.
 
@@ -43,7 +43,7 @@ def search_hr_policies(query: str) -> str:
         Answer based on company HR policies and guidelines
     """
     try:
-        logger.info("Starting HR policy search tool****************************: %s", query)
+        # logger.info("Starting HR policy search tool****************************: %s", query)
         logger.info("Searching HR policies for: %s", query[:100])
 
         # Get Milvus service
@@ -57,13 +57,13 @@ def search_hr_policies(query: str) -> str:
             )
 
         # Search for relevant documents
-        results = milvus.search(query, k=4, similarity_threshold=0.5)
+        results = milvus.search(query, k=k, similarity_threshold=similarity_threshold)
 
         if not results:
             return (
                 "I couldn't find specific information about that in our HR policies. "
                 "This might be a new topic or phrased differently than our documentation. "
-                "Please contact HR directly at hr@company.com for clarification."
+                "Please contact HR directly at hr@amazatic.com for clarification."
             )
 
         # Format context from search results

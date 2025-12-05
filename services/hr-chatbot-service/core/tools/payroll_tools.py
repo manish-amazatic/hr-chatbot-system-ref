@@ -141,7 +141,7 @@ def explain_payslip_component(component: str) -> str:
         # Check if we have a direct explanation
         for key, explanation in explanations.items():
             if key in component_lower or component_lower in key:
-                return f"{explanation}\n\nFor more specific details about your payslip, please check the HRMS portal or contact payroll@company.com."
+                return f"{explanation}\n\nFor more specific details about your payslip, please check the HRMS portal or contact payroll@amazatic.com."
 
         # If not found, search policies
         return search_hr_policies.invoke({"query": f"What is {component} in payslip?"})
